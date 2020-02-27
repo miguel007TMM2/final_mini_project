@@ -47,3 +47,4 @@ class Deck_of_cards:
     #This function shuffle the cards
     def shuffle_the_cards(self):
         shuffle(self.new_list_of_cards)
+
