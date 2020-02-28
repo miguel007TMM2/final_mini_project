@@ -17,10 +17,8 @@ class Deck_of_cards:
         self.shuffle_the_cards()
 
     #This function generates the cards and stores them in the list of cards
-    #inprocess
     def Generator_of_cards(self):
-        
-        #the values ​​of symbol_of_value_of_the_cards are taken to be placed in list_of_cards and substitute their number value within the string with letters
+
         get_keys = self.symbol_of_value_of_the_cards.keys()
 
         for Symbol_of_card in self.Symbol_of_cards:
@@ -47,3 +45,5 @@ class Deck_of_cards:
     def shuffle_the_cards(self):
         shuffle(self.new_list_of_cards)
 
+
+ 
