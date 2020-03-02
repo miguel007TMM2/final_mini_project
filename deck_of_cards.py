@@ -14,8 +14,7 @@ class Deck_of_cards:
         self.dic_value_of_the_cards = {}
         self.Generator_of_cards()
         self.value_of_cards()
-        self.shuffle_the_cards()
-
+        self.shuffle_the_cards(self.new_list_of_cards)
     #This function generates the cards and stores them in the list of cards
     def Generator_of_cards(self):
 
@@ -42,8 +41,8 @@ class Deck_of_cards:
             self.dic_value_of_the_cards.update({self.list_of_cards[keys_of_cards] : self.value_cards[keys_of_cards]})
     
     #This function shuffle the cards
-    def shuffle_the_cards(self):
-        shuffle(self.new_list_of_cards)
+    def shuffle_the_cards(self, list_to_shuffle):
+        shuffle(list_to_shuffle)
 
 
  
