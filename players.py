@@ -20,7 +20,7 @@ class Creator_of_Player(Crupier,Deck_of_cards):
             if self.limit_players <= 4:
                 os.system("clear")
                 for self.delimiter in range(self.limit_players):
-                    self.Get_two_cards_for_player()
+                    self.get_two_cards_for_player()
                     self.name_of_players(self.delimiter)
                     if len(self.name_of_player) <= 8:
                         self.Player_curret_hand.append(self.name_of_player)                         

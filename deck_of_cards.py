@@ -1,5 +1,4 @@
-from random import shuffle
-
+from main import random
 """
 This class is in charge of general, give value and shuffle the cards.
 """
@@ -42,7 +41,7 @@ class Deck_of_cards:
     
     #This function shuffle the cards
     def shuffle_the_cards(self, list_to_shuffle):
-        shuffle(list_to_shuffle)
-
-
- 
+        random.shuffle(list_to_shuffle)
+        
+# f =  Deck_of_cards()
+# print(f.list_of_cards)
