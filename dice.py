@@ -8,5 +8,5 @@ class Dice():
 
     #This function is to call the dice state when it is rolled.
     def status(self):
-        self.index = random.randrange(0, 6)
-        return self.dices[self.index]
+        self.index = random.randrange(1, 7)
+        return self.dices[self.index -1]
