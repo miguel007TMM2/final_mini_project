@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # from players import Player
 # from game import *
 # class view(Player):
