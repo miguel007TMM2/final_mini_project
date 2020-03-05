@@ -8,11 +8,10 @@ class Crupier(Deck_of_cards):
         self.chips = {'⓵': 100 , '⓹' : 500 , '⓾': 1000}
         self.crupiers_chips = []
         self.list_cards_of_crupier = []
-        self.Player_curret_hand = [[]]
+        self.Player_curret_hand = []
         self.generate_chips()
 
     def generate_chips(self):
-
         get_keys_of_chips = list(self.chips.keys())
         for get_key_of_chip in get_keys_of_chips:
             for multiplicator_chips in range(len(get_keys_of_chips)):
@@ -24,6 +23,6 @@ class Crupier(Deck_of_cards):
 
     def Get_two_cards_for_player(self):
         for index_for_player in range(0,2):
-            self.get_card(self.Player_curret_hand[0])
+            self.get_card(self.Player_curret_hand)
 
     
