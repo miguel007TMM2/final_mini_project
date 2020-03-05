@@ -1,19 +1,12 @@
-from deck_of_cards import Deck_of_cards
-shuffle_dice = Deck_of_cards()
+import random
 
 #This class is the dealer's dice and which will indicate the minimum bet for the player
 class Dice():
     def __init__(self):
-        self.color = True
-        self.figure = '🎲'
-        self.condition = {'⚀' : 1, '⚁' : 2, '⚂' : 3, '⚃' : 4, '⚄' : 5, '⚅' : 6}
-        
-    def throw_dice(self):
-        self.get_keys_status = list(self.condition.keys())
-        shuffle_dice.shuffle_the_cards(self.get_keys_status)
-        self.get_key_status = 0
-        self.status = self.condition[self.get_keys_status[self.get_key_status]]
+        self.index = 0;
+        self.dices  = ['⚀', '⚁', '⚂', '⚃', '⚄', '⚅']
 
-f = Dice()
-f.throw_dice()
-print(f.status)
+    #This function is to call the dice state when it is rolled.
+    def status(self):
+        self.index = random.randrange(0, 6)
+        return self.dices[self.index]

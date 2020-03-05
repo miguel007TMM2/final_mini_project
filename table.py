@@ -38,4 +38,3 @@ class view(Creator_of_Player):
 
 vista = view()
 vista.table()
-    
