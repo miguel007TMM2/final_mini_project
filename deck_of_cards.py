@@ -42,6 +42,8 @@ class Deck_of_cards:
             self.value_and_cards.update({self.list_of_cards[keys_of_cards] : self.value_cards[keys_of_cards]})
     
     #This function shuffle the cards
-        
+
     def __shuffle_the_cards(self, list_to_shuffle):
         random.shuffle(list_to_shuffle)
+        
+
