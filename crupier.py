@@ -1,5 +1,8 @@
 from deck_of_cards import Deck_of_cards
-cards = Deck_of_cards() 
+cards = Deck_of_cards()
+from dice import Dice
+dice = Dice()
+import os
 
 #This class is responsible for managing the dealer process in the game.
 class Crupier():
@@ -7,11 +10,42 @@ class Crupier():
     crupier_cards_value = 0
     card_of_crupier = 0
     cards_as = ['A♥', 'A♠', 'A♣', 'A♦']
+    bets = []
 
     def __init__(self):
         super(Crupier, self).__init__()
         self.croupier_hand = []
         self.Player_curret_hand = []
+
+    def bet(self):
+        dice.status()
+        point = str(dice.index) + '00'
+        try:
+            ask_initial_bet = input('Your initial bet must be equal to or greater than ' +point+ ' point.' + 'Enter your initial bet : ')    
+            if int(ask_initial_bet) != int(point):
+                os.system("clear")
+
+                ask_to_continue = input('Your initial bet is below what is required, enter to continue or exit to let play : ')
+                if ask_to_continue.strip() == '':
+                    os.system("clear")
+                    self.bet()
+
+                elif ask_to_continue != '':
+                    ask_to_continue
+
+                elif ask_to_continue.strip() == 'exit':
+                    pass
+            
+            elif ask_initial_bet:
+                self.bets.append(ask_initial_bet)
+                return self.bets
+                
+        except ValueError:
+            print('error to enter de bet. the characters you entered are incorrect')
+            self.bet()
+
+    def insurance(self):
+        pass
 
     def player_card(self, list_for_put_cards):
         
@@ -55,3 +89,4 @@ class Crupier():
             while self.crupier_cards_value < 16:
                 self.card_of_crupier += 1
                 self.crupier_card(self.croupier_hand, self.card_of_crupier)
+

@@ -33,6 +33,7 @@ def generate_players():
                     'name':  name_of_player,
                     'icon':  po.icono_for_player[select_icon-1],
                     'state': True,
+                    'poins': 10000,
                     'cards': crup.Player_curret_hand}})
 
                 crup.Player_curret_hand  = []
@@ -66,11 +67,10 @@ def Win():
 
 def system_of_turns():
     delimiter = 0
-    po.point_of_cards()
-
-    while delimiter < (len(po.players)):
-        print(po.players['player'+str(delimiter+1)],po.values_of_cards_players[delimiter])
-
+    
+    while delimiter < (len(po.players)): 
+        print(po.players['player'+str(delimiter+1)])
+        po.point_of_cards()
         if po.players['player'+str(delimiter+1)]['state'] == True:
             moviment = input("1) stand  2) ask for letters  3) backing out: ➤ ")
 
@@ -101,6 +101,8 @@ def system_of_turns():
 
                 else:
                     print("error when selecting your movement try 1, 2 or 3")
+            else:
+                print("error you have inserted an invalid option")
         else:
             delimiter += 1
             pass
