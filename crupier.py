@@ -15,7 +15,7 @@ class Crupier():
     def __init__(self):
         super(Crupier, self).__init__()
         self.croupier_hand = []
-        self.Player_curret_hand = [[]]
+        self.Player_curret_hand = []
 
     def bet(self):
         dice.status()
