@@ -11,7 +11,6 @@ class Player(Crupier,Deck_of_cards):
         self.values_of_cards_players = []
         self.icono_for_player = ['☠', '☢', '☣' ,'♞','☯']
         self.indexC = 0
-        self.value_As = ['A♥', 'A♠', 'A♣', 'A♦']
         self.calls_points = 0
     
     

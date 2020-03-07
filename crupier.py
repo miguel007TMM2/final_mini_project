@@ -2,6 +2,7 @@ from deck_of_cards import Deck_of_cards
 cards = Deck_of_cards()
 from dice import Dice
 dice = Dice()
+from players import Player
 import os
 
 #This class is responsible for managing the dealer process in the game.
