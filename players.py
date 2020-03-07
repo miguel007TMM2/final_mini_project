@@ -51,5 +51,5 @@ class Player(Crupier,Deck_of_cards):
                 self.indexC = 0
             self.indexC = 0   
             self.calls_points += 1
-        else:
-            self.values_of_cards_players[delimiter] += card.value_and_cards[self.players['player'+str(delimiter+1)]['cards'][len(self.players['player'+str(delimiter+1)]['cards'])-1]]
+        # else:
+        #     self.values_of_cards_players[delimiter] += card.value_and_cards[self.players['player'+str(delimiter+1)]['cards'][len(self.players['player'+str(delimiter+1)]['cards'])-1]]

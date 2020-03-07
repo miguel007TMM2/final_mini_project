@@ -67,7 +67,7 @@ def Win():
 
 def system_of_turns():
     delimiter = 0
-    
+    print("First card of crupier : " + str(crup.crupiers_two_cards()) + "  Point : " + str(card.value_and_cards[crup.crupiers_two_cards()]))
     while delimiter < (len(po.players)): 
         print(po.players['player'+str(delimiter+1)])
         po.point_of_cards()
@@ -106,6 +106,8 @@ def system_of_turns():
         else:
             delimiter += 1
             pass
+        #print("Cards of crupier : " + str(crup.Keep_holding_cards()) + "  Point : " + str(card.value_and_cards[crup.crupiers_two_cards()]))
+    
     Win()
 p = generate_players()
 system_of_turns()
