@@ -46,4 +46,3 @@ class Deck_of_cards:
     def __shuffle_the_cards(self, list_to_shuffle):
         random.shuffle(list_to_shuffle)
         
-

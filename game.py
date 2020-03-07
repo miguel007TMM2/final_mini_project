@@ -1,10 +1,15 @@
-from players import *
+from players import Player
 from crupier import Crupier
 from deck_of_cards import Deck_of_cards
+from dice import Dice
 import os
 crup = Crupier()
-player = Player()
+dice =  Dice()
+dice.status()
+import os
+po = Player()
 card = Deck_of_cards()
+
 #This function is responsible for creating the players' keys and assigning them, a name, their initial letters and some cards
 def generate_players():
 
@@ -48,30 +53,56 @@ def generate_players():
         print("Error entering the number of players, try a number from 1 to 4 enter to continue...") 
         generate_players()
 
+
 def Win():
+    
     winer = 0
     iterator = 1
-    for poins1 in player.values_of_cards_players:
-        while iterator < len(player.values_of_cards_players):
-            points2 = player.values_of_cards_players[iterator]
+    for poins1 in po.values_of_cards_players:
+        
+        while iterator < len(po.values_of_cards_players):
+            points2 = po.values_of_cards_players[iterator]
+            
             if poins1 > points2 and poins1 <= 21:
                 winer = poins1
             else:    
                 winer = points2
-            if iterator < len(player.values_of_cards_players):
+                
+            if iterator < len(po.values_of_cards_players):
                 iterator += 1
             else:
                 break
-    winer_posicion = player.values_of_cards_players.index(winer)
-    print("El ganador es ",player.players['player'+str(winer_posicion+1)]['name'],"Con ",player.values_of_cards_players[winer_posicion],"Puntos")
+            
+    winer_posicion = po.values_of_cards_players.index(winer)
+    print("El ganador es ",po.players['player'+str(winer_posicion+1)]['name'],"Con ",po.values_of_cards_players[winer_posicion],"Puntos")
+
+def initial_bet(player):
+    numb_game = 0
+    index_name = 1
+    point = str(dice.index) + '00'
+    
+    if len
+    ask_initial_bet = input('Your initial initial bet must be equal to or greater than ' +point+ ' point.' + 'Enter your initial initial_bet : ')    
+    if int(ask_initial_bet) == int(point):
+        player.players['player'+str(index_name)]['chips']
+    #     self.bets.append(ask_initial_bet)
+    #     print(self.betgoitn)
+    # elif int(ask_initial_bet) !=  int(point) :
+    #     print('Your initial initial_bet is below what is required')
+    #     self.initial_bet()
+            
+    # except ValueError:
+    #     print('error to enter de initial_bet. the characters you entered are incorrect')
+    #     self.initial_bet()
 
 def system_of_turns():
     delimiter = 0
-    player.point_of_cards(delimiter)
-    print(player.players['player'+str(delimiter+1)],player.values_of_cards_players[delimiter])
-    while delimiter < (len(player.players)): 
-        
-        if player.players['player'+str(delimiter+1)]['state'] == True:
+    index_name = 1
+    print("First card of crupier : " + str(crup.crupiers_two_cards()) + "  Point : " + str(card.value_and_cards[crup.crupiers_two_cards()]))
+    while delimiter < (len(po.players)): 
+        print(po.players['player'+str(delimiter+1)])
+        po.point_of_cards()
+        if po.players['player'+str(delimiter+1)]['state'] == True:
             moviment = input("1) stand  2) ask for letters  3) backing out: ➤ ")
 
             if moviment.isdigit():
@@ -109,6 +140,8 @@ def system_of_turns():
         else:
             delimiter += 1
             pass
+        #print("Cards of crupier : " + str(crup.Keep_holding_cards()) + "  Point : " + str(card.value_and_cards[crup.crupiers_two_cards()]))
+    
     Win()
 p = generate_players()
 system_of_turns()
