@@ -61,7 +61,7 @@ class Crupier():
     def two_cards(self):
 
         for index_for_player in range(0,2):
-            self.player_card(self.Player_curret_hand[0])
+            self.player_card(self.Player_curret_hand)
     
     def crupiers_two_cards(self):
 
@@ -90,5 +90,3 @@ class Crupier():
                 self.card_of_crupier += 1
                 self.crupier_card(self.croupier_hand, self.card_of_crupier)
 
-f = Crupier()
-print(f.bet())
