@@ -9,16 +9,13 @@ class Crupier():
 
     crupier_cards_value = 0
     card_of_crupier = 0
-    bets = {}
-    card_cemetery = []
+    dic_bets = {}
+    cards_cemetery = []
 
     def __init__(self):
         super(Crupier, self).__init__()
         self.croupierS_hand = []
         self.Player_curret_hand = []
-
-    def insurance(self):
-        pass
 
     def player_card(self, list_for_put_cards):
         
