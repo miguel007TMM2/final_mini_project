@@ -9,27 +9,13 @@ class Crupier():
 
     crupier_cards_value = 0
     card_of_crupier = 0
-    bets = []
-    
+    bets = {}
+    card_cemetery = []
+
     def __init__(self):
         super(Crupier, self).__init__()
         self.croupierS_hand = []
         self.Player_curret_hand = []
-
-    # def initial_bet(self):
-    #     point = str(dice.index) + '00'
-    #     try:
-    #         ask_initial_bet = input('Your initial initial_bet must be equal to or greater than ' +point+ ' point.' + 'Enter your initial initial_bet : ')    
-    #         if int(ask_initial_bet) == int(point):
-    #             self.bets.append(ask_initial_bet)
-    #             print(self.bets)
-    #         elif int(ask_initial_bet) !=  int(point) :
-    #             print('Your initial initial_bet is below what is required')
-    #             self.initial_bet()
-                
-    #     except ValueError:
-    #         print('error to enter de initial_bet. the characters you entered are incorrect')
-    #         self.initial_bet()
 
     def insurance(self):
         pass
