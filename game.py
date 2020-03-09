@@ -73,13 +73,13 @@ def system_of_turns():
                     if int(moviment) <= 3:
                         if int(moviment) == 1:
                             os.system("clear")
-                            print(player.players['player'+str(delimiter+1)])
+                            
                             if delimiter < len(player.players):
                                 delimiter += 1
                                 pass
                             else:
                                 break
-
+                            print(player.players['player'+str(delimiter+1)])
                         
                         if int(moviment) == 2:
                             if  player.players['player'+str(delimiter+1)]['point']< 21:  
