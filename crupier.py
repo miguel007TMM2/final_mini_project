@@ -15,7 +15,7 @@ class Crupier():
     def __init__(self):
         super(Crupier, self).__init__()
         self.croupier_hand = []
-        self.Player_curret_hand = [[]]
+        self.Player_curret_hand = []
 
     def bet(self):
         dice.status()
@@ -49,7 +49,7 @@ class Crupier():
 
     def player_card(self, list_for_put_cards):
         
-        list_for_put_cards.append(cards.list_of_cards.pop())
+        list_for_put_cards.append(cards.new_list_of_cards.pop())
 
     def crupier_card(self, list_for_put_cards, index):
 
@@ -61,7 +61,7 @@ class Crupier():
     def two_cards(self):
 
         for index_for_player in range(0,2):
-            self.player_card(self.Player_curret_hand[0])
+            self.player_card(self.Player_curret_hand)
     
     def crupiers_two_cards(self):
 
@@ -90,5 +90,4 @@ class Crupier():
                 self.card_of_crupier += 1
                 self.crupier_card(self.croupier_hand, self.card_of_crupier)
 
-f = Crupier()
-print(f.bet())
+
