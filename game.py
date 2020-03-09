@@ -2,10 +2,12 @@ from players import Player
 from crupier import Crupier
 from deck_of_cards import Deck_of_cards
 from dice import Dice
+from view import View
 import os
 crup = Crupier()
 dice =  Dice()
 dice.status()
+show = View()
 import os
 player = Player()
 card = Deck_of_cards()
@@ -68,7 +70,8 @@ def generate_players():
     bets()
 
 def keep_playing():
-    global numb_game
+
+    global numb_game 
     ask_cotinue = input('Do you want to try again ? Select 1) Yes or 2) No  for continue : ')
     os.system("clear")
     if ask_cotinue.isdigit():
@@ -76,14 +79,12 @@ def keep_playing():
             if int(ask_cotinue) == 1:
                 initial_bet()
             elif int(ask_cotinue) == 2:
-                numb_game += 1
+                numb_game  += 1
                 player.players['player'+ str(numb_game)]['state'] = False
                 initial_bet()
         else:
             print('incorrect values')
             keep_playing()
-            
-
     else:
         print('incorrect values')
         keep_playing()
@@ -111,7 +112,7 @@ def initial_bet():
                     keep_playing()
 
             else:
-                print('Did not introduce anything')
+                print('Did not introduce anything or is it misspelled ')
                 keep_playing()
 
             if player.players['player'+ str(numb_game)]['initial_bet'] == True:
@@ -126,15 +127,7 @@ def initial_bet():
             numb_game += 1
 
     except KeyError:
-        print('All players lose')
-        print("""
-                  _______      ___      .___  ___.  _______      ______   ____    ____  _______ .______         
-                 /  _____|    /   \     |   \/   | |   ____|    /  __  \  \   \  /   / |   ____||   _  \        
-                |  |  __     /  ^  \    |  \  /  | |  |__      |  |  |  |  \   \/   /  |  |__   |  |_)  |       
-                |  | |_ |   /  /_\  \   |  |\/|  | |   __|     |  |  |  |   \      /   |   __|  |      /        
-                |  |__| |  /  _____  \  |  |  |  | |  |____    |  `--'  |    \    /    |  |____ |  |\  \----.   
-                \ ______| /__/     \__\ |__|  |__| |_______|    \______/      \__/     |_______|| _| `._____| 
-                                                                """+ "\n")
+        print(show.icon())
 
         def new_game():
             ask_new_game = input('Do you want to play again ? Select 1) Yes or 2) No  for continue : ')
@@ -163,14 +156,25 @@ def bets():
         if player.players['player'+ str(count_players)]['bet'] == False :
             make_bets = input('the minimum bet is '+ str(minimum_bet) + '. Enter your bet player ' + player.players['player'+ str(count_players)]['name'] + ' : ')
             if make_bets.isdigit():
-                if int(make_bets) >= minimum_bet:
-                    player.players['player'+ str(count_players)]['chip'] = player.players['player'+ str(count_players)]['chip'] - int(make_bets)
-                    crup.dic_bets.update({'name' : { player.players['player'+ str(count_players)]['name'] : int(make_bets) }})
-                    player.players['player'+ str(count_players)]['bet'] == True 
-                    print(crup.dic_bets['name'])
-                    count_players += 1
-                    bets()
+                if player.players['player'+ str(count_players)]['chip'] > minimum_bet:
+                    if int(make_bets) >= minimum_bet:
+                        player.players['player'+ str(count_players)]['chip'] = player.players['player'+ str(count_players)]['chip'] - int(make_bets)
+                        crup.dic_bets.update({'name' : { player.players['player'+ str(count_players)]['name'] : int(make_bets) }})
+                        player.players['player'+ str(count_players)]['bet'] == True 
+                        print(crup.dic_bets['name'])
+                        count_players += 1
+                        bets()
+                    else:
+                        print('Your bet is below accepted')
+                        contue_ask = input('Enter to continue or write exit to finish the game.... ')
+                        if contue_ask == ''
+                            bets()
+                        elif contue_ask.upper() == ' Exit':
+                            
+                        
 
+            else:
+                pass
     # for count_players in range(len(player.players)):
     #     if player.players['player'+ str(numb_game + count_players)]['name']
         
