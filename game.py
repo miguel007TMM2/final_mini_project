@@ -44,8 +44,8 @@ def generate_players():
                                 'chip': 10000,
                                 'point': 0,
                                 'cards': crup.Player_curret_hand,
-                                'initial_bet' : False }})
-
+                                'initial_bet' : False, 
+                                'bet': False }})
                             crup.Player_curret_hand  = []
                         else:
                             os.system("clear")
@@ -64,7 +64,31 @@ def generate_players():
         os.system("clear")
         input("Error entering the number of players, try a number from 1 to 4 enter to continue...") 
         generate_players()
-    # initial_bet()
+    initial_bet()
+    bets()
+
+def keep_playing():
+    global numb_game
+    ask_cotinue = input('Do you want to try again ? Select 1) Yes or 2) No  for continue : ')
+    os.system("clear")
+    if ask_cotinue.isdigit():
+        if int(ask_cotinue) == 1 or int(ask_cotinue) == 2:
+            if int(ask_cotinue) == 1:
+                initial_bet()
+            elif int(ask_cotinue) == 2:
+                numb_game += 1
+                player.players['player'+ str(numb_game)]['state'] = False
+                initial_bet()
+        else:
+            print('incorrect values')
+            keep_playing()
+            
+
+    else:
+        print('incorrect values')
+        keep_playing()
+        
+
 
 def initial_bet():
 
@@ -78,41 +102,22 @@ def initial_bet():
                     player.players['player'+ str(numb_game)]['chip'] = player.players['player'+ str(numb_game)]['chip'] - int(bet)
                     crup.dic_bets.update({'name' : { player.players['player'+ str(numb_game)]['name'] : int(bet) }})
                     player.players['player'+ str(numb_game)]['initial_bet'] = True
-                    print( player.players['player'+ str(numb_game)])
-                    print(crup.dic_bets['name'][player.players['player'+ str(numb_game)]['name']])
+                    player.players['player'+ str(numb_game)]['bet'] = True 
+                    # print( player.players['player'+ str(numb_game)])
+                    # print(crup.dic_bets['name'][player.players['player'+ str(numb_game)]['name']])
                 else:
+
                     print('incorrect values')
-                    def cotinue():
-                        ask_cotinue = input('Do you want to try again ? Select 1) Yes or 2) No  for continue : ')
-                        os.system("clear")
-                        if ask_cotinue.isdigit():
-                            if int(ask_cotinue) == 1:
-                                initial_bet()
-                            elif int(ask_cotinue) == 2:
-                                numb_game += 1
-                                player.players['player'+ str(numb_game)]['state'] = False
-                                initial_bet()
-                        else:
-                            print('incorrect values')
-                            cotinue()
-                            os.system('clear ')
+                    keep_playing()
+
             else:
                 print('Did not introduce anything')
-                ask_cotinue = input('Do you want to try again ? Select 1) Yes or 2) No  for continue : ')
-                os.system("clear")
-                if ask_cotinue != '':
-
-                    if int(ask_cotinue) == 1:
-                        initial_bet()
-                    elif int(ask_cotinue) == 2:
-                        numb_game += 1
-                        player.players['player'+ str(numb_game)]['state'] = False
-                        initial_bet()
+                keep_playing()
 
             if player.players['player'+ str(numb_game)]['initial_bet'] == True:
                 numb_game += 1 
             if numb_game > len(player.players):
-                numb_game = 0 
+                numb_game = 1 
         else:
             print('You can t keep betting for this reason you lost')
             player.players['player'+ str(numb_game)]['state'] = False
@@ -130,20 +135,45 @@ def initial_bet():
                 |  |__| |  /  _____  \  |  |  |  | |  |____    |  `--'  |    \    /    |  |____ |  |\  \----.   
                 \ ______| /__/     \__\ |__|  |__| |_______|    \______/      \__/     |_______|| _| `._____| 
                                                                 """+ "\n")
-        ask_new_game = input('Do you want to play again ? Select 1) Yes or 2) No  for continue')
 
-        os.system("clear")
+        def new_game():
+            ask_new_game = input('Do you want to play again ? Select 1) Yes or 2) No  for continue : ')
+            os.system("clear")
+            if ask_new_game.isdigit():
+                if int(ask_new_game) == 1 or int(ask_new_game) == 2:
+                    if int(ask_new_game) == 1:
+                        numb_game = 1
+                        generate_players()
+                    elif int(ask_new_game):
+                        print('Thanks for playing with us.')
+                else:
+                    print('your entry is not valid')
+                    new_game()
+            else:
+                print('your entry is not valid')
+                new_game()
+        new_game()
 
-        if int(ask_new_game) == 1:
-            numb_game = 1
-            generate_players()
-            
-        else:
-            print('Thanks for playing with us.')
-
+count_players = 2
 
 def bets():
-    pass
+    global count_players
+    minimum_bet = 50
+    if count_players <= len(player.players):
+        if player.players['player'+ str(count_players)]['bet'] == False :
+            make_bets = input('the minimum bet is '+ str(minimum_bet) + '. Enter your bet player ' + player.players['player'+ str(count_players)]['name'] + ' : ')
+            if make_bets.isdigit():
+                if int(make_bets) >= minimum_bet:
+                    player.players['player'+ str(count_players)]['chip'] = player.players['player'+ str(count_players)]['chip'] - int(make_bets)
+                    crup.dic_bets.update({'name' : { player.players['player'+ str(count_players)]['name'] : int(make_bets) }})
+                    player.players['player'+ str(count_players)]['bet'] == True 
+                    print(crup.dic_bets['name'])
+                    count_players += 1
+                    bets()
+
+    # for count_players in range(len(player.players)):
+    #     if player.players['player'+ str(numb_game + count_players)]['name']
+        
 
 def insurance():
     pass
@@ -200,8 +230,6 @@ def system_of_turns():
                 os.system("clear") 
                 delimiter += 1
                 print(player.players['player'+str(delimiter+1)])
-                
-                
                       
         else:
             delimiter += 1
@@ -209,5 +237,6 @@ def system_of_turns():
         
     Win()
 p = generate_players()
-system_of_turns()
+
+# system_of_turns()
 # generate_players()
