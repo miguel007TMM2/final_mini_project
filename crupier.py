@@ -1,7 +1,5 @@
 from deck_of_cards import Deck_of_cards
 cards = Deck_of_cards()
-# from dice import Dice
-# dice = Dice()
 import os
 
 #This class is responsible for managing the dealer process in the game.
@@ -9,6 +7,8 @@ class Crupier():
 
     crupier_cards_value = 0
     card_of_crupier = 0
+    index_for_player = 0
+    value_cards_player = 0
     dic_bets = {}
     cards_cemetery = []
 
@@ -16,27 +16,28 @@ class Crupier():
         super(Crupier, self).__init__()
         self.croupierS_hand = []
         self.Player_curret_hand = []
-
-    def player_card(self, list_for_put_cards):
         
-        list_for_put_cards.append(cards.list_of_cards.pop())
-
-    def crupier_card(self, list_for_put_cards, index):
+    def set_card(self, list_for_put_cards, index, sum_value):
 
         list_for_put_cards.append(cards.list_of_cards.pop())
         
         if list_for_put_cards == self.croupierS_hand:
+
             self.crupier_cards_value +=  cards.value_and_cards[list_for_put_cards[index]]
 
-    def two_cards(self):
-        for index_for_player in range(0,2):
-            self.player_card(self.Player_curret_hand) 
-    
+        if list_for_put_cards == self.Player_curret_hand:
+                    
+            self.value_cards_player += cards.value_and_cards[list_for_put_cards[index]]
+
+    def two_cards_for_player(self):
+
+        for self.index_for_player in range(0,2):
+            self.set_card(self.Player_curret_hand, self.index_for_player, self.value_cards_player) 
     
     def crupiers_two_cards(self):
 
         for self.card_of_crupier in range(0, 2):
-            self.crupier_card(self.croupierS_hand, self.card_of_crupier)
+            self.crupier_card(self.croupierS_hand, self.card_of_crupier, self.crupier_cards_value )
         return self.croupierS_hand[0]
     
     def mutation_of_as(self, index):
@@ -62,3 +63,8 @@ class Crupier():
                 self.crupier_card(self.croupierS_hand, self.card_of_crupier)
                 
         return self.croupierS_hand
+
+f = Crupier()
+f.two_cards_for_player()
+print(f.Player_curret_hand)
+print(f.value_cards_player)

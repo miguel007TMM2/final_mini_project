@@ -167,10 +167,10 @@ def bets():
                     else:
                         print('Your bet is below accepted')
                         contue_ask = input('Enter to continue or write exit to finish the game.... ')
-                        if contue_ask == ''
+                        if contue_ask == '':
                             bets()
                         elif contue_ask.upper() == ' Exit':
-                            
+                            pass
                         
 
             else:
