@@ -1,7 +1,7 @@
 from deck_of_cards import Deck_of_cards
 cards = Deck_of_cards()
-from dice import Dice
-dice = Dice()
+# from dice import Dice
+# dice = Dice()
 import os
 
 #This class is responsible for managing the dealer process in the game.
@@ -9,8 +9,8 @@ class Crupier():
 
     crupier_cards_value = 0
     card_of_crupier = 0
-    cards_as = ['A♥', 'A♠', 'A♣', 'A♦']
-    bets = []
+    dic_bets = {}
+    cards_cemetery = []
 
     def __init__(self):
         super(Crupier, self).__init__()
@@ -55,31 +55,31 @@ class Crupier():
 
         list_for_put_cards.append(cards.list_of_cards.pop())
         
-        if list_for_put_cards == self.croupier_hand:
+        if list_for_put_cards == self.croupierS_hand:
             self.crupier_cards_value +=  cards.value_and_cards[list_for_put_cards[index]]
 
     def two_cards(self):
-
         for index_for_player in range(0,2):
             self.player_card(self.Player_curret_hand)
     
     def crupiers_two_cards(self):
 
         for self.card_of_crupier in range(0, 2):
-            self.crupier_card(self.croupier_hand, self.card_of_crupier)
-
+            self.crupier_card(self.croupierS_hand, self.card_of_crupier)
+        return self.croupierS_hand[0]
+    
     def mutation_of_as(self, index):
 
-        mutation = cards.value_and_cards[self.croupier_hand[index]] = 11
+        mutation = cards.value_and_cards[self.croupierS_hand[index]] = 11
         self.crupier_cards_value += mutation
         self.crupier_cards_value -= 1
 
     def set_mutation_of_as(self):
 
-        for list_card_of_crupier in range(len(self.croupier_hand)):
-            if self.croupier_hand[list_card_of_crupier]  in self.cards_as:
+        for croupierS_hand in range(len(self.croupierS_hand)):
+            if cards.value_and_cards(self.croupierS_hand[croupierS_hand]) == 1:
                 if self.crupier_cards_value <= 11:
-                    self.mutation_of_as(list_card_of_crupier)
+                    self.mutation_of_as(croupierS_hand)
     
     def Keep_holding_cards(self):
 
