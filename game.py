@@ -66,8 +66,7 @@ def generate_players():
         os.system("clear")
         input("Error entering the number of players, try a number from 1 to 4 enter to continue...") 
         generate_players()
-    initial_bet()
-    bets()
+    
 
 def keep_playing():
 
@@ -167,10 +166,11 @@ def bets():
                     else:
                         print('Your bet is below accepted')
                         contue_ask = input('Enter to continue or write exit to finish the game.... ')
-                        if contue_ask == ''
+                        if contue_ask == '':
                             bets()
+                            pass
                         elif contue_ask.upper() == ' Exit':
-                            
+                            pass
                         
 
             else:
@@ -240,7 +240,7 @@ def system_of_turns():
             pass
         
     Win()
-p = generate_players()
+
 
 # system_of_turns()
 # generate_players()
