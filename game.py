@@ -184,11 +184,14 @@ def Win():
 
 def system_of_turns():
     delimiter = 0
-    print(player.players['player'+str(delimiter+1)])
+    player.point_of_cards(delimiter)
+    
     while delimiter < (len(player.players)):
+        player.point_of_cards_asing(delimiter)
+        print(player.players['player'+str(delimiter+1)])
         if player.players['player'+str(delimiter+1)]['state'] == True:
             if player.players['player'+str(delimiter+1)]['point'] <= 21: 
-                # player.point_of_cards(delimiter)
+                player.point_of_cards_asing(delimiter)
                 moviment = input("1) Stand  2) Ask for letters  3) Backing out: ➤ ")
 
                 if moviment.isdigit():
@@ -207,7 +210,7 @@ def system_of_turns():
                             if  player.players['player'+str(delimiter+1)]['point']< 21:  
                                 os.system("clear")
                                 player.ask_for_letters(delimiter)
-                                # player.point_of_cards(delimiter)
+                                player.point_of_cards(delimiter)
                                 print(player.players['player'+str(delimiter+1)])
                             else:
                                 print("Is equal to the score of 21 insert opcion 1 for stand ")
@@ -238,5 +241,5 @@ def system_of_turns():
     Win()
 p = generate_players()
 
-# system_of_turns()
+system_of_turns()
 # generate_players()
