@@ -13,6 +13,7 @@ class Deck_of_cards:
    
     def __init__(self): #Contains the deck cards
         self.list_of_cards = []
+        self.new_list_of_cards = self.list_of_cards
         self.value_and_cards = {}
         self.__Generator_of_cards()
         self.value_of_cards()

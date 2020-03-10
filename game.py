@@ -1,18 +1,10 @@
 from players import Player
 from crupier import Crupier
 from deck_of_cards import Deck_of_cards
-from dice import Dice
-from view import View
 import os
 crup = Crupier()
-dice =  Dice()
-dice.status()
-show = View()
-import os
-player = Player()
-card = Deck_of_cards()
-numb_game = 1
-
+po = Player()
+cards = Deck_of_cards()
 #This function is responsible for creating the players' keys and assigning them, a name, their initial letters and some cards
 def generate_players():
 
@@ -20,6 +12,7 @@ def generate_players():
     limit_players = input("Entry number of players ➤ ") 
 
     if limit_players.isdigit():
+        
         if int(limit_players) <= 4:
             os.system("clear")
             
@@ -29,34 +22,22 @@ def generate_players():
                 os.system("clear")
                 print("Select you icon")
 
-                def select():
-                    number_icon = 1
-                    for icons in player.icono_for_player:
-                        print(number_icon,icons)
-                        number_icon += 1
-                    select_icon = input("insert a number of you icon ➤ ")
-                    os.system("clear")
-                    if select_icon.isdigit():
-                        if int(select_icon) > 0 and int(select_icon) <= 8:
-                            player.players.update({
-                                'player'+str(delimiter+1):{ 
-                                'name':  name_of_player,
-                                'icon':  player.icono_for_player[int(select_icon)-1],
-                                'state': True,
-                                'chip': 10000,
-                                'point': 0,
-                                'cards': crup.Player_curret_hand,
-                                'initial_bet' : False, 
-                                'bet': False }})
-                            crup.Player_curret_hand  = []
-                        else:
-                            os.system("clear")
-                            input("error the option you have inserted is not valid test with a number from 1 to 5 press enter for continue") 
-                            select()  
-                    else:
-                        input("error the option you have inserted is not valid test with a number from 1 to 5 press enter for continue") 
-                        select()
-                select()
+                number_icon = 1
+                for icons in po.icono_for_player:
+                    print(number_icon,icons)
+                    number_icon += 1
+                select_icon = int(input("insert a number of you icon ➤ "))
+                os.system("clear")
+
+                po.players.update({
+                    'player'+str(delimiter+1):{ 
+                    'name':  name_of_player,
+                    'icon':  po.icono_for_player[select_icon-1],
+                    'State': True,
+                    'cards': crup.Player_curret_hand}})
+
+                crup.Player_curret_hand  = []
+
         else:
             os.system("clear")
             input("Error entering the number of players, try a number from 1 to 4 enter to continue... ")
@@ -66,8 +47,7 @@ def generate_players():
         os.system("clear")
         input("Error entering the number of players, try a number from 1 to 4 enter to continue...") 
         generate_players()
-    initial_bet()
-    bets()
+    
 
 def keep_playing():
 
@@ -169,6 +149,7 @@ def bets():
                         contue_ask = input('Enter to continue or write exit to finish the game.... ')
                         if contue_ask == '':
                             bets()
+                            pass
                         elif contue_ask.upper() == ' Exit':
                             pass
                         
@@ -187,60 +168,35 @@ def Win():
    pass
 
 def system_of_turns():
+    
     delimiter = 0
-    print(player.players['player'+str(delimiter+1)])
-    while delimiter < (len(player.players)):
-        if player.players['player'+str(delimiter+1)]['state'] == True:
-            if player.players['player'+str(delimiter+1)]['point'] <= 21: 
-                # player.point_of_cards(delimiter)
-                moviment = input("1) Stand  2) Ask for letters  3) Backing out: ➤ ")
+    po.point_of_cards()
+    
+    while delimiter < (len(po.players)):
+        print(po.players['player'+str(delimiter+1)]['cards'],po.values_of_cards_players[delimiter])
+        moviment = input("1) stand  2) ask for letters: ➤ ")
 
-                if moviment.isdigit():
-                    if int(moviment) <= 3:
-                        if int(moviment) == 1:
-                            os.system("clear")
-                            
-                            if delimiter < len(player.players):
-                                delimiter += 1
-                                pass
-                            else:
-                                break
-                            print(player.players['player'+str(delimiter+1)])
+        if moviment.isdigit():
+
+            if int(moviment) <= 2:
+
+                if int(moviment) == 1:
+                    pass
+                    delimiter += 1
+
+                if po.values_of_cards_players[delimiter] < 21:
+                    if int(moviment) == 2:
+                        print(po.players['player'+str(delimiter+1)]['cards'],po.values_of_cards_players[delimiter])
+                        po.ask_for_letters(delimiter)
+                        po.values_of_cards_players[delimiter] += cards.value_and_cards[po.players['player'+str(delimiter+1)]['cards'][len(po.players['player'+str(delimiter+1)]['cards'])-1]]
                         
-                        if int(moviment) == 2:
-                            if  player.players['player'+str(delimiter+1)]['point']< 21:  
-                                os.system("clear")
-                                player.ask_for_letters(delimiter)
-                                # player.point_of_cards(delimiter)
-                                print(player.players['player'+str(delimiter+1)])
-                            else:
-                                print("Is equal to the score of 21 insert opcion 1 for stand ")
-        
-                            if int(moviment) == 3:
-                                os.system("clear")
-                                print(player.players['player'+str(delimiter+1)])
-                                player.players['player'+str(delimiter+1)]['state'] = False
-
-                    else:
-                        os.system("clear")
-                        print("Error when selecting your movement try 1, 2 or 3")
                 else:
                     os.system("clear")
-                    print("Error you have inserted an invalid option")
-            else:
-                os.system("clear") 
-                input(str(player.players['player'+str(delimiter+1)]['cards'])+" point "+str(player.players['player'+str(delimiter+1)]['point'])+" your cards have exceeded to the score of 21, you lose, press enter for continue...")
-                player.players['player'+str(delimiter+1)]['state'] = False
-                os.system("clear") 
-                delimiter += 1
-                print(player.players['player'+str(delimiter+1)])
-                      
-        else:
-            delimiter += 1
-            pass
-        
-    Win()
-p = generate_players()
+                    print("You have to stand, your cards have exceeded or is equal to the score of 21")
+                    pass
 
-# system_of_turns()
-# generate_players()
+            else:
+                print("error when inserting movement test with 1 or 2")
+
+generate_players()
+system_of_turns()

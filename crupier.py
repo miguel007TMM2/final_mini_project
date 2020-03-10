@@ -14,7 +14,7 @@ class Crupier():
 
     def __init__(self):
         super(Crupier, self).__init__()
-        self.croupierS_hand = []
+        self.croupier_hand = []
         self.Player_curret_hand = []
         
     def set_card(self, list_for_put_cards, index, sum_value):
