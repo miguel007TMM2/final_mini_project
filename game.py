@@ -4,13 +4,13 @@ from deck_of_cards import Deck_of_cards
 from dice import Dice
 from view import View
 import os
-crup = Crupier()
+dealer = Crupier()
 dice =  Dice()
 dice.status()
 show = View()
 import os
 player = Player()
-card = Deck_of_cards()
+cards = Deck_of_cards()
 numb_game = 1
 
 #This function is responsible for creating the players' keys and assigning them, a name, their initial letters and some cards
@@ -24,7 +24,7 @@ def generate_players():
             os.system("clear")
             
             for delimiter in range(int(limit_players)):
-                crup.two_cards()
+                dealer.two_cards_for_player()
                 name_of_player = input("Entry name of player"+str(delimiter+1)+" ➤ ")
                 os.system("clear")
                 print("Select you icon")
@@ -45,10 +45,10 @@ def generate_players():
                                 'state': True,
                                 'chip': 10000,
                                 'point': 0,
-                                'cards': crup.Player_curret_hand,
+                                'cards': dealer.Player_curret_hand,
                                 'initial_bet' : False, 
                                 'bet': False }})
-                            crup.Player_curret_hand  = []
+                            dealer.Player_curret_hand  = []
                         else:
                             os.system("clear")
                             input("error the option you have inserted is not valid test with a number from 1 to 5 press enter for continue") 
@@ -66,30 +66,14 @@ def generate_players():
         os.system("clear")
         input("Error entering the number of players, try a number from 1 to 4 enter to continue...") 
         generate_players()
-    initial_bet()
-    bets()
 
-def keep_playing():
 
-    global numb_game 
-    ask_cotinue = input('Do you want to try again ? Select 1) Yes or 2) No  for continue : ')
-    os.system("clear")
-    if ask_cotinue.isdigit():
-        if int(ask_cotinue) == 1 or int(ask_cotinue) == 2:
-            if int(ask_cotinue) == 1:
-                initial_bet()
-            elif int(ask_cotinue) == 2:
-                numb_game  += 1
-                player.players['player'+ str(numb_game)]['state'] = False
-                initial_bet()
-        else:
-            print('incorrect values')
-            keep_playing()
-    else:
-        print('incorrect values')
-        keep_playing()
+def status_change():
+
+    player.players['player'+ str(numb_game)]['initial_bet'] = 'Exit'
+    player.players['player'+ str(numb_game)]['bet'] = 'Exit'
+    player.players['player'+ str(numb_game)]['state'] = 'Exit'
         
-
 
 def initial_bet():
 
@@ -97,90 +81,114 @@ def initial_bet():
     try:
         initial_tokens = str(dice.index) + '00'
         if player.players['player'+ str(numb_game)]['chip'] > int(initial_tokens):
+
             bet = input('Enter your initial bet, point ' + initial_tokens + ' player ' + player.players['player'+ str(numb_game)]['name'] + " : ")
             if bet.isdigit():
+
                 if int(bet)  >= int(initial_tokens):
+
                     player.players['player'+ str(numb_game)]['chip'] = player.players['player'+ str(numb_game)]['chip'] - int(bet)
-                    crup.dic_bets.update({'name' : { player.players['player'+ str(numb_game)]['name'] : int(bet) }})
+                    dealer.dic_bets.update({'name' : { player.players['player'+ str(numb_game)]['name'] : int(bet) }})
                     player.players['player'+ str(numb_game)]['initial_bet'] = True
                     player.players['player'+ str(numb_game)]['bet'] = True 
-                    # print( player.players['player'+ str(numb_game)])
-                    # print(crup.dic_bets['name'][player.players['player'+ str(numb_game)]['name']])
-                else:
 
-                    print('incorrect values')
-                    keep_playing()
+                else:
+                    print('Your bet is below accepted')
+                    contue_ask = input('Enter to continue or write exit to finish the game.... ')
+
+                    if contue_ask !=  'exit':
+                        initial_bet()
+
+                    if contue_ask.isdigit() == False:
+
+                        if contue_ask == 'exit':
+                            status_change()
+                            numb_game += 1
+                            initial_bet()
 
             else:
                 print('Did not introduce anything or is it misspelled ')
-                keep_playing()
+                contue_ask = input('Enter to continue or write exit to finish the game.... ')
+
+                if contue_ask !=  'exit':
+                    initial_bet()
+
+                if contue_ask.isdigit() == False:
+
+                    if contue_ask == 'exit':
+                        status_change()
+                        numb_game += 1
+                        initial_bet()
 
             if player.players['player'+ str(numb_game)]['initial_bet'] == True:
                 numb_game += 1 
+
             if numb_game > len(player.players):
                 numb_game = 1 
+
         else:
             print('You can t keep betting for this reason you lost')
             player.players['player'+ str(numb_game)]['state'] = False
             for player_card in range (len(player.players['player'+ str(numb_game)]['cards'])):
-                crup.cards_cemetery.append(player.players['player'+ str(numb_game)]['cards'].pop())
+                dealer.cards_cemetery.append(player.players['player'+ str(numb_game)]['cards'].pop())
             numb_game += 1
 
     except KeyError:
-        print(show.icon())
+        show.icon()
 
-        def new_game():
-            ask_new_game = input('Do you want to play again ? Select 1) Yes or 2) No  for continue : ')
-            os.system("clear")
-            if ask_new_game.isdigit():
-                if int(ask_new_game) == 1 or int(ask_new_game) == 2:
-                    if int(ask_new_game) == 1:
-                        numb_game = 1
-                        generate_players()
-                    elif int(ask_new_game):
-                        print('Thanks for playing with us.')
-                else:
-                    print('your entry is not valid')
-                    new_game()
-            else:
-                print('your entry is not valid')
-                new_game()
-        new_game()
 
 count_players = 2
 
 def bets():
+
     global count_players
     minimum_bet = 50
+
     if count_players <= len(player.players):
-        if player.players['player'+ str(count_players)]['bet'] == False :
-            make_bets = input('the minimum bet is '+ str(minimum_bet) + '. Enter your bet player ' + player.players['player'+ str(count_players)]['name'] + ' : ')
-            if make_bets.isdigit():
-                if player.players['player'+ str(count_players)]['chip'] > minimum_bet:
+        if player.players['player'+ str(count_players)]['bet'] == False:
+
+            if player.players['player'+ str(count_players)]['chip'] > minimum_bet:
+
+                make_bets = input('the minimum bet is '+ str(minimum_bet) + '. Enter your bet player ' + player.players['player'+ str(count_players)]['name'] + ' : ')
+                if make_bets.isdigit():
+
                     if int(make_bets) >= minimum_bet:
+
                         player.players['player'+ str(count_players)]['chip'] = player.players['player'+ str(count_players)]['chip'] - int(make_bets)
-                        crup.dic_bets.update({'name' : { player.players['player'+ str(count_players)]['name'] : int(make_bets) }})
+                        dealer.dic_bets.update({'name' : { player.players['player'+ str(count_players)]['name'] : int(make_bets) }})
                         player.players['player'+ str(count_players)]['bet'] == True 
-                        print(crup.dic_bets['name'])
+                        print(dealer.dic_bets['name'])
                         count_players += 1
                         bets()
+
                     else:
                         print('Your bet is below accepted')
                         contue_ask = input('Enter to continue or write exit to finish the game.... ')
-                        if contue_ask == '':
+
+                        if contue_ask !=  'exit':
                             bets()
-                        elif contue_ask.upper() == ' Exit':
-                            pass
-                        
+
+                        if contue_ask.isdigit() == False:
+
+                            if contue_ask == 'exit':
+                                status_change()
+                                count_players += 1
+                                bets()
+                else:
+                    print('What you have entered is not a digit or you did not write it correctly')
+                    bets()
+
 
             else:
-                pass
-    # for count_players in range(len(player.players)):
-    #     if player.players['player'+ str(numb_game + count_players)]['name']
+                print('You can no longer continue betting and for this reason you will be removed from the game. Enter to continue ....')
+                count_players += 1
+                bets()
+
         
 
 def insurance():
-    pass
+    if cards.value_of_cards[dealer.croupier_hand[0]] = 11 or cards.value_of_cards[dealer.croupier_hand[0]] == 11
+    for 
 
 #This function is responsible for selecting a winner
 def Win():
@@ -238,9 +246,30 @@ def system_of_turns():
         else:
             delimiter += 1
             pass
+
+def new_game():
+    ask_new_game = input('Do you want to play again ? Select 1) Yes or 2) No  for continue : ')
+    os.system("clear")
+    if ask_new_game.isdigit():
+        if int(ask_new_game) == 1 or int(ask_new_game) == 2:
+            if int(ask_new_game) == 1:
+                numb_game = 1
+                generate_players()
+            elif int(ask_new_game):
+                print('Thanks for playing with us.')
+        else:
+            print('your entry is not valid')
+            new_game()
+    else:
+        print('your entry is not valid')
+        new_game()
+
+
         
     Win()
 p = generate_players()
+initial_bet()
+bets()
 
 # system_of_turns()
 # generate_players()
