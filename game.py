@@ -243,4 +243,4 @@ def system_of_turns():
 
 
 # system_of_turns()
-# generate_players()
+generate_players()

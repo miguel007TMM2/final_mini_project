@@ -101,6 +101,3 @@ class View():
             elif keyboard.is_pressed("up"):
                 self.moveUP()
     
-
-p = View()
-p.executeMoveMenu()
