@@ -64,7 +64,3 @@ class Crupier():
                 
         return self.croupierS_hand
 
-f = Crupier()
-f.two_cards_for_player()
-print(f.Player_curret_hand)
-print(f.value_cards_player)

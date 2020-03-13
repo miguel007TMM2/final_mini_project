@@ -1,6 +1,8 @@
 import os
 import keyboard
 import time
+from players import Player
+inf_player = Player()
 class View():
     def __init__(self):
         self.iterator = 0
@@ -11,8 +13,8 @@ class View():
         self.icon_table = print("""
               _______________________________________________________________________________________ __________________________
               |      |   ________                                                  ________  |      |                            | 
-              |      |  |        |          _________________________             |        | |      |      jaunsito              |  
-              |      |  |________|         |                         |            |________| |      |                            |
+              |      |  |        |          _________________________             |        | |      |                            |  
+              |      |  |________|         |                         |            |________| |      |    """+inf_player.players['player1']['name']+"""             |
               |       \                    |                         |                      /       """+self.opcion[0]+"""       
               |        \                   |_________________________|                     /        """+self.opcion[1]+"""      
               |         \_________________________________________________________________/         """+self.opcion[2]+"""       
@@ -25,7 +27,14 @@ class View():
               |                  |  _ \| |/ _` |/ __| |/ _  | |/ _` |/ __| |/ /                     |___________________________ |   
               |                  | |_) | | (_| | (__|   | |_| | (_| | (__|   <                      |  
               |                  |____/|_|\__,_|\___|_|\_\___/ \__,_|\___|_|\_\                     |  
-              |                                                                                     |  
+              |                                                                                     |
+              |                                                                                     |
+              |                                                                                     |
+              |                """+inf_player.players['player1']['cards']+"""                                                                    |
+              |                                                                                     |
+              |                                                                                     |
+              |                                                                                     |
+
         
                                                                                                         """)
 
@@ -47,52 +56,57 @@ class View():
     
     def moveUP(self):
         time.sleep(0.15)
+        
         if self.iterator == 0:
             self.opcion[2] = "|3) Backing out              |"
             self.opcion[1] = "|2) Ask for letters          |" 
-            self.opcion[0] = "|1) Stand  🡸                 |"
+            self.opcion[0] = "|1) Stand  ◄                 |"
+            os.system("clear")
+            self.table()
+           
+        elif self.iterator == 1:
+            self.opcion[0] = "|1) Stand                    |"
+            self.opcion[2] = "|3) Backing out              |"
+            self.opcion[1] = "|2) Ask for letters ◄        |"
             os.system("clear")
             self.table()
         elif self.iterator == 2:
-            self.opcion[0] = "|1) Stand                    |"
-            self.opcion[2] = "|3) Backing out              |"
-            self.opcion[1] = "|2) Ask for letters 🡸        |"
-            os.system("clear")
-            self.table()
-        elif self.iterator == 1:
             self.opcion[1] = "|2) Ask for letters          |" 
             self.opcion[0] = "|1) Stand                    |"
-            self.opcion[2] = "|3) Backing out  🡸           |" 
+            self.opcion[2] = "|3) Backing out  ◄           |" 
             os.system("clear")
             self.table()
-        self.iterator += 1
-        if self.iterator == 3:
-            self.iterator = 0
+        self.iterator -= 1
+        if self.iterator == -1:
+            self.iterator = 2
         
     def moveDown(self):
         time.sleep(0.15)
+        
         if self.iterator == 0:
             self.opcion[1] = "|2) Ask for letters          |" 
             self.opcion[2] = "|3) Backing out              |" 
-            self.opcion[0] = "|1) Stand  🡸                 |"
+            self.opcion[0] = "|1) Stand  ◄                 |"
             os.system("clear")
             self.table()
+            
         elif self.iterator == 1:
             self.opcion[0] = "|1) Stand                    |" 
             self.opcion[2] = "|3) Backing out              |" 
-            self.opcion[1] = "|2) Ask for letters 🡸        |"
+            self.opcion[1] = "|2) Ask for letters ◄        |"
             os.system("clear")
             self.table()
         elif self.iterator == 2:
             self.opcion[0] = "|1) Stand                    |" 
             self.opcion[1] = "|2) Ask for letters          |" 
-            self.opcion[2] = "|3) Backing out  🡸           |" 
+            self.opcion[2] = "|3) Backing out  ◄           |" 
             os.system("clear")
             self.table()
         self.iterator += 1
 
         if self.iterator == 3:
             self.iterator = 0
+
     def executeMoveMenu(self):
         while True:
             if keyboard.is_pressed("down"):
@@ -102,5 +116,4 @@ class View():
                 self.moveUP()
     
 
-p = View()
-p.executeMoveMenu()
+

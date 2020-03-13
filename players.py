@@ -14,12 +14,3 @@ class Player(Crupier,Deck_of_cards):
     
     def ask_for_letters(self, delimiter):
         self.player_card(self.players['player'+str(delimiter+1)]['cards'])
-
-    def point_of_cards(self):
-        for keys_player in self.players:  
-            for read_cards in self.players[keys_player]['cards']:
-                self.indexC += lis_cards.value_and_cards[read_cards]
-            
-            self.values_of_cards_players.append(self.indexC)
-            self.indexC = 0
-        self.indexC = 0   
