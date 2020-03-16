@@ -39,7 +39,7 @@ class View():
               |                                                                                      |
               
               |                                                                                      |
-              |          """,player['player4']['cards'],"""      """,player['player1']['cards'],"""  |
+              |                    """,player['player1']['cards'],player['player1']['point'],"""  |
               |                                                                                      |
  
         
