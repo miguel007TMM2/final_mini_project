@@ -24,7 +24,7 @@ def generate_players():
             os.system("clear")
             
             for delimiter in range(int(limit_players)):
-                dealer.two_cards_for_player()
+                dealer.get_two_cards()
                 name_of_player = input("Entry name of player"+str(delimiter+1)+" ➤ ")
                 os.system("clear")
                 print("Select you icon")
@@ -44,12 +44,12 @@ def generate_players():
                                 'icon':  player.icono_for_player[int(ask_for_icon)-1],
                                 'state': True,
                                 'chip': 10000,
-                                'point': 0,
-                                'cards': dealer.Player_curret_hand,
+                                'point': dealer.Player_curret_hand[1],
+                                'cards': dealer.Player_curret_hand[0],
                                 'initial_bet' : False, 
                                 'bet': False }})
 
-                            dealer.Player_curret_hand  = []
+                            dealer.Player_curret_hand  = [[]]
                         else:
                             os.system("clear")
                             input("error the option you have inserted is not valid test with a number from 1 to 5 press enter for continue") 
@@ -141,56 +141,49 @@ def initial_bet():
 count_players = 2
 
 def bets():
-
-    global count_players
+    
     minimum_bet = 50
 
-    if count_players <= len(player.players):
-        if player.players['player'+ str(count_players)]['bet'] == False:
+    while count_players <= len(player.players):
+        if player.players['player'+ str(count_players)]['state'] == True:
+            if player.players['player'+ str(count_players)]['bet'] == False:
 
-            if player.players['player'+ str(count_players)]['chip'] > minimum_bet:
+                if player.players['player'+ str(count_players)]['chip'] > minimum_bet:
 
-                make_bets = input('the minimum bet is '+ str(minimum_bet) + '. Enter your bet player ' + player.players['player'+ str(count_players)]['name'] + ' : ')
-                if make_bets.isdigit():
+                    make_bets = input('the minimum bet is '+ str(minimum_bet) + '. Enter your bet player ' + player.players['player'+ str(count_players)]['name'] + ' : ')
+                    if make_bets.isdigit():
 
-                    if int(make_bets) >= minimum_bet:
+                        if int(make_bets) >= minimum_bet:
 
-                        player.players['player'+ str(count_players)]['chip'] = player.players['player'+ str(count_players)]['chip'] - int(make_bets)
-                        dealer.dic_bets.update({'code' : { player.players['player'+ str(count_players)]['name'] : int(make_bets) }})
-                        player.players['player'+ str(count_players)]['bet'] == True 
-                        print(dealer.dic_bets['code'])
-                        count_players += 1
-                        bets()
+                            player.players['player'+ str(count_players)]['chip'] = player.players['player'+ str(count_players)]['chip'] - int(make_bets)
+                            dealer.dic_bets.update({'code' : { player.players['player'+ str(count_players)]['name'] : int(make_bets) }})
+                            player.players['player'+ str(count_players)]['bet'] = True 
+                            print(dealer.dic_bets['code'])
+                            count_players += 1
 
+                        else:
+                            print('Your bet is below accepted')
+                            contue_ask = input('Enter to continue or write exit to finish the game.... ')
+
+                            if contue_ask.isdigit() == False:
+                                
+                                if contue_ask == 'exit':
+                                    player.players['player'+ str(count_players)]['state'] = False
+                                    count_players += 1
                     else:
-                        print('Your bet is below accepted')
-                        contue_ask = input('Enter to continue or write exit to finish the game.... ')
-
-                        if contue_ask !=  'exit':
-                            bets()
-
-                        if contue_ask.isdigit() == False:
-
-                            if contue_ask == 'exit':
-                                status_change()
-                                count_players += 1
-                                bets()
+                        print('What you have entered is not a digit or you did not write it correctly')
+                        
                 else:
-                    print('What you have entered is not a digit or you did not write it correctly')
-                    bets()
-
-
-            else:
-                print('You can no longer continue betting and for this reason you will be removed from the game. Enter to continue ....')
-                count_players += 1
-                bets()
-
+                    print('You can no longer continue betting and for this reason you will be removed from the game. Enter to continue ....')
+                    count_players += 1
+        else:
+            count_players += 1            
         
 
 def insurance():
 
     verification = 1
-    if cards.value_and_cards [dealer.croupier_hand[0]] == 1 or cards.value_and_cards [dealer.croupier_hand[0]] == 11:
+    if cards.value_and_cards [dealer.crupier_curret_hand[0]] == 1 or cards.value_and_cards [dealer.crupier_curret_hand[0]] == 11:
 
         while verification <= len(player.players):
             if player.players['player'+ str(verification)]['chip'] >= 50:
@@ -227,71 +220,71 @@ def insurance():
                 os.system("clear")
 
 
-def Win_or_lost():#This function is responsible for selecting a winner
+# def Win_or_lost():#This function is responsible for selecting a winner
 
-    win = 1
-    while win in len(player.players):
+    # win = 1
+    # while win in len(player.players):
     
-        if  player.players['player'+ str(win)]['state'] == True 
-            if player.players['player'+ str(win)]['point'] > dealer.crupier_cards_value and player.players['player'+ str(win)]['point'] < 21:
+    #     if  player.players['player'+ str(win)]['state'] == True :
+    #         if player.players['player'+ str(win)]['point'] > dealer.crupier_cards_value and player.players['player'+ str(win)]['point'] < 21:
 
-                double_reward = dealer.dic_bets['code'][player.players['player'+ str(win)]]['name'] * 2
+    #             double_reward = dealer.dic_bets['code'][player.players['player'+ str(win)]]['name'] * 2
 
-                player.players['player'+ str(win)]['chip'] = player.players['player'+ str(win)]['chip'] + double_reward
+    #             player.players['player'+ str(win)]['chip'] = player.players['player'+ str(win)]['chip'] + double_reward
 
-                print('winner')
-                print('Player : ' + player.players['player'+ str(win)])
-                print('Card scoring : ' + str([player.players['player'+ str(win)]]['point']))
-                print('Profits : ' +  str(double_reward))
-                input('Enter to continue')
+    #             print('winner')
+    #             print('Player : ' + player.players['player'+ str(win)])
+    #             print('Card scoring : ' + str([player.players['player'+ str(win)]]['point']))
+    #             print('Profits : ' +  str(double_reward))
+    #             input('Enter to continue')
 
-                if cards.value_and_cards [dealer.croupier_hand[0]] +  if cards.value_and_cards [dealer.croupier_hand[1]] == 21:
-                    dealer.dic_bets['insurance']
-                win += 1
+    #             # if cards.value_and_cards [dealer.crupier_curret_hand[0]] +  if cards.value_and_cards [dealer.crupier_curret_hand[1]] == 21:
+    #             #     dealer.dic_bets['insurance']
+    #             win += 1
 
-            elif player.players['player'+ str(win)]['point'] == dealer.crupier_cards_value and player.players['player'+ str(win)]['point'] < 21:
+    #         elif player.players['player'+ str(win)]['point'] == dealer.crupier_cards_value and player.players['player'+ str(win)]['point'] < 21:
 
-                reward = dealer.dic_bets['code'][player.players['player'+ str(win)]]['name']
-                player.players['player'+ str(win)]['chip'] = player.players['player'+ str(win)]['chip'] + reward
+    #             reward = dealer.dic_bets['code'][player.players['player'+ str(win)]]['name']
+    #             player.players['player'+ str(win)]['chip'] = player.players['player'+ str(win)]['chip'] + reward
 
-                print('Tie')
-                print('Player : ' + player.players['player'+ str(win)])
-                print('Card scoring : ' + str([player.players['player'+ str(win)]]['point']))
-                print('Profits : ' +  str(reward))
-                input('Enter to continue')
-                win += 1
+    #             print('Tie')
+    #             print('Player : ' + player.players['player'+ str(win)])
+    #             print('Card scoring : ' + str([player.players['player'+ str(win)]]['point']))
+    #             print('Profits : ' +  str(reward))
+    #             input('Enter to continue')
+    #             win += 1
 
-            elif player.players['player'+ str(win)]['point'] < dealer.crupier_cards_value and player.players['player'+ str(win)]['point'] < 21:
-                print('Lost')
-                print('Player : ' + player.players['player'+ str(win)])
-                print('Card scoring : ' + str([player.players['player'+ str(win)]]['point']))
-                print('losses : ' +  str(reward))
-                input('Enter to continue')
-                win += 1
+    #         elif player.players['player'+ str(win)]['point'] < dealer.crupier_cards_value and player.players['player'+ str(win)]['point'] < 21:
+    #             print('Lost')
+    #             print('Player : ' + player.players['player'+ str(win)])
+    #             print('Card scoring : ' + str([player.players['player'+ str(win)]]['point']))
+    #             print('losses : ' +  str(reward))
+    #             input('Enter to continue')
+    #             win += 1
 
-            elif dealer.crupier_cards_value > 21:
+    #         elif dealer.crupier_cards_value > 21:
 
-                print('winner')
-                print('Player : ' + player.players['player'+ str(win)])
-                print('Card scoring : ' + str([player.players['player'+ str(win)]]['point']))
-                print('Profits : ' +  str(double_reward))
-                input('Enter to continue')
-                win += 1
-        else:
-            win += 1
+    #             print('winner')
+    #             print('Player : ' + player.players['player'+ str(win)])
+    #             print('Card scoring : ' + str([player.players['player'+ str(win)]]['point']))
+    #             print('Profits : ' +  str(double_reward))
+    #             input('Enter to continue')
+    #             win += 1
+    #     else:
+    #         win += 1
 
 def system_of_turns():
     delimiter = 0
     print(player.players['player'+str(delimiter+1)])
     while delimiter < (len(player.players)):
+        if player.players['player'+str(delimiter+1)]['state'] == True:
+            if player.players['player'+str(delimiter+1)]['point'] <= 21: 
                 # player.point_of_cards(delimiter)
                 moviment = input("1) Stand  2) Ask for letters  3) Backing out: ➤ ")
 
                 if moviment.isdigit():
                     if int(moviment) <= 3:
                         if int(moviment) == 1:
-        if player.players['player'+str(delimiter+1)]['state'] == True:
-            if player.players['player'+str(delimiter+1)]['point'] <= 21: 
                             os.system("clear")
                             
                             if delimiter < len(player.players):
@@ -332,6 +325,7 @@ def system_of_turns():
         else:
             delimiter += 1
             pass
+
 
 def new_game():
     ask_new_game = input('Do you want to play again ? Select 1) Yes or 2) No  for continue : ')

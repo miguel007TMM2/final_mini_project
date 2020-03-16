@@ -5,7 +5,7 @@ import os
 #This class is responsible for managing the dealer process in the game.
 class Crupier():
 
-    Player_curret_hand = []
+    Player_curret_hand = [[]]
     values_cards_crupier = 0
     dic_bets = {}
     insurance_bets = {}
@@ -15,7 +15,6 @@ class Crupier():
         self.crupier_curret_hand = []
         self.crupier_iterator = 0
         self.crupiers_two_cards()
-        self.set_mutation_of_as(self.crupier_iterator, self.crupier_curret_hand, self.values_cards_crupier )
 
     def mutation_of_as(self, index, put_list, addition): #This method changes the value of the As
     
@@ -41,15 +40,18 @@ class Crupier():
             count  += cards.value_and_cards[set_list[index]]
         return count
 
-    def get_two_cards(self, list_player):
-    
+    def get_two_cards(self):
+
+        value = 0
         for iterator in range(0,2):
-            sum_values = self.get_card(list_player)
-        return sum_values
+            self.get_card(self.Player_curret_hand[0])
+            value += cards.value_and_cards[self.Player_curret_hand[0][iterator]]
+        self.Player_curret_hand.append(value)
 
     def get_card_for_crupier(self, index):
-    
+
         self.crupier_curret_hand.append(cards.list_of_cards.pop())
+        self.set_mutation_of_as(self.crupier_iterator, self.crupier_curret_hand, self.values_cards_crupier )
         self.values_cards_crupier +=  cards.value_and_cards[self.crupier_curret_hand[index]]
         
     def crupiers_two_cards(self):
@@ -57,8 +59,6 @@ class Crupier():
             self.get_card_for_crupier(self.crupier_iterator)
     
     def Keep_holding_cards(self):
-        self.set_mutation_of_as(self.crupier_iterator, self.crupier_curret_hand, self.values_cards_crupier )
         while self.values_cards_crupier <= 16:
             self.crupier_iterator += 1
             self.get_card_for_crupier(self.crupier_iterator)
-
