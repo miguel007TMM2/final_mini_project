@@ -60,44 +60,4 @@ class View():
                                                                 """+ "\n")
         return self.icon
     
-        
-    def moveMenu(self):
-        time.sleep(0.15)
-        
-        if self.iterator == 0:
-            self.opcion[1] = "|2) Ask for letters          |" 
-            self.opcion[2] = "|3) Backing out              |" 
-            self.opcion[0] = "|1) Stand  ◄                 |"
-            os.system("clear")
-            self.table()
-            
-        elif self.iterator == 1:
-            self.opcion[0] = "|1) Stand                    |" 
-            self.opcion[2] = "|3) Backing out              |" 
-            self.opcion[1] = "|2) Ask for letters ◄        |"
-            os.system("clear")
-            self.table()
-        elif self.iterator == 2:
-            self.opcion[0] = "|1) Stand                    |" 
-            self.opcion[1] = "|2) Ask for letters          |" 
-            self.opcion[2] = "|3) Backing out  ◄           |" 
-            os.system("clear")
-            self.table()
-
-        while True:
-            if keyboard.is_pressed("down"):
-                self.iterator += 1
-                if self.iterator == 3:
-                    self.iterator = 0
-                self.moveMenu()
-            elif keyboard.is_pressed("up"):
-                self.iterator -= 1
-                if self.iterator == -1:
-                    self.iterator = 2
-                self.moveMenu()
-            if keyboard.is_pressed("enter"):
-                if self.iterator == 1:
-                    player.ask_for_letters(1)
-                    self.table(player.players['player1']['name'],player.players['player1']['cards'])
-                    self.moveMenu()
 
