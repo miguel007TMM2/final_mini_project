@@ -143,7 +143,7 @@ def bets():
     minimum_bet = 50
 
     if count_players <= len(player.players):
-        if player.players['player'+ str(count_players)]['state'] ==  False:
+        if player.players['player'+ str(count_players)]['state'] == True:
             if player.players['player'+ str(count_players)]['bet'] == False:
 
                 if player.players['player'+ str(count_players)]['chip'] > minimum_bet:
@@ -170,7 +170,7 @@ def bets():
                             if contue_ask.isdigit() == False:
 
                                 if contue_ask == 'exit':
-                                    status_change()
+                                    player.players['player'+ str(numb_game)]['state'] = False
                                     count_players += 1
                                     bets()
                     else:

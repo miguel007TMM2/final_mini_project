@@ -12,9 +12,6 @@ class Player(Crupier,Deck_of_cards):
         self.indexC = 0
         self.calls_points = 0
     
-    
-    def ask_for_letters(self, delimiter):
-        self.player_card(self.players['player'+str(delimiter+1)]['cards'])
 
 
   
