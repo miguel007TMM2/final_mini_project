@@ -20,15 +20,13 @@ class Crupier():
     def set_card(self, list_for_put_cards, index, sum_value):
 
         list_for_put_cards.append(cards.list_of_cards.pop())
-        
-        if list_for_put_cards == self.croupier_hand:
 
+        if list_for_put_cards == self.croupier_hand:
             self.crupier_cards_value +=  cards.value_and_cards[list_for_put_cards[index]]
 
         if list_for_put_cards == self.Player_curret_hand:
-                    
             self.value_cards_player += cards.value_and_cards[list_for_put_cards[index]]
-
+        
     def two_cards_for_player(self):
 
         for self.index_for_player in range(0,2):

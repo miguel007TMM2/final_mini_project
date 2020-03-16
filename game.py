@@ -4,13 +4,15 @@ from deck_of_cards import Deck_of_cards
 from view import View
 import os
 dealer = Crupier()
-dice =  Dice()
-dice.status()
+# dice =  Dice()
+# dice.status()
 show = View()
 import os
 player = Player()
 cards = Deck_of_cards()
 numb_game = 1
+import keyboard
+import time
 
 #This function is responsible for creating the players' keys and assigning them, a name, their initial letters and some cards
 def generate_players():
@@ -20,7 +22,7 @@ def generate_players():
 
     if limit_players.isdigit():
         
-        if int(limit_players) <= 4:
+        if int(limit_players) <= 4 and int(limit_players) > 0:
             os.system("clear")
             
             for delimiter in range(int(limit_players)):
@@ -38,7 +40,9 @@ def generate_players():
                     os.system("clear")
                     if select_icon.isdigit():
                         if int(select_icon) > 0 and int(select_icon) <= 8:
+                            del player.players['player'+str(delimiter+1)]
                             player.players.update({
+                                
                                 'player'+str(delimiter+1):{ 
                                 'name':  name_of_player,
                                 'icon':  player.icono_for_player[int(select_icon)-1],
@@ -186,40 +190,14 @@ def bets():
 
         
 
-def insurance():
-    if cards.value_of_cards[dealer.croupier_hand[0]] = 11 or cards.value_of_cards[dealer.croupier_hand[0]] == 11
-    for 
+# def insurance():
+#     if cards.value_of_cards[dealer.croupier_hand[0]] = 11 or cards.value_of_cards[dealer.croupier_hand[0]] == 11
+#     for 
 
 #This function is responsible for selecting a winner
 def Win():
    pass
 
-def system_of_turns():
-    table.table()
-    # delimiter = 0
-    # po.point_of_cards()
-    
-    # while delimiter < (len(po.players)):
-    #     print(po.players['player'+str(delimiter+1)]['cards'],po.values_of_cards_players[delimiter])
-    #     moviment = input("1) stand  2) ask for letters: ➤ ")
-
-                    else:
-                        os.system("clear")
-                        print("Error when selecting your movement try 1, 2 or 3")
-                else:
-                    os.system("clear")
-                    print("Error you have inserted an invalid option")
-            else:
-                os.system("clear") 
-                input(str(player.players['player'+str(delimiter+1)]['cards'])+" point "+str(player.players['player'+str(delimiter+1)]['point'])+" your cards have exceeded to the score of 21, you lose, press enter for continue...")
-                player.players['player'+str(delimiter+1)]['state'] = False
-                os.system("clear") 
-                delimiter += 1
-                print(player.players['player'+str(delimiter+1)])
-                      
-        else:
-            delimiter += 1
-            pass
 
 def new_game():
     ask_new_game = input('Do you want to play again ? Select 1) Yes or 2) No  for continue : ')
@@ -243,3 +221,66 @@ def new_game():
 
         
     Win()
+
+generate_players()
+
+class Menu:
+    def __init__(self):
+        self.iterator = 0
+        self.delimiter = 1
+        
+    def moveMenu(self):
+        
+            time.sleep(0.15)
+            
+            if self.iterator == 0:
+                show.opcion[1] = "|2) Ask for letters          |" 
+                show.opcion[2] = "|3) Backing out              |" 
+                show.opcion[0] = "|1) Stand  ◄                 |"
+                os.system("clear")
+                show.table(player.players, player.players['player'+str(self.delimiter)])
+                
+            elif self.iterator == 1:
+                show.opcion[0] = "|1) Stand                    |" 
+                show.opcion[2] = "|3) Backing out              |" 
+                show.opcion[1] = "|2) Ask for letters ◄        |"
+                os.system("clear")
+                show.table(player.players, player.players['player'+str(self.delimiter)])
+            
+            
+            elif self.iterator == 2:
+                show.opcion[0] = "|1) Stand                    |" 
+                show.opcion[1] = "|2) Ask for letters          |" 
+                show.opcion[2] = "|3) Backing out  ◄           |" 
+                os.system("clear")
+                show.table(player.players,  player.players['player'+str(self.delimiter)])
+
+            while True:
+                if keyboard.is_pressed("down"):
+                    self.iterator += 1
+                    if self.iterator == 3:
+                        self.iterator = 0
+                    self.moveMenu()
+
+                elif keyboard.is_pressed("up"):
+                    self.iterator -= 1
+                    if self.iterator == -1:
+                        self.iterator = 2
+                    self.moveMenu()
+
+                if keyboard.is_pressed("enter"):
+                    if self.iterator == 1:
+                        player.ask_for_letters(self.delimiter)
+                        show.table(player.players, player.players['player'+str(self.delimiter)])
+                        self.moveMenu()
+
+                    if self.iterator == 0:
+                        self.delimiter += 1
+                        if player.players['player'+str(self.delimiter)]['state']:
+                            show.table(player.players, player.players['player'+str(self.delimiter)])
+                        else:
+                            break
+                        self.moveMenu()
+
+menu = Menu()
+menu.moveMenu()
