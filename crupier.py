@@ -22,7 +22,6 @@ class Crupier():
         addition += mutation
         addition -= 1
 
-
     def set_mutation_of_as(self, index, enter_list, sum_value): #This method calls the mutation of the As if the value of the cards in total does not exceed 10 points
         
         for index in range(len(enter_list)):
@@ -30,7 +29,7 @@ class Crupier():
                 if sum_value == 10 or sum_value < 12:
                     self.mutation_of_as(index, enter_list, sum_value)
     
-    def get_card(self, set_list):
+    def get_card(self, set_list): #this method takes care of taking a card and returning it with its value
         
         count = 0
         set_list.append(cards.list_of_cards.pop())
@@ -40,7 +39,7 @@ class Crupier():
             count  += cards.value_and_cards[set_list[index]]
         return count
 
-    def get_two_cards(self):
+    def get_two_cards(self):# this method takes two cards to give to the player
 
         value = 0
         for iterator in range(0,2):
@@ -48,17 +47,19 @@ class Crupier():
             value += cards.value_and_cards[self.Player_curret_hand[0][iterator]]
         self.Player_curret_hand.append(value)
 
-    def get_card_for_crupier(self, index):
+    def get_card_for_crupier(self, index): #this method takes care of passing a card to the dealer by passing the value of the card to a variable
 
         self.crupier_curret_hand.append(cards.list_of_cards.pop())
         self.set_mutation_of_as(self.crupier_iterator, self.crupier_curret_hand, self.values_cards_crupier )
         self.values_cards_crupier +=  cards.value_and_cards[self.crupier_curret_hand[index]]
         
-    def crupiers_two_cards(self):
+    def crupiers_two_cards(self): #it takes two cards for dealer just calling the method that takes one card twice
+
         for self.crupier_iterator in range(0, 2):
             self.get_card_for_crupier(self.crupier_iterator)
     
-    def Keep_holding_cards(self):
+    def Keep_holding_cards(self):#This method continues taking dealer cards until reaching 16 points or going over
+
         while self.values_cards_crupier <= 16:
             self.crupier_iterator += 1
             self.get_card_for_crupier(self.crupier_iterator)

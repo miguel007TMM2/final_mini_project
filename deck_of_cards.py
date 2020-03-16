@@ -1,3 +1,16 @@
+"""
+In this module you will find the cards of the game.
+"""
+_author__ = "Miguel Rafael Mateo"
+__copyright__ = "copyright 2020, miguelpc"
+__credits__ = "Miguel Mateo"
+
+__license__ = "GPL"
+__version__ = "0.0.1"
+__maintainer__ = "Miguel Mateo"
+__email__ = "climaxfran@gmail.com"
+__status__ = "Developer"
+
 import random
 
 

@@ -69,32 +69,40 @@ def generate_players():
         generate_players()
 
 
-def status_change():
-
-    player.players['player'+ str(numb_game)]['initial_bet'] = 'Exit'
-    player.players['player'+ str(numb_game)]['bet'] = 'Exit'
-    player.players['player'+ str(numb_game)]['state'] = 'Exit'
-        
-
 def initial_bet():
 
     global numb_game 
     try:
         initial_tokens = str(dice.index) + '00'
-        if player.players['player'+ str(numb_game)]['chip'] > int(initial_tokens):
+        if player.players['player'+ str(numb_game)]['state'] == True:
+            if player.players['player'+ str(numb_game)]['chip'] > int(initial_tokens):
 
-            bet = input('Enter your initial bet, point ' + initial_tokens + ' player ' + player.players['player'+ str(numb_game)]['name'] + " : ")
-            if bet.isdigit():
+                bet = input('Enter your initial bet, point ' + initial_tokens + ' player ' + player.players['player'+ str(numb_game)]['name'] + " : ")
+                if bet.isdigit():
 
-                if int(bet)  >= int(initial_tokens):
+                    if int(bet)  >= int(initial_tokens):
 
-                    player.players['player'+ str(numb_game)]['chip'] = player.players['player'+ str(numb_game)]['chip'] - int(bet)
-                    dealer.dic_bets.update({'code' : { player.players['player'+ str(numb_game)]['name'] : int(bet) }})
-                    player.players['player'+ str(numb_game)]['initial_bet'] = True
-                    player.players['player'+ str(numb_game)]['bet'] = True 
+                        player.players['player'+ str(numb_game)]['chip'] = player.players['player'+ str(numb_game)]['chip'] - int(bet)
+                        dealer.dic_bets.update({'code' : { player.players['player'+ str(numb_game)]['name'] : int(bet) }})
+                        player.players['player'+ str(numb_game)]['initial_bet'] = True
+                        player.players['player'+ str(numb_game)]['bet'] = True 
+
+                    else:
+                        print('Your bet is below accepted')
+                        contue_ask = input('Enter to continue or write exit to finish the game.... ')
+
+                        if contue_ask !=  'exit':
+                            initial_bet()
+
+                        if contue_ask.isdigit() == False:
+
+                            if contue_ask == 'exit':
+                                player.players['player'+ str(numb_game)]['state'] = False
+                                numb_game += 1
+                                initial_bet()
 
                 else:
-                    print('Your bet is below accepted')
+                    print('Did not introduce anything or is it misspelled ')
                     contue_ask = input('Enter to continue or write exit to finish the game.... ')
 
                     if contue_ask !=  'exit':
@@ -103,36 +111,25 @@ def initial_bet():
                     if contue_ask.isdigit() == False:
 
                         if contue_ask == 'exit':
-                            status_change()
+                            player.players['player'+ str(numb_game)]['state'] = False
                             numb_game += 1
                             initial_bet()
 
+                if player.players['player'+ str(numb_game)]['initial_bet'] == True:
+                    numb_game += 1 
+
+                if numb_game > len(player.players):
+                    numb_game = 1 
+
             else:
-                print('Did not introduce anything or is it misspelled ')
-                contue_ask = input('Enter to continue or write exit to finish the game.... ')
-
-                if contue_ask !=  'exit':
-                    initial_bet()
-
-                if contue_ask.isdigit() == False:
-
-                    if contue_ask == 'exit':
-                        status_change()
-                        numb_game += 1
-                        initial_bet()
-
-            if player.players['player'+ str(numb_game)]['initial_bet'] == True:
-                numb_game += 1 
-
-            if numb_game > len(player.players):
-                numb_game = 1 
-
+                print('You can t keep betting for this reason you lost')
+                player.players['player'+ str(numb_game)]['state'] = False
+                for player_card in range (len(player.players['player'+ str(numb_game)]['cards'])):
+                    dealer.cards_cemetery.append(player.players['player'+ str(numb_game)]['cards'].pop())
+                numb_game += 1
         else:
-            print('You can t keep betting for this reason you lost')
-            player.players['player'+ str(numb_game)]['state'] = False
-            for player_card in range (len(player.players['player'+ str(numb_game)]['cards'])):
-                dealer.cards_cemetery.append(player.players['player'+ str(numb_game)]['cards'].pop())
             numb_game += 1
+            initial_bet()
 
     except KeyError:
         show.icon()
@@ -141,11 +138,12 @@ def initial_bet():
 count_players = 2
 
 def bets():
-    
+
+    global count_players
     minimum_bet = 50
 
-    while count_players <= len(player.players):
-        if player.players['player'+ str(count_players)]['state'] == True:
+    if count_players <= len(player.players):
+        if player.players['player'+ str(count_players)]['state'] ==  False:
             if player.players['player'+ str(count_players)]['bet'] == False:
 
                 if player.players['player'+ str(count_players)]['chip'] > minimum_bet:
@@ -157,27 +155,36 @@ def bets():
 
                             player.players['player'+ str(count_players)]['chip'] = player.players['player'+ str(count_players)]['chip'] - int(make_bets)
                             dealer.dic_bets.update({'code' : { player.players['player'+ str(count_players)]['name'] : int(make_bets) }})
-                            player.players['player'+ str(count_players)]['bet'] = True 
+                            player.players['player'+ str(count_players)]['bet'] == True 
                             print(dealer.dic_bets['code'])
                             count_players += 1
+                            bets()
 
                         else:
                             print('Your bet is below accepted')
                             contue_ask = input('Enter to continue or write exit to finish the game.... ')
 
+                            if contue_ask !=  'exit':
+                                bets()
+
                             if contue_ask.isdigit() == False:
-                                
+
                                 if contue_ask == 'exit':
-                                    player.players['player'+ str(count_players)]['state'] = False
+                                    status_change()
                                     count_players += 1
+                                    bets()
                     else:
                         print('What you have entered is not a digit or you did not write it correctly')
-                        
+                        bets()
+
+
                 else:
                     print('You can no longer continue betting and for this reason you will be removed from the game. Enter to continue ....')
                     count_players += 1
+                    bets()
         else:
-            count_players += 1            
+            count_players += 1
+            bets()        
         
 
 def insurance():
@@ -345,8 +352,8 @@ def new_game():
         new_game()
 
 p = generate_players()
-insurance()
 initial_bet()
 bets()
+insurance()
 # system_of_turns()
 # generate_players()
