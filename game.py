@@ -1,18 +1,19 @@
 from players import Player
 from crupier import Crupier
+from dice import Dice
 from deck_of_cards import Deck_of_cards
 from view import View
 import os
 import time
+import keyboard
 dealer = Crupier()
-# dice =  Dice()
-# dice.status()
+dice =  Dice()
+dice.status()
 show = View()
 player = Player()
 cards = Deck_of_cards()
 numb_game = 1
-import keyboard
-import time
+
 
 #This function is responsible for creating the players' keys and assigning them, a name, their initial letters and some cards
 def generate_players():
@@ -173,7 +174,7 @@ def bets():
                             if contue_ask.isdigit() == False:
 
                                 if contue_ask == 'exit':
-                                    status_change()
+                                    player.players['player'+ str(numb_game)]['state'] = False
                                     count_players += 1
                                     bets()
                     else:
@@ -285,40 +286,37 @@ def insurance():
 
 
 
-def new_game():
-    ask_new_game = input('Do you want to play again ? Select 1) Yes or 2) No  for continue : ')
-    os.system("clear")
-    if ask_new_game.isdigit():
-        if int(ask_new_game) == 1 or int(ask_new_game) == 2:
-            if int(ask_new_game) == 1:
-                numb_game = 1
-                generate_players()
-            elif int(ask_new_game):
-                print('Thanks for playing with us.')
-        else:
-            print('your entry is not valid')
-            new_game()
-    else:
-        print('your entry is not valid')
-        new_game()
+# def new_game():
+#     ask_new_game = input('Do you want to play again ? Select 1) Yes or 2) No  for continue : ')
+#     os.system("clear")
+#     if ask_new_game.isdigit():
+#         if int(ask_new_game) == 1 or int(ask_new_game) == 2:
+#             if int(ask_new_game) == 1:
+#                 numb_game = 1
+#                 generate_players()
+#             elif int(ask_new_game):
+#                 print('Thanks for playing with us.')
+#         else:
+#             print('your entry is not valid')
+#             new_game()
+#     else:
+#         print('your entry is not valid')
+#         new_game()
 
-    #         else:
-    #             print("error when inserting movement test with 1 or 2")
+#     #         else:
+#     #             print("error when inserting movement test with 1 or 2")
 
         
-    Win()
+  
 
-generate_players()
+
 
 class Menu:
     def __init__(self):
         self.iterator = 0
         self.delimiter = 1
-        
     def moveMenu(self):
-        
             time.sleep(0.15)
-            
             if self.iterator == 0:
                 show.opcion[1] = "|2) Ask for letters          |" 
                 show.opcion[2] = "|3) Backing out              |" 
@@ -356,17 +354,22 @@ class Menu:
 
                 if keyboard.is_pressed("enter"):
                     if self.iterator == 1:
-                        player.ask_for_letters(self.delimiter)
-                        show.table(player.players, player.players['player'+str(self.delimiter)])
-                        self.moveMenu()
-
+                        if player.players['player'+str(self.delimiter)]['point'] < 21:
+                            player.players['player'+str(self.delimiter)]['point'] = dealer.get_card(player.players['player'+str(self.delimiter)]['cards'])
+                            show.table(player.players, player.players['player'+str(self.delimiter)])
+                            self.moveMenu()
+                        else:
+                            input("You have to stand, your cards have exceeded or is equal to the score of 21")
+                            self.moveMenu()
+            
                     if self.iterator == 0:
-                        self.delimiter += 1
+                        if self.delimiter < len(player.players):
+                            self.delimiter += 1
                         if player.players['player'+str(self.delimiter)]['state']:
                             show.table(player.players, player.players['player'+str(self.delimiter)])
                         else:
                             break
                         self.moveMenu()
-
+generate_players()
 menu = Menu()
 menu.moveMenu()
