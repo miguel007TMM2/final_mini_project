@@ -352,7 +352,7 @@ class Menu:
                         self.iterator = 2
                     self.moveMenu()
 
-                if keyboard.is_pressed("enter"):
+                if keyboard.is_pressed(" "):
                     if self.iterator == 1:
                         if player.players['player'+str(self.delimiter)]['point'] < 21:
                             player.players['player'+str(self.delimiter)]['point'] = dealer.get_card(player.players['player'+str(self.delimiter)]['cards'])
