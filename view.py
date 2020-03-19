@@ -7,13 +7,30 @@ player = Player()
 class View():
     def __init__(self):
         super(View, self).__init__()
-        self.iterator = 0
         self.opcion = ["|1) Stand                    |","|2) Ask for letters          |","|3) Backing out              |"]
-        
+         
     def table(self, player, names):
+        self.player1y2 =player['player1']['icon']+"  "+" ".join(player['player1']['cards'])+"  "+str(player['player1']['point'])+"                             "+player['player2']['icon']+"  "+" ".join(player['player2']['cards'])+"  "+str(player['player2']['point'])
+        self.player3y4 =player['player3']['icon']+"  "+" ".join(player['player3']['cards'])+"  "+str(player['player3']['point'])+"                 "+player['player4']['icon']+"  "+" ".join(player['player4']['cards'])+"  "+str(player['player4']['point'])
+
+       
+
         for space in range(87):
+            if len(self.player1y2) < 75:
+                self.player1y2 += " "
+
+            if len(self.player1y2) >= 75:
+                self.player1y2 = self.player1y2[0:75]
+
+            if len(self.player3y4) < 69:
+                self.player3y4 += " "
+
+            if len(self.player3y4) >= 69:
+                self.player3y4 = self.player3y4[0:69]
+
             if len(names['name']) <= 27:
                 names['name'] += " "
+
             if len(names['name'])> 27:
                 names['name'] = names['name'][0:28]
 
@@ -37,9 +54,11 @@ class View():
               |                                                                                      |
               |                                                                                      |
               |                                                                                      |
-              
-              |                                                                                      |
-              |                    """,player['player1']['cards'],player['player1']['point'],"""  |
+              |           """+self.player1y2+"""|                 
+              |                                                                                      | 
+              |                                                                                      | 
+              |                 """+self.player3y4+"""|                                               
+              |                                                                                      |                    
               |                                                                                      |
  
         
