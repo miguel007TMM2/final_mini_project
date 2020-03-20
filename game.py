@@ -256,7 +256,7 @@ def Win_or_lost():#This function is responsible for selecting a winner
                 print('winner')
                 print('Player : ' , player.players['player'+ str(win)]['name'])
                 print('Card scoring : ' , player.players['player'+ str(win)]['point'])
-                print('Profits : ' ,  reward[1] )
+                print('Profits : ' ,  reward )
                 input('Enter to continue')
                 win += 1
 
@@ -267,7 +267,7 @@ def Win_or_lost():#This function is responsible for selecting a winner
                 print('Tie')
                 print('Player : ' , player.players['player'+ str(win)]['name'])
                 print('Card scoring : ' ,player.players['player'+ str(win)]['point'])
-                print('Profits : ' , bet_back[1] )
+                print('Profits : ' , bet_back)
                 input('Enter to continue')
                 win += 1
 
@@ -276,7 +276,7 @@ def Win_or_lost():#This function is responsible for selecting a winner
                 print('Lost')
                 print('Player : ' , player.players['player'+ str(win)]['name'])
                 print('Card scoring : ' ,player.players['player'+ str(win)]['point'])
-                print('losses : ' , bet_back[1] )
+                print('losses : ' , bet_back )
                 input('Enter to continue')
                 win += 1
 
@@ -286,7 +286,7 @@ def Win_or_lost():#This function is responsible for selecting a winner
                 print('winner')
                 print('Player : ' , player.players['player'+ str(win)]['name'])
                 print('Card scoring : ' , player.players['player'+ str(win)]['point'])
-                print('Profits : ' , reward[1] )
+                print('Profits : ' , reward )
                 input('Enter to continue')
                 win += 1
 
@@ -315,18 +315,17 @@ def new_game():
     #         else:
     #             print("error when inserting movement test with 1 or 2")
 
-        
-  
-
-
 
 class Menu:
     def __init__(self):
+
         self.iterator = 0
         self.delimiter = 1
+
     def moveMenu(self):
             time.sleep(0.15)
             if self.iterator == 0:
+
                 show.opcion[3] = "|4) double the bet           |"
                 show.opcion[1] = "|2) Ask for letters          |" 
                 show.opcion[2] = "|3) Backing out              |" 
@@ -335,6 +334,7 @@ class Menu:
                 show.table(player.players, player.players['player'+str(self.delimiter)])
                 
             elif self.iterator == 1:
+
                 show.opcion[0] = "|1) Stand                    |" 
                 show.opcion[2] = "|3) Backing out              |" 
                 show.opcion[1] = "|2) Ask for letters ◄        |"
@@ -344,13 +344,16 @@ class Menu:
             
             
             elif self.iterator == 2:
+
                 show.opcion[0] = "|1) Stand                    |" 
                 show.opcion[1] = "|2) Ask for letters          |" 
                 show.opcion[2] = "|3) Backing out  ◄           |"
                 show.opcion[3] = "|4) double the bet           |"
                 os.system("clear")
                 show.table(player.players,  player.players['player'+str(self.delimiter)])
+
             elif self.iterator == 3:
+
                 show.opcion[0] = "|1) Stand                    |" 
                 show.opcion[1] = "|2) Ask for letters          |" 
                 show.opcion[2] = "|3) Backing out              |"
@@ -361,33 +364,46 @@ class Menu:
                 
 
             while True:
+
                 if keyboard.is_pressed("down"):
                     self.iterator += 1
+
                     if self.iterator == 4:
                         self.iterator = 0
+
                     self.moveMenu()
 
                 elif keyboard.is_pressed("up"):
                     self.iterator -= 1
+
                     if self.iterator == -1:
                         self.iterator = 3
+
                     self.moveMenu()
 
                 if keyboard.is_pressed(" "):
+
                     if self.iterator == 1:
+
                         if player.players['player'+str(self.delimiter)]['point'] < 21:
+
                             player.players['player'+str(self.delimiter)]['point'] = dealer.get_card(player.players['player'+str(self.delimiter)]['cards'])
                             show.table(player.players, player.players['player'+str(self.delimiter)])
                             self.moveMenu()
+
                         else:
+
                             input("You have to stand, your cards have exceeded or is equal to the score of 21")
                             self.moveMenu()
             
                     if self.iterator == 0:
+
                         if self.delimiter < len(player.players):
                             self.delimiter += 1
+
                         if player.players['player'+str(self.delimiter)]['state']:
                             show.table(player.players, player.players['player'+str(self.delimiter)])
+                            
                         else:
                             break
                         self.moveMenu()
