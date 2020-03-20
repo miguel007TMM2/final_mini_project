@@ -315,6 +315,7 @@ class Menu:
     def __init__(self):
         self.iterator = 0
         self.delimiter = 1
+        self.cards_crupier_Value = cards.value_and_cards[dealer.crupier_curret_hand[0]]
     def moveMenu(self):
             time.sleep(0.15)
             if self.iterator == 0:
@@ -323,7 +324,7 @@ class Menu:
                 show.opcion[2] = "|3) Backing out              |" 
                 show.opcion[0] = "|1) Stand  ◄                 |"
                 os.system("clear")
-                show.table(player.players, player.players['player'+str(self.delimiter)])
+                show.table(player.players, player.players['player'+str(self.delimiter)], dealer.crupier_curret_hand[0],self.cards_crupier_Value)
                 
             elif self.iterator == 1:
                 show.opcion[0] = "|1) Stand                    |" 
@@ -331,7 +332,7 @@ class Menu:
                 show.opcion[1] = "|2) Ask for letters ◄        |"
                 show.opcion[3] = "|4) double the bet           |"
                 os.system("clear")
-                show.table(player.players, player.players['player'+str(self.delimiter)])
+                show.table(player.players, player.players['player'+str(self.delimiter)], dealer.crupier_curret_hand[0],self.cards_crupier_Value)
             
             
             elif self.iterator == 2:
@@ -340,14 +341,14 @@ class Menu:
                 show.opcion[2] = "|3) Backing out  ◄           |"
                 show.opcion[3] = "|4) double the bet           |"
                 os.system("clear")
-                show.table(player.players,  player.players['player'+str(self.delimiter)])
+                show.table(player.players,  player.players['player'+str(self.delimiter), dealer.crupier_curret_hand[0],self.cards_crupier_Value])
             elif self.iterator == 3:
                 show.opcion[0] = "|1) Stand                    |" 
                 show.opcion[1] = "|2) Ask for letters          |" 
                 show.opcion[2] = "|3) Backing out              |"
                 show.opcion[3] = "|4) double the bet ◄         |"
                 os.system("clear")
-                show.table(player.players,  player.players['player'+str(self.delimiter)])
+                show.table(player.players,  player.players['player'+str(self.delimiter), dealer.crupier_curret_hand[0],self.cards_crupier_Value])
            
                 
 
@@ -368,7 +369,7 @@ class Menu:
                     if self.iterator == 1:
                         if player.players['player'+str(self.delimiter)]['point'] < 21:
                             player.players['player'+str(self.delimiter)]['point'] = dealer.get_card(player.players['player'+str(self.delimiter)]['cards'])
-                            show.table(player.players, player.players['player'+str(self.delimiter)])
+                            show.table(player.players, player.players['player'+str(self.delimiter)], dealer.crupier_curret_hand[0],self.cards_crupier_Value)
                             self.moveMenu()
                         else:
                             input("You have to stand, your cards have exceeded or is equal to the score of 21")
@@ -378,10 +379,13 @@ class Menu:
                         if self.delimiter < len(player.players):
                             self.delimiter += 1
                         if player.players['player'+str(self.delimiter)]['state']:
-                            show.table(player.players, player.players['player'+str(self.delimiter)])
+                            show.table(player.players, player.players['player'+str(self.delimiter)], dealer.crupier_curret_hand[0],self.cards_crupier_Value)
                         else:
                             break
+                        
                         self.moveMenu()
+            show.table(player.players,  player.players['player1'], " ".join(dealer.crupier_curret_hand),dealer.values_cards_crupier)    
+                        
 generate_players()
 menu = Menu()
 menu.moveMenu()
