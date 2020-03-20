@@ -7,8 +7,6 @@ class Crupier():
 
     Player_curret_hand = [[]]
     values_cards_crupier = 0
-    dic_bets = {}
-    insurance_bets = {}
     cards_cemetery = []
 
     def __init__(self): #Each time the class is called this will be executed by granting the dealer 2 cards
