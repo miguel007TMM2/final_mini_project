@@ -246,12 +246,13 @@ def Win_or_lost():#This function is responsible for selecting a winner
             elif player.players['player'+ str(win)]['bet'][1] == None:
                 kind_reward = 'initial_bet'
             
-            reward = player.players['player'+ str(win)][kind_reward] * 2
-            bet_back = player.players['player'+ str(win)][kind_reward]     
+            reward = player.players['player'+ str(win)][kind_reward][1] * 2
+            bet_back = player.players['player'+ str(win)][kind_reward][1]     
 
             if player.players['player'+ str(win)]['point'] > dealer.values_cards_crupier and player.players['player'+ str(win)]['point'] < 21:
 
                 player.players['player'+ str(win)]['chip'] = player.players['player'+ str(win)]['chip'] + reward
+
                 print('winner')
                 print('Player : ' , player.players['player'+ str(win)]['name'])
                 print('Card scoring : ' , player.players['player'+ str(win)]['point'])
@@ -326,6 +327,7 @@ class Menu:
     def moveMenu(self):
             time.sleep(0.15)
             if self.iterator == 0:
+                show.opcion[3] = "|4) double the bet           |"
                 show.opcion[1] = "|2) Ask for letters          |" 
                 show.opcion[2] = "|3) Backing out              |" 
                 show.opcion[0] = "|1) Stand  ◄                 |"
@@ -336,6 +338,7 @@ class Menu:
                 show.opcion[0] = "|1) Stand                    |" 
                 show.opcion[2] = "|3) Backing out              |" 
                 show.opcion[1] = "|2) Ask for letters ◄        |"
+                show.opcion[3] = "|4) double the bet           |"
                 os.system("clear")
                 show.table(player.players, player.players['player'+str(self.delimiter)])
             
@@ -343,21 +346,31 @@ class Menu:
             elif self.iterator == 2:
                 show.opcion[0] = "|1) Stand                    |" 
                 show.opcion[1] = "|2) Ask for letters          |" 
-                show.opcion[2] = "|3) Backing out  ◄           |" 
+                show.opcion[2] = "|3) Backing out  ◄           |"
+                show.opcion[3] = "|4) double the bet           |"
                 os.system("clear")
                 show.table(player.players,  player.players['player'+str(self.delimiter)])
+            elif self.iterator == 3:
+                show.opcion[0] = "|1) Stand                    |" 
+                show.opcion[1] = "|2) Ask for letters          |" 
+                show.opcion[2] = "|3) Backing out              |"
+                show.opcion[3] = "|4) double the bet ◄         |"
+                os.system("clear")
+                show.table(player.players,  player.players['player'+str(self.delimiter)])
+           
+                
 
             while True:
                 if keyboard.is_pressed("down"):
                     self.iterator += 1
-                    if self.iterator == 3:
+                    if self.iterator == 4:
                         self.iterator = 0
                     self.moveMenu()
 
                 elif keyboard.is_pressed("up"):
                     self.iterator -= 1
                     if self.iterator == -1:
-                        self.iterator = 2
+                        self.iterator = 3
                     self.moveMenu()
 
                 if keyboard.is_pressed(" "):
