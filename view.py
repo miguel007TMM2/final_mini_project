@@ -10,6 +10,18 @@ class View():
         self.opcion = ["|1) Stand                    |","|2) Ask for letters          |","|3) Backing out              |","|4) double the bet           |"]
         
     def table(self, player, current_player, cupier,point_crup):
+        self.spoint = ""
+        self.schips = ""
+        if len(str(current_player['chip'])) < 5:
+            self.schips += " "
+        if current_player['initial_bet'][0] == True:
+            self.current_bet = str(current_player['initial_bet'][1])
+
+        else:
+            self.current_bet = str(current_player['bet'][1]) 
+            
+        if len(str(current_player['point'])) < 2:
+            self.spoint += " "    
             
         self.curret_cards = " ".join(current_player['cards'])
         self.crupier_info = str(cupier)+" Point: "+str(point_crup)
@@ -44,7 +56,13 @@ class View():
 
             if len(self.crupier_info)>51:
                 self.crupier_info = self.crupier_info[0:52]
-       
+
+            if len(self.current_bet) < 19:
+                self.current_bet += " "
+
+            if len(self.current_bet) > 19:
+                self.current_bet = self.current_bet[0:19]
+
         self.icon_table = print("""
               ________________________________________________________________________________________ __________________________
               |      |   ________                                                  ________  |       |                            | 
@@ -55,10 +73,10 @@ class View():
               |         \_________________________________________________________________/          """+self.opcion[2]+"""         
               |                                                                                      """+self.opcion[3]+"""           
               |                                 """,self.crupier_info,"""|                            |
-              |                                                                                      |"""+"Point: ",current_player['point'],"""                 |    
-              |                                                                                      |"""+"Chips: ",current_player['chip'],"""              |   
+              |                                                                                      |"""+"Point: ",current_player['point'],self.spoint,"""                |    
+              |                                                                                      |"""+"Chips: ",current_player['chip'],self.schips,"""             |   
               |                   ____  _            _       _            _                          |"""+"Cards: ",self.curret_cards,"""|   
-              |                  | __ )| | __ _  ___| | __  | | __ _  ___| | __                      |"""+"Bet:   ",current_player['bet'][1],"""            |   
+              |                  | __ )| | __ _  ___| | __  | | __ _  ___| | __                      |"""+"Bet:   ",self.current_bet,"""|   
               |                  |  _ \| |/ _` |/ __| |/ _  | |/ _` |/ __| |/ /                      |___________________________ |   
               |                  | |_) | | (_| | (__|   | |_| | (_| | (__|   <                       |  
               |                  |____/|_|\__,_|\___|_|\_\___/ \__,_|\___|_|\_\                      |  

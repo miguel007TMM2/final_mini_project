@@ -60,8 +60,8 @@ def generate_players():
                                 'chip': 10000,
                                 'point': dealer.Player_curret_hand[1],
                                 'cards': dealer.Player_curret_hand[0],
-                                'initial_bet' : [False , None], 
-                                'bet': [False, None],
+                                'initial_bet' : [False , 0], 
+                                'bet': [False, 0],
                                 'insurance': None}})
 
                             dealer.Player_curret_hand  = [[]]
@@ -200,6 +200,12 @@ def bets():
             count_players += 1
             bets()        
         
+def double_bet(count):
+    player.players['player'+ str(count)]['chip'] = player.players['player'+ str(count)]['chip'] - player.players['player'+ str(count)]['initial_bet'][1]
+    player.players['player'+ str(count)]['chip'] = player.players['player'+ str(count)]['chip'] - player.players['player'+ str(count)]['bet'][1]
+
+    player.players['player'+ str(count)]['initial_bet'][1] = player.players['player'+ str(count)]['initial_bet'][1] * 2
+    player.players['player'+ str(count)]['bet'][1] = player.players['player'+ str(count)]['bet'][1] * 2
 
 def insurance():
 
@@ -245,15 +251,15 @@ def Win_or_lost():#This function is responsible for selecting a winner
 
     win = 1
     index = 1
-    kind_reward = None
+    kind_reward = 0
 
     while win <= len(player.players):
     
         if player.players['player'+ str(win)]['state'] == True :
 
-            if player.players['player'+ str(win)]['initial_bet'][1] == None:
+            if player.players['player'+ str(win)]['initial_bet'][1] == 0:
                 kind_reward = 'bet'
-            elif player.players['player'+ str(win)]['bet'][1] == None:
+            elif player.players['player'+ str(win)]['bet'][1] == 0:
                 kind_reward = 'initial_bet'
             
             reward = player.players['player'+ str(win)][kind_reward][1] * 2
@@ -305,25 +311,6 @@ def Win_or_lost():#This function is responsible for selecting a winner
 
 
 
-def new_game():
-    ask_new_game = input('Do you want to play again ? Select 1) Yes or 2) No  for continue : ')
-    os.system("clear")
-    if ask_new_game.isdigit():
-        if int(ask_new_game) == 1 or int(ask_new_game) == 2:
-            if int(ask_new_game) == 1:
-                numb_game = 1
-                generate_players()
-            elif int(ask_new_game):
-                print('Thanks for playing with us.')
-        else:
-            print('your entry is not valid')
-            new_game()
-    else:
-        print('your entry is not valid')
-        new_game()
-
-    #         else:
-    #             print("error when inserting movement test with 1 or 2")
 
 
 class Menu:
@@ -332,6 +319,7 @@ class Menu:
         self.iterator = 0
         self.delimiter = 1
         self.cards_crupier_Value = cards.value_and_cards[dealer.crupier_curret_hand[0]]
+
     def moveMenu(self):
             time.sleep(0.15)
             if player.players['player'+str(self.delimiter)]['state']:
@@ -421,6 +409,10 @@ class Menu:
                             
                             self.moveMenu()
 
+                        if self.iterator == 3:
+                            double_bet(self.delimiter)
+                            self.moveMenu()
+
                         if self.iterator == 2:
                             
 
@@ -449,9 +441,50 @@ class Menu:
                 show.icon()
                 os.sys.exit()
                                      
+def new_game():
+    ask_new_game = input('Do you want to play again ? Select 1) Yes or 2) No  for continue : ')
+    os.system("clear")
+    if ask_new_game.isdigit():
+        if int(ask_new_game) == 1 or int(ask_new_game) == 2:
+            if int(ask_new_game) == 1:
+                numb_game = 1
+                cards
+                for reset in range(1,5):
+                   player.players['player'+str(reset)]['cards'] = ""
+                   player.players['player'+str(reset)]['point'] = ""
+                   player.players['player'+str(reset)]['bet'] = [False , 0]
+                   player.players['player'+str(reset)]['initial_bet'] = [False , 0]
+
+                   if player.players['player'+str(reset)]['state']:
+                        dealer.get_two_cards()
+                        player.players['player'+str(reset)]['cards'] = dealer.Player_curret_hand[0]
+                        player.players['player'+str(reset)]['point'] = dealer.Player_curret_hand[1]
+                        dealer.Player_curret_hand  = [[]]
+                        
+                dealer.crupier_curret_hand = []
+                dealer.values_cards_crupier = 0
+                dealer.crupiers_two_cards()
+                initial_bet()
+                menu = Menu()
+                menu.moveMenu()
+                
+            elif int(ask_new_game):
+                print('Thanks for playing with us.')
+        else:
+            print('your entry is not valid')
+            new_game()
+    else:
+        print('your entry is not valid')
+        new_game()
+
+    #         else:
+    #             print("error when inserting movement test with 1 or 2")
+
+
 generate_players()
 initial_bet()
 bets()
 menu = Menu()
 menu.moveMenu()
 Win_or_lost()
+new_game()
