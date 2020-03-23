@@ -28,10 +28,20 @@ def generate_players():
             
             for delimiter in range(int(limit_players)):
                 dealer.get_two_cards()
-                name_of_player = input("Entry name of player"+str(delimiter+1)+" ➤ ")
-                os.system("clear")
-                print("Select you icon")
+                def select_name():
+                    global name_of_player
+                    
+                    name_of_player = input("Entry name of player"+str(delimiter+1)+" ➤ ")
+                    os.system("clear")
+                    if len(name_of_player) >= 10:
+                        print("error the length of your name is too long test with a name less than 10 digits")
+                        select_name()
 
+                    else:
+                        return name_of_player
+                select_name()
+                print("Select you icon")
+               
                 def select_icon():
                     number_icon = 1
                     for icons in player.icono_for_player:
@@ -324,94 +334,124 @@ class Menu:
         self.cards_crupier_Value = cards.value_and_cards[dealer.crupier_curret_hand[0]]
     def moveMenu(self):
             time.sleep(0.15)
-            if self.iterator == 0:
+            if player.players['player'+str(self.delimiter)]['state']:
+                if self.iterator == 0:
 
-                show.opcion[3] = "|4) double the bet           |"
-                show.opcion[1] = "|2) Ask for letters          |" 
-                show.opcion[2] = "|3) Backing out              |" 
-                show.opcion[0] = "|1) Stand  ◄                 |"
-                os.system("clear")
-                show.table(player.players, player.players['player'+str(self.delimiter)], dealer.crupier_curret_hand[0],self.cards_crupier_Value)
+                    show.opcion[3] = "|4) double the bet           |"
+                    show.opcion[1] = "|2) Ask for letters          |" 
+                    show.opcion[2] = "|3) Backing out              |" 
+                    show.opcion[0] = "|1) Stand  ◄                 |"
+                    os.system("clear")
+                    show.table(player.players, player.players['player'+str(self.delimiter)], dealer.crupier_curret_hand[0],self.cards_crupier_Value)
+                    
+                elif self.iterator == 1:
+
+                    show.opcion[0] = "|1) Stand                    |" 
+                    show.opcion[2] = "|3) Backing out              |" 
+                    show.opcion[1] = "|2) Ask for letters ◄        |"
+                    show.opcion[3] = "|4) double the bet           |"
+                    os.system("clear")
+                    show.table(player.players, player.players['player'+str(self.delimiter)], dealer.crupier_curret_hand[0],self.cards_crupier_Value)
                 
-            elif self.iterator == 1:
-
-                show.opcion[0] = "|1) Stand                    |" 
-                show.opcion[2] = "|3) Backing out              |" 
-                show.opcion[1] = "|2) Ask for letters ◄        |"
-                show.opcion[3] = "|4) double the bet           |"
-                os.system("clear")
-                show.table(player.players, player.players['player'+str(self.delimiter)], dealer.crupier_curret_hand[0],self.cards_crupier_Value)
-            
-            
-            elif self.iterator == 2:
-
-                show.opcion[0] = "|1) Stand                    |" 
-                show.opcion[1] = "|2) Ask for letters          |" 
-                show.opcion[2] = "|3) Backing out  ◄           |"
-                show.opcion[3] = "|4) double the bet           |"
-                os.system("clear")
-                show.table(player.players,  player.players['player'+str(self.delimiter), dealer.crupier_curret_hand[0],self.cards_crupier_Value])
-            elif self.iterator == 3:
-
-                show.opcion[0] = "|1) Stand                    |" 
-                show.opcion[1] = "|2) Ask for letters          |" 
-                show.opcion[2] = "|3) Backing out              |"
-                show.opcion[3] = "|4) double the bet ◄         |"
-                os.system("clear")
-                show.table(player.players,  player.players['player'+str(self.delimiter), dealer.crupier_curret_hand[0],self.cards_crupier_Value])
-           
                 
+                elif self.iterator == 2:
 
-            while True:
+                    show.opcion[0] = "|1) Stand                    |" 
+                    show.opcion[1] = "|2) Ask for letters          |" 
+                    show.opcion[2] = "|3) Backing out  ◄           |"
+                    show.opcion[3] = "|4) double the bet           |"
+                    os.system("clear")
+                    show.table(player.players,  player.players['player'+str(self.delimiter)], dealer.crupier_curret_hand[0],self.cards_crupier_Value)
+                elif self.iterator == 3:
 
-                if keyboard.is_pressed("down"):
-                    self.iterator += 1
-
-                    if self.iterator == 4:
-                        self.iterator = 0
-
-                    self.moveMenu()
-
-                elif keyboard.is_pressed("up"):
-                    self.iterator -= 1
-
-                    if self.iterator == -1:
-                        self.iterator = 3
-
-                    self.moveMenu()
-
-                if keyboard.is_pressed(" "):
-
-                    if self.iterator == 1:
-
-                        if player.players['player'+str(self.delimiter)]['point'] < 21:
-
-                            player.players['player'+str(self.delimiter)]['point'] = dealer.get_card(player.players['player'+str(self.delimiter)]['cards'])
-                            show.table(player.players, player.players['player'+str(self.delimiter)], dealer.crupier_curret_hand[0],self.cards_crupier_Value)
-                            self.moveMenu()
-
-                        else:
-
-                            input("You have to stand, your cards have exceeded or is equal to the score of 21")
-                            self.moveMenu()
+                    show.opcion[0] = "|1) Stand                    |" 
+                    show.opcion[1] = "|2) Ask for letters          |" 
+                    show.opcion[2] = "|3) Backing out              |"
+                    show.opcion[3] = "|4) double the bet ◄         |"
+                    os.system("clear")
+                    show.table(player.players,  player.players['player'+str(self.delimiter)], dealer.crupier_curret_hand[0],self.cards_crupier_Value)
             
-                    if self.iterator == 0:
+                    
 
-                        if self.delimiter < len(player.players):
-                            self.delimiter += 1
-
-                        if player.players['player'+str(self.delimiter)]['state']:
-                            show.table(player.players, player.players['player'+str(self.delimiter)], dealer.crupier_curret_hand[0],self.cards_crupier_Value)
-                        else:
-                            break
+                while True:
+                    if self.delimiter >= 5:
+                        break 
                         
+                    
+                    if keyboard.is_pressed("down"):
+                        self.iterator += 1
+
+                        if self.iterator == 4:
+                            self.iterator = 0
+
                         self.moveMenu()
-            show.table(player.players,  player.players['player1'], " ".join(dealer.crupier_curret_hand),dealer.values_cards_crupier)    
+
+                    elif keyboard.is_pressed("up"):
+                        self.iterator -= 1
+
+                        if self.iterator == -1:
+                            self.iterator = 3
+
+                        self.moveMenu()
+
+                    if keyboard.is_pressed(" "):
+
+                        if self.iterator == 1:
+
+                            if player.players['player'+str(self.delimiter)]['point'] < 21:
+
+                                player.players['player'+str(self.delimiter)]['point'] = dealer.get_card(player.players['player'+str(self.delimiter)]['cards'])
+                                show.table(player.players, player.players['player'+str(self.delimiter)], dealer.crupier_curret_hand[0],self.cards_crupier_Value)
+                                self.moveMenu()
+
+                            else:
+
+                                input("You have to stand, your cards have exceeded or is equal to the score of 21")
+                                self.moveMenu()
+                
+                        if self.iterator == 0:
+
+                            if self.delimiter < len(player.players):
+                                self.delimiter += 1
+
+                            if player.players['player'+str(self.delimiter)]['state']:
+                                show.table(player.players, player.players['player'+str(self.delimiter)], dealer.crupier_curret_hand[0],self.cards_crupier_Value)
+                            else:
+                                break
+                            
+                            self.moveMenu()
+
+                        if self.iterator == 2:
+                            
+
+                            player.players['player'+str(self.delimiter)]['state'] = False
+                            player.players['player'+str(self.delimiter)]['name'] =  ""
+                            player.players['player'+str(self.delimiter)]['icon'] =  ""
+                            player.players['player'+str(self.delimiter)]['chip'] =  ""
+                            player.players['player'+str(self.delimiter)]['point'] = ""
+                            player.players['player'+str(self.delimiter)]['cards'] = ""
+                            player.players['player'+str(self.delimiter)]['bet'] = [False," "]
+                            player.players['player'+str(self.delimiter)]['initial_bet'] = [False, " "]
+                            
                         
+                                
+                            self.delimiter += 1
+                            self.iterator = 0
+                            self.moveMenu()  
+                dealer.Keep_holding_cards()
+                show.table(player.players,  player.players['player1'], " ".join(dealer.crupier_curret_hand),dealer.values_cards_crupier)
+                                 
+            
+                
+
+
+            if player.players['player1']['state'] == False and player.players['player2']['state'] == False and player.players['player3']['state'] == False and player.players['player4']['state'] == False:
+                show.icon()
+                os.sys.exit()
+                                     
 generate_players()
 initial_bet()
 bets()
+menu = Menu()
+menu.moveMenu()
 Win_or_lost()
-# menu = Menu()
-# menu.moveMenu()
-    
