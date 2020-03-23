@@ -28,56 +28,103 @@ def generate_players():
             os.system("clear")
             
             for delimiter in range(int(limit_players)):
+
                 dealer.get_two_cards()
-                name_of_player = input("Entry name of player"+str(delimiter+1)+" ➤ ")
-                os.system("clear")
+
+                def select_name():
+
+                    global name_of_player
+                    name_of_player = input("Entry name of player"+str(delimiter+1)+" ➤ ")
+                    
+                    os.system("clear")
+                    if len(name_of_player) > 10:
+
+                        print('error the length of your name is too long test with a name less than 10 digits') 
+                        select_name()
+
+                    else:
+                        return  name_of_player
+                select_name()
+
                 print("Select you icon")
 
                 def select_icon():
+
                     number_icon = 1
+
                     for icons in player.icono_for_player:
+
                         print(number_icon,icons)
+
                         number_icon += 1
+
                     ask_for_icon = input("insert a number of you icon ➤ ")
+
                     os.system("clear")
+
                     if ask_for_icon.isdigit():
+
                         if int(ask_for_icon) > 0 and int(ask_for_icon) <= 8:
+
                             player.players.update({
                                 
                                 'player'+str(delimiter+1):{ 
+
                                 'name':  name_of_player,
+
                                 'icon':  player.icono_for_player[int(ask_for_icon)-1],
+                                
                                 'state': True,
+
                                 'chip': 10000,
+
                                 'point': dealer.Player_curret_hand[1],
+
                                 'cards': dealer.Player_curret_hand[0],
-                                'initial_bet' : [False , None], 
+
+                                'initial_bet' : [False , None],
+
                                 'bet': [False, None],
-                                'insurance': None}})
+
+                                'insurance': None
+                                                            }})
 
                             dealer.Player_curret_hand  = [[]]
+
                         else:
+
                             os.system("clear")
-                            input("error the option you have inserted is not valid test with a number from 1 to 5 press enter for continue") 
+
+                            input("error the option you have inserted is not valid test with a number from 1 to 8 press enter for continue")
+
                             select_icon()  
                     else:
-                        input("error the option you have inserted is not valid test with a number from 1 to 5 press enter for continue") 
+                        input("error the option you have inserted is not valid test with a number from 1 to 8 press enter for continue")
+
                         select_icon()
+
                 select_icon()
         else:
+
             os.system("clear")
+
             input("Error entering the number of players, try a number from 1 to 4 enter to continue... ")
+
             generate_players()
 
     else:
+
         os.system("clear")
-        input("Error entering the number of players, try a number from 1 to 4 enter to continue...") 
+
+        input("Error entering the number of players, try a number from 1 to 4 enter to continue...")
+
         generate_players()
 
 
 def initial_bet():
 
     global numb_game 
+    
     try:
         initial_tokens = str(dice.index) + '00'
 
@@ -95,6 +142,10 @@ def initial_bet():
                         player.players['player'+ str(numb_game)]['initial_bet'][1] = int(bet)
                         player.players['player'+ str(numb_game)]['initial_bet'][0] = True
                         player.players['player'+ str(numb_game)]['bet'][0] = True 
+
+                        numb_game += 1
+                                
+                        initial_bet()
 
                     else:
 
@@ -212,6 +263,13 @@ def bets():
 
             bets()        
         
+def double_bet(count):
+
+    player.players['player'+ str(count)]['chip'] = player.players['player'+ str(count)]['chip'] - player.players['player'+ str(count)]['initial_bet'][1]
+    player.players['player'+ str(count)]['chip'] = player.players['player'+ str(count)]['chip'] - player.players['player'+ str(count)]['bet'][1]
+
+    player.players['player'+ str(count)]['initial_bet'][1] = player.players['player'+ str(count)]['initial_bet'][1] * 2
+    player.players['player'+ str(count)]['bet'][1] = player.players['player'+ str(count)]['bet'][1] * 2
 
 def insurance():
 
@@ -349,8 +407,8 @@ def new_game():
         print('your entry is not valid')
         new_game()
 
-        else:
-            print("error when inserting movement test with 1 or 2")
+        # else:
+        #     print("error when inserting movement test with 1 or 2")
 
 
 class Menu:
@@ -405,8 +463,6 @@ class Menu:
 
                 show.table(player.players,  player.players['player'+str(self.delimiter), dealer.crupier_curret_hand[0],self.cards_crupier_Value])
            
-                
-
             while True:
 
                 if keyboard.is_pressed("down"):
@@ -451,6 +507,11 @@ class Menu:
                             break
                         
                         self.moveMenu()
+
+                    if self.iterator == 3:
+                        
+                        pass
+
             show.table(player.players,  player.players['player1'], " ".join(dealer.crupier_curret_hand),dealer.values_cards_crupier)    
                         
 generate_players()

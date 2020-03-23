@@ -5,21 +5,34 @@ lis_cards = Deck_of_cards()
 
 #This class charge of generating the players
 class Player(Crupier,Deck_of_cards):
+
     def __init__(self):
+
         super(Player, self).__init__()
         self.players = {}
+
         for rename in range(1,5):
+
             self.players.update({
-                
+
             'player'+str(rename):{ 
+
             'name':  "",
+
             'icon':  "",
+
             'state': False,
+
             'chip':  "",
+
             'point': "",
+
             'cards':  "",
+
             'initial_bet' : False, 
-            'bet': False }})
+
+            'bet': False 
+                                    }})
 
         self.icono_for_player = ['☠', '☢', '☣' ,'♞','☯', '♪', '❆','✟']
         self.indexC = 0
