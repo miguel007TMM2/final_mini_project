@@ -7,14 +7,13 @@ class Crupier():
 
     Player_curret_hand = [[]]
     values_cards_crupier = 0
-    dic_bets = {}
-    insurance_bets = {}
     cards_cemetery = []
 
     def __init__(self): #Each time the class is called this will be executed by granting the dealer 2 cards
         self.crupier_curret_hand = []
         self.crupier_iterator = 0
         self.crupiers_two_cards()
+        self.set_mutation_of_as(self.crupier_iterator, self.crupier_curret_hand, self.values_cards_crupier)
 
     def mutation_of_as(self, index, put_list, addition): #This method changes the value of the As
     
