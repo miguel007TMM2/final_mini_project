@@ -6,6 +6,7 @@ from view import View
 import os
 import time
 import keyboard
+
 dealer = Crupier()
 dice =  Dice()
 dice.status()
@@ -79,10 +80,13 @@ def initial_bet():
     global numb_game 
     try:
         initial_tokens = str(dice.index) + '00'
+
         if player.players['player'+ str(numb_game)]['state'] == True:
+
             if player.players['player'+ str(numb_game)]['chip'] > int(initial_tokens):
 
                 bet = input('Enter your initial bet, point ' + initial_tokens + ' player ' + player.players['player'+ str(numb_game)]['name'] + " : ")
+
                 if bet.isdigit():
 
                     if int(bet)  >= int(initial_tokens):
@@ -93,6 +97,7 @@ def initial_bet():
                         player.players['player'+ str(numb_game)]['bet'][0] = True 
 
                     else:
+
                         print('Your bet is below accepted')
                         contue_ask = input('Enter to continue or write exit to finish the game.... ')
 
@@ -102,8 +107,10 @@ def initial_bet():
                         if contue_ask.isdigit() == False:
 
                             if contue_ask == 'exit':
+
                                 player.players['player'+ str(numb_game)]['state'] = False
                                 numb_game += 1
+                                
                                 initial_bet()
 
                 else:
@@ -148,12 +155,15 @@ def bets():
     minimum_bet = 50
 
     if count_players <= len(player.players):
+
         if player.players['player'+ str(count_players)]['state'] == True:
+
             if player.players['player'+ str(count_players)]['bet'][0] == False:
 
                 if player.players['player'+ str(count_players)]['chip'] > minimum_bet:
 
                     make_bets = input('the minimum bet is '+ str(minimum_bet) + '. Enter your bet player ' + player.players['player'+ str(count_players)]['name'] + ' : ')
+
                     if make_bets.isdigit():
 
                         if int(make_bets) >= minimum_bet:
@@ -161,10 +171,13 @@ def bets():
                             player.players['player'+ str(count_players)]['chip'] = player.players['player'+ str(count_players)]['chip'] - int(make_bets)
                             player.players['player'+ str(count_players)]['bet'][1] = int(make_bets)
                             player.players['player'+ str(count_players)]['bet'][0] = True 
+                            
                             count_players += 1
+
                             bets()
 
                         else:
+
                             print('Your bet is below accepted')
                             contue_ask = input('Enter to continue or write exit to finish the game.... ')
 
@@ -174,20 +187,29 @@ def bets():
                             if contue_ask.isdigit() == False:
 
                                 if contue_ask == 'exit':
+
                                     player.players['player'+ str(numb_game)]['state'] = False
                                     count_players += 1
+
                                     bets()
                     else:
+
                         print('What you have entered is not a digit or you did not write it correctly')
+
                         bets()
 
 
                 else:
+
                     print('You can no longer continue betting and for this reason you will be removed from the game. Enter to continue ....')
+
                     count_players += 1
+
                     bets()
         else:
+
             count_players += 1
+
             bets()        
         
 
@@ -197,37 +219,49 @@ def insurance():
     if cards.value_and_cards [dealer.crupier_curret_hand[0]] == 1 or cards.value_and_cards [dealer.crupier_curret_hand[0]] == 11:
 
         while verification <= len(player.players):
+
             if player.players['player'+ str(verification)]['chip'] >= 50:
 
                 print('The first dealer card is an As. Do you want to make a insurance bet ? ' + 'player ' +  str(player.players['player'+ str(verification)]['name']))
                 bet_insurance = input('Between your insurance bet  or press enter to not bet  : ')
 
                 if bet_insurance.isdigit():
+
                     if int(bet_insurance) <= player.players['player'+ str(verification)]['chip']:
+
                         player.players['player'+ str(verification)]['chip'] = player.players['player'+ str(verification)]['chip'] - int(bet_insurance)
                         player.players['player'+ str(verification)]['insurance'] = int(bet_insurance) 
 
                         print('your bet is made')
+
                         verification += 1
                         time.sleep(0.30)
+
                         os.system("clear")
 
                     else:
                         print('you don t have that many points to bet, write your bet again')
 
                 elif bet_insurance == '':
+
                     print('you didn t bet for sure')
+
                     verification += 1
                     time.sleep(0.30)
+
                     os.system("clear")
 
                 else:
+
                     print('incorrect values')
 
             else:
+
                 print( str(player.players['player'+ str(verification)]['name'])+ 'you lose because you don t have enough to keep betting')
+
                 verification += 1
                 time.sleep(0.30)
+
                 os.system("clear")
 
 
@@ -243,6 +277,7 @@ def Win_or_lost():#This function is responsible for selecting a winner
 
             if player.players['player'+ str(win)]['initial_bet'][1] == None:
                 kind_reward = 'bet'
+
             elif player.players['player'+ str(win)]['bet'][1] == None:
                 kind_reward = 'initial_bet'
             
@@ -258,6 +293,7 @@ def Win_or_lost():#This function is responsible for selecting a winner
                 print('Card scoring : ' , player.players['player'+ str(win)]['point'])
                 print('Profits : ' ,  reward )
                 input('Enter to continue')
+
                 win += 1
 
             elif player.players['player'+ str(win)]['point'] == dealer.values_cards_crupier and player.players['player'+ str(win)]['point'] < 21:
@@ -269,6 +305,7 @@ def Win_or_lost():#This function is responsible for selecting a winner
                 print('Card scoring : ' ,player.players['player'+ str(win)]['point'])
                 print('Profits : ' , bet_back)
                 input('Enter to continue')
+
                 win += 1
 
             elif player.players['player'+ str(win)]['point'] < dealer.values_cards_crupier and dealer.values_cards_crupier < 21:
@@ -278,22 +315,22 @@ def Win_or_lost():#This function is responsible for selecting a winner
                 print('Card scoring : ' ,player.players['player'+ str(win)]['point'])
                 print('losses : ' , bet_back )
                 input('Enter to continue')
+
                 win += 1
 
             elif dealer.values_cards_crupier > 21:
                 
                 player.players['player'+ str(win)]['chip'] = player.players['player'+ str(win)]['chip'] + reward
+
                 print('winner')
                 print('Player : ' , player.players['player'+ str(win)]['name'])
                 print('Card scoring : ' , player.players['player'+ str(win)]['point'])
                 print('Profits : ' , reward )
                 input('Enter to continue')
-                win += 1
 
+                win += 1
         else:
             win += 1
-
-
 
 def new_game():
     ask_new_game = input('Do you want to play again ? Select 1) Yes or 2) No  for continue : ')
@@ -312,8 +349,8 @@ def new_game():
         print('your entry is not valid')
         new_game()
 
-    #         else:
-    #             print("error when inserting movement test with 1 or 2")
+        else:
+            print("error when inserting movement test with 1 or 2")
 
 
 class Menu:
@@ -322,8 +359,11 @@ class Menu:
         self.iterator = 0
         self.delimiter = 1
         self.cards_crupier_Value = cards.value_and_cards[dealer.crupier_curret_hand[0]]
+
     def moveMenu(self):
+
             time.sleep(0.15)
+
             if self.iterator == 0:
 
                 show.opcion[3] = "|4) double the bet           |"
@@ -331,6 +371,7 @@ class Menu:
                 show.opcion[2] = "|3) Backing out              |" 
                 show.opcion[0] = "|1) Stand  ◄                 |"
                 os.system("clear")
+
                 show.table(player.players, player.players['player'+str(self.delimiter)], dealer.crupier_curret_hand[0],self.cards_crupier_Value)
                 
             elif self.iterator == 1:
@@ -340,6 +381,7 @@ class Menu:
                 show.opcion[1] = "|2) Ask for letters ◄        |"
                 show.opcion[3] = "|4) double the bet           |"
                 os.system("clear")
+
                 show.table(player.players, player.players['player'+str(self.delimiter)], dealer.crupier_curret_hand[0],self.cards_crupier_Value)
             
             
@@ -350,7 +392,9 @@ class Menu:
                 show.opcion[2] = "|3) Backing out  ◄           |"
                 show.opcion[3] = "|4) double the bet           |"
                 os.system("clear")
+
                 show.table(player.players,  player.players['player'+str(self.delimiter), dealer.crupier_curret_hand[0],self.cards_crupier_Value])
+
             elif self.iterator == 3:
 
                 show.opcion[0] = "|1) Stand                    |" 
@@ -358,6 +402,7 @@ class Menu:
                 show.opcion[2] = "|3) Backing out              |"
                 show.opcion[3] = "|4) double the bet ◄         |"
                 os.system("clear")
+
                 show.table(player.players,  player.players['player'+str(self.delimiter), dealer.crupier_curret_hand[0],self.cards_crupier_Value])
            
                 
@@ -409,9 +454,6 @@ class Menu:
             show.table(player.players,  player.players['player1'], " ".join(dealer.crupier_curret_hand),dealer.values_cards_crupier)    
                         
 generate_players()
-initial_bet()
-bets()
-Win_or_lost()
-# menu = Menu()
-# menu.moveMenu()
+menu = Menu()
+menu.moveMenu()
     

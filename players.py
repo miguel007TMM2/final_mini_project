@@ -10,15 +10,17 @@ class Player(Crupier,Deck_of_cards):
         self.players = {}
         for rename in range(1,5):
             self.players.update({
+                
             'player'+str(rename):{ 
-            'name':  "none",
-            'icon':  "none",
+            'name':  "",
+            'icon':  "",
             'state': False,
-            'chip':  "none",
-            'point': "none",
-            'cards':  "none",
+            'chip':  "",
+            'point': "",
+            'cards':  "",
             'initial_bet' : False, 
             'bet': False }})
+
         self.icono_for_player = ['☠', '☢', '☣' ,'♞','☯', '♪', '❆','✟']
         self.indexC = 0
         self.calls_points = 0
