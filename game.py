@@ -67,10 +67,10 @@ def generate_players():
                             dealer.Player_curret_hand  = [[]]
                         else:
                             os.system("clear")
-                            input("error the option you have inserted is not valid test with a number from 1 to 5 press enter for continue") 
+                            input("error the option you have inserted is not valid test with a number from 1 to 8 press enter for continue") 
                             select_icon()  
                     else:
-                        input("error the option you have inserted is not valid test with a number from 1 to 5 press enter for continue") 
+                        input("error the option you have inserted is not valid test with a number from 1 to 8 press enter for continue") 
                         select_icon()
                 select_icon()
         else:
@@ -167,13 +167,25 @@ def bets():
                     if make_bets.isdigit():
 
                         if int(make_bets) >= minimum_bet:
+                            if int(make_bets) <= player.players['player'+ str(count_players)]['chip']: 
+                                player.players['player'+ str(count_players)]['chip'] = player.players['player'+ str(count_players)]['chip'] - int(make_bets)
+                                player.players['player'+ str(count_players)]['bet'][1] = int(make_bets)
+                                player.players['player'+ str(count_players)]['bet'][0] = True 
+                                count_players += 1
+                                bets()
+                            else:
+                                print("you not have chips for play")
+                                contue_ask = input('Enter to continue or write exit to finish the game.... ')
 
-                            player.players['player'+ str(count_players)]['chip'] = player.players['player'+ str(count_players)]['chip'] - int(make_bets)
-                            player.players['player'+ str(count_players)]['bet'][1] = int(make_bets)
-                            player.players['player'+ str(count_players)]['bet'][0] = True 
-                            count_players += 1
-                            bets()
+                                if contue_ask !=  'exit':
+                                    bets()
 
+                                if contue_ask.isdigit() == False:
+
+                                    if contue_ask == 'exit':
+                                        player.players['player'+ str(numb_game)]['state'] = False
+                                        count_players += 1
+                                        bets()
                         else:
                             print('Your bet is below accepted')
                             contue_ask = input('Enter to continue or write exit to finish the game.... ')
@@ -315,7 +327,8 @@ def Win_or_lost():#This function is responsible for selecting a winner
 
 class Menu:
     def __init__(self):
-
+        initial_bet()
+        bets()
         self.iterator = 0
         self.delimiter = 1
         self.cards_crupier_Value = cards.value_and_cards[dealer.crupier_curret_hand[0]]
@@ -440,15 +453,20 @@ class Menu:
             if player.players['player1']['state'] == False and player.players['player2']['state'] == False and player.players['player3']['state'] == False and player.players['player4']['state'] == False:
                 show.icon()
                 os.sys.exit()
-                                     
+
+            Win_or_lost()
+            new_game()
+
 def new_game():
     ask_new_game = input('Do you want to play again ? Select 1) Yes or 2) No  for continue : ')
     os.system("clear")
+
     if ask_new_game.isdigit():
         if int(ask_new_game) == 1 or int(ask_new_game) == 2:
             if int(ask_new_game) == 1:
                 numb_game = 1
                 cards
+
                 for reset in range(1,5):
                    player.players['player'+str(reset)]['cards'] = ""
                    player.players['player'+str(reset)]['point'] = ""
@@ -464,15 +482,16 @@ def new_game():
                 dealer.crupier_curret_hand = []
                 dealer.values_cards_crupier = 0
                 dealer.crupiers_two_cards()
-                initial_bet()
                 menu = Menu()
                 menu.moveMenu()
                 
             elif int(ask_new_game):
                 print('Thanks for playing with us.')
+
         else:
             print('your entry is not valid')
             new_game()
+            
     else:
         print('your entry is not valid')
         new_game()
@@ -482,9 +501,6 @@ def new_game():
 
 
 generate_players()
-initial_bet()
-bets()
 menu = Menu()
 menu.moveMenu()
-Win_or_lost()
-new_game()
+
