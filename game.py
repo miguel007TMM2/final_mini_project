@@ -30,25 +30,6 @@ def generate_players():
             for delimiter in range(int(limit_players)):
 
                 dealer.get_two_cards()
-<<<<<<< HEAD
-
-                def select_name():
-
-                    global name_of_player
-                    name_of_player = input("Entry name of player"+str(delimiter+1)+" ➤ ")
-                    
-                    os.system("clear")
-                    if len(name_of_player) > 10:
-
-                        print('error the length of your name is too long test with a name less than 10 digits') 
-                        select_name()
-
-                    else:
-                        return  name_of_player
-                select_name()
-
-                print("Select you icon")
-=======
                 def select_name():
                     global name_of_player
                     
@@ -57,7 +38,6 @@ def generate_players():
                     if len(name_of_player) >= 10:
                         print("error the length of your name is too long test with a name less than 10 digits")
                         select_name()
->>>>>>> 3baad53eccd4d4c1f851e90ce9354965051ec889
 
                     else:
                         return name_of_player
@@ -98,9 +78,9 @@ def generate_players():
 
                                 'cards': dealer.Player_curret_hand[0],
 
-                                'initial_bet' : [False , None],
+                                'initial_bet' : [False , 0],
 
-                                'bet': [False, None],
+                                'bet': [False, 0],
 
                                 'insurance': None
                                                             }})
@@ -158,10 +138,6 @@ def initial_bet():
                         player.players['player'+ str(numb_game)]['initial_bet'][1] = int(bet)
                         player.players['player'+ str(numb_game)]['initial_bet'][0] = True
                         player.players['player'+ str(numb_game)]['bet'][0] = True 
-
-                        numb_game += 1
-                                
-                        initial_bet()
 
                     else:
 
@@ -349,10 +325,10 @@ def Win_or_lost():#This function is responsible for selecting a winner
     
         if player.players['player'+ str(win)]['state'] == True :
 
-            if player.players['player'+ str(win)]['initial_bet'][1] == None:
+            if player.players['player'+ str(win)]['initial_bet'][1] == 0:
                 kind_reward = 'bet'
 
-            elif player.players['player'+ str(win)]['bet'][1] == None:
+            elif player.players['player'+ str(win)]['bet'][1] == 0:
                 kind_reward = 'initial_bet'
             
             reward = player.players['player'+ str(win)][kind_reward][1] * 2
@@ -523,6 +499,11 @@ class Menu:
                                 break
                             
                             self.moveMenu()
+                        
+                        if self.iterator == 3:
+                    
+                            double_bet(self.iterator)
+                            self.moveMenu()
 
                         if self.iterator == 2:
                             
@@ -536,18 +517,12 @@ class Menu:
                             player.players['player'+str(self.delimiter)]['bet'] = [False," "]
                             player.players['player'+str(self.delimiter)]['initial_bet'] = [False, " "]
                             
-                        
-                                
                             self.delimiter += 1
                             self.iterator = 0
                             self.moveMenu()  
                 dealer.Keep_holding_cards()
                 show.table(player.players,  player.players['player1'], " ".join(dealer.crupier_curret_hand),dealer.values_cards_crupier)
                                  
-            
-                
-
-
             if player.players['player1']['state'] == False and player.players['player2']['state'] == False and player.players['player3']['state'] == False and player.players['player4']['state'] == False:
                 show.icon()
                 os.sys.exit()
