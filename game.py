@@ -77,26 +77,19 @@ def generate_players():
                                 'point': dealer.Player_curret_hand[1],
 
                                 'cards': dealer.Player_curret_hand[0],
-
-                                'initial_bet' : [False , 0],
-
+                                'initial_bet' : [False , 0], 
                                 'bet': [False, 0],
-
-                                'insurance': None
-                                                            }})
+                                'insurance': None}})
 
                             dealer.Player_curret_hand  = [[]]
 
                         else:
 
                             os.system("clear")
-
-                            input("error the option you have inserted is not valid test with a number from 1 to 8 press enter for continue")
-
+                            input("error the option you have inserted is not valid test with a number from 1 to 8 press enter for continue") 
                             select_icon()  
                     else:
-                        input("error the option you have inserted is not valid test with a number from 1 to 8 press enter for continue")
-
+                        input("error the option you have inserted is not valid test with a number from 1 to 8 press enter for continue") 
                         select_icon()
 
                 select_icon()
@@ -210,15 +203,25 @@ def bets():
                     if make_bets.isdigit():
 
                         if int(make_bets) >= minimum_bet:
+                            if int(make_bets) <= player.players['player'+ str(count_players)]['chip']: 
+                                player.players['player'+ str(count_players)]['chip'] = player.players['player'+ str(count_players)]['chip'] - int(make_bets)
+                                player.players['player'+ str(count_players)]['bet'][1] = int(make_bets)
+                                player.players['player'+ str(count_players)]['bet'][0] = True 
+                                count_players += 1
+                                bets()
+                            else:
+                                print("you not have chips for play")
+                                contue_ask = input('Enter to continue or write exit to finish the game.... ')
 
-                            player.players['player'+ str(count_players)]['chip'] = player.players['player'+ str(count_players)]['chip'] - int(make_bets)
-                            player.players['player'+ str(count_players)]['bet'][1] = int(make_bets)
-                            player.players['player'+ str(count_players)]['bet'][0] = True 
-                            
-                            count_players += 1
+                                if contue_ask !=  'exit':
+                                    bets()
 
-                            bets()
-
+                                if contue_ask.isdigit() == False:
+    
+                                    if contue_ask == 'exit':
+                                        player.players['player'+ str(numb_game)]['state'] = False
+                                        count_players += 1
+                                        bets()
                         else:
 
                             print('Your bet is below accepted')
@@ -256,7 +259,6 @@ def bets():
             bets()        
         
 def double_bet(count):
-
     player.players['player'+ str(count)]['chip'] = player.players['player'+ str(count)]['chip'] - player.players['player'+ str(count)]['initial_bet'][1]
     player.players['player'+ str(count)]['chip'] = player.players['player'+ str(count)]['chip'] - player.players['player'+ str(count)]['bet'][1]
 
@@ -319,7 +321,7 @@ def Win_or_lost():#This function is responsible for selecting a winner
 
     win = 1
     index = 1
-    kind_reward = None
+    kind_reward = 0
 
     while win <= len(player.players):
     
@@ -327,7 +329,6 @@ def Win_or_lost():#This function is responsible for selecting a winner
 
             if player.players['player'+ str(win)]['initial_bet'][1] == 0:
                 kind_reward = 'bet'
-
             elif player.players['player'+ str(win)]['bet'][1] == 0:
                 kind_reward = 'initial_bet'
             
@@ -382,30 +383,14 @@ def Win_or_lost():#This function is responsible for selecting a winner
         else:
             win += 1
 
-def new_game():
-    ask_new_game = input('Do you want to play again ? Select 1) Yes or 2) No  for continue : ')
-    os.system("clear")
-    if ask_new_game.isdigit():
-        if int(ask_new_game) == 1 or int(ask_new_game) == 2:
-            if int(ask_new_game) == 1:
-                numb_game = 1
-                generate_players()
-            elif int(ask_new_game):
-                print('Thanks for playing with us.')
-        else:
-            print('your entry is not valid')
-            new_game()
-    else:
-        print('your entry is not valid')
-        new_game()
 
-        # else:
-        #     print("error when inserting movement test with 1 or 2")
+
 
 
 class Menu:
     def __init__(self):
-
+        initial_bet()
+        bets()
         self.iterator = 0
         self.delimiter = 1
         self.cards_crupier_Value = cards.value_and_cards[dealer.crupier_curret_hand[0]]
@@ -505,6 +490,10 @@ class Menu:
                             double_bet(self.iterator)
                             self.moveMenu()
 
+                        if self.iterator == 3:
+                            double_bet(self.delimiter)
+                            self.moveMenu()
+
                         if self.iterator == 2:
                             
 
@@ -526,10 +515,54 @@ class Menu:
             if player.players['player1']['state'] == False and player.players['player2']['state'] == False and player.players['player3']['state'] == False and player.players['player4']['state'] == False:
                 show.icon()
                 os.sys.exit()
-                                     
+
+            Win_or_lost()
+            new_game()
+
+def new_game():
+    ask_new_game = input('Do you want to play again ? Select 1) Yes or 2) No  for continue : ')
+    os.system("clear")
+
+    if ask_new_game.isdigit():
+        if int(ask_new_game) == 1 or int(ask_new_game) == 2:
+            if int(ask_new_game) == 1:
+                numb_game = 1
+                cards
+
+                for reset in range(1,5):
+                   player.players['player'+str(reset)]['cards'] = ""
+                   player.players['player'+str(reset)]['point'] = ""
+                   player.players['player'+str(reset)]['bet'] = [False , 0]
+                   player.players['player'+str(reset)]['initial_bet'] = [False , 0]
+
+                   if player.players['player'+str(reset)]['state']:
+                        dealer.get_two_cards()
+                        player.players['player'+str(reset)]['cards'] = dealer.Player_curret_hand[0]
+                        player.players['player'+str(reset)]['point'] = dealer.Player_curret_hand[1]
+                        dealer.Player_curret_hand  = [[]]
+                        
+                dealer.crupier_curret_hand = []
+                dealer.values_cards_crupier = 0
+                dealer.crupiers_two_cards()
+                menu = Menu()
+                menu.moveMenu()
+                
+            elif int(ask_new_game):
+                print('Thanks for playing with us.')
+
+        else:
+            print('your entry is not valid')
+            new_game()
+            
+    else:
+        print('your entry is not valid')
+        new_game()
+
+    #         else:
+    #             print("error when inserting movement test with 1 or 2")
+
+
 generate_players()
-initial_bet()
-bets()
 menu = Menu()
 menu.moveMenu()
-Win_or_lost()
+
