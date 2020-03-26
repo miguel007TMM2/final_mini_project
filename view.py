@@ -13,14 +13,11 @@ class View():
     def table(self, player, current_player, cupier,point_crup):
         self.spoint = ""
         self.schips = ""
+        self.current_bet = str(current_player['bet'][1])
+
         if len(str(current_player['chip'])) < 5:
             self.schips += " "
-        if current_player['initial_bet'][0] == True:
-            self.current_bet = str(current_player['initial_bet'][1])
-
-        else:
-            self.current_bet = str(current_player['bet'][1]) 
-            
+        
         if len(str(current_player['point'])) < 2:
             self.spoint += " "    
             

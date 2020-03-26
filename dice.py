@@ -1,6 +1,5 @@
 import random
 
-#This class is the dealer's dice and which will indicate the minimum bet for the player
 class Dice():
 
     def __init__(self):
