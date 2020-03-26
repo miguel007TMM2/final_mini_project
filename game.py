@@ -325,7 +325,7 @@ def Win_or_lost():#This function is responsible for selecting a winner
 
 
 
-class Menu:
+class Game:
     def __init__(self):
         initial_bet()
         bets()
@@ -372,7 +372,6 @@ class Menu:
                     os.system("clear")
                     show.table(player.players,  player.players['player'+str(self.delimiter)], dealer.crupier_curret_hand[0],self.cards_crupier_Value)
             
-                    
 
                 while True:
                     if self.delimiter >= 5:
@@ -482,7 +481,7 @@ def new_game():
                 dealer.crupier_curret_hand = []
                 dealer.values_cards_crupier = 0
                 dealer.crupiers_two_cards()
-                menu = Menu()
+                menu = Game()
                 menu.moveMenu()
                 
             elif int(ask_new_game):
@@ -501,6 +500,6 @@ def new_game():
 
 
 generate_players()
-menu = Menu()
+menu = Game()
 menu.moveMenu()
 
