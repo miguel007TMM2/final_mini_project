@@ -11,9 +11,10 @@ class View():
         
     def table(self, player, current_player, cupier,point_crup):
         self.spoint = ""
-        self.schips = ""
-        if len(str(current_player['chip'])) < 5:
-            self.schips += " "
+        self.schips = str(current_player['chip'])
+
+  
+                
         if current_player['initial_bet'][0] == True:
             self.current_bet = str(current_player['initial_bet'][1])
 
@@ -29,7 +30,13 @@ class View():
         self.player3y4 =player['player3']['icon']+"  "+" ".join(player['player3']['cards'])+" "+str(player['player3']['point'])+"                       "+player['player4']['icon']+" "+" ".join(player['player4']['cards'])+" "+str(player['player4']['point']) 
         
         for space in range(87):
-            
+
+            if len(self.schips) < 21:
+                self.schips += " "
+
+            if len(self.schips) > 21:
+                self.schips = self.schips[0:21]
+
             if len(self.player1y2) < 75:
                 self.player1y2 += " "
 
@@ -74,7 +81,7 @@ class View():
               |                                                                                      """+self.opcion[3]+"""           
               |                                 """,self.crupier_info,"""|                            |
               |                                                                                      |"""+"Point: ",current_player['point'],self.spoint,"""                |    
-              |                                                                                      |"""+"Chips: ",current_player['chip'],self.schips,"""             |   
+              |                                                                                      |"""+"Chips: "+self.schips+"""|   
               |                   ____  _            _       _            _                          |"""+"Cards: ",self.curret_cards,"""|   
               |                  | __ )| | __ _  ___| | __  | | __ _  ___| | __                      |"""+"Bet:   ",self.current_bet,"""|   
               |                  |  _ \| |/ _` |/ __| |/ _  | |/ _` |/ __| |/ /                      |___________________________ |   
@@ -87,8 +94,8 @@ class View():
               |               """+player['player1']['name'][0:10]+"""                       """+player['player2']['name'][0:10]+"""                  
               |                                                                                      | 
               |           """+self.player3y4+"""|                                               
-              |               """+player['player3']['name'][0:10]+"""                            """+player['player4']['name'][0:10]+"""                                                                               
-              |                                                                                      |
+              |               """+player['player3']['name'][0:10]+"""                            """+player['player4']['name'][0:10]+"""                                           |                                                                               
+              |______________________________________________________________________________________|
  
         
                                                                                                         """)
