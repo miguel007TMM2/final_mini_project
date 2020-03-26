@@ -31,86 +31,7 @@ def select_name(iterator):
         return name_of_player
 
 
-def select_icon(iterator):
-    
-    number_icon = 1
-
-    for icons in player.icono_for_player:
-
-        print(number_icon,icons)
-
-        number_icon += 1
-
-    ask_for_icon = input("insert a number of you icon ➤ ")
-
-    os.system("clear")
-
-    if ask_for_icon.isdigit():
-
-        if int(ask_for_icon) > 0 and int(ask_for_icon) <= 8:
-
-            player.players.update({
-                
-                'player'+str(iterator+1):{ 
-                'name':  name_of_player,
-                'icon':  player.icono_for_player[int(ask_for_icon)-1],
-                'state': True,
-                'chip': 10000,
-                'point': dealer.Player_curret_hand[1],
-                'cards': dealer.Player_curret_hand[0],
-                'bet': [False, 0],
-                'insurance': None }})
- 
-            dealer.Player_curret_hand  = [[]]
-
-        else:
-
-            os.system("clear")
-            input("error the option you have inserted is not valid test with a number from 1 to 8 press enter for continue") 
-            select_icon(iterator)  
-    else:
-        
-        input("error the option you have inserted is not valid test with a number from 1 to 8 press enter for continue") 
-        select_icon(iterator)
-
-
-
-#This function is responsible for creating the players' keys and assigning them, a name, their initial letters and some card
-def generate_players():
-
-    print("The limit of players that you can play at the same time are 4 ")
-    limit_players = input("Entry number of players ➤ ") 
-
-    if limit_players.isdigit():
-        
-        if int(limit_players) <= 4 and int(limit_players) > 0:
-            os.system("clear")
-            
-            for delimiter in range(int(limit_players)):
-
-                dealer.get_two_cards()
-
-                select_name(delimiter)
-
-                print("Select you icon")
-                select_icon(delimiter)
-        else:
-
-            os.system("clear")
-            input("Error entering the number of players, try a number from 1 to 4 enter to continue... ")
-
-            generate_players()
-
-    else:
-
-        os.system("clear")
-        input("Error entering the number of players, try a number from 1 to 4 enter to continue...")
-
-        generate_players()
-
-
 def bets():
-
     minimum_bet = 50
     count_players = 1
 
@@ -153,68 +74,16 @@ def bets():
         else:
 
             count_players += 1
-           
 
 def double_bet(count):
-    
-    if player.players['player'+ str(count)]['chip'] - player.players['player'+ str(count)]['bet'][1] > 0:  
 
+    if player.players['player'+ str(count)]['chip'] - player.players['player'+ str(count)]['bet'][1] > 0:
+    
         player.players['player'+ str(count)]['chip'] = player.players['player'+ str(count)]['chip'] - player.players['player'+ str(count)]['bet'][1]
         player.players['player'+ str(count)]['bet'][1] = player.players['player'+ str(count)]['bet'][1] * 2
     else:
 
         print('You cannot continue doubling the bet or it no longer has points')
-
-
-def insurance():
-    verification = 1
-    if cards.value_and_cards [dealer.crupier_curret_hand[0]] == 1 or cards.value_and_cards [dealer.crupier_curret_hand[0]] == 11:
-
-        while verification <= len(player.players):
-
-            if player.players['player'+ str(verification)]['chip'] >= 50:
-
-                print('The first dealer card is an As. Do you want to make a insurance bet ? ' + 'player ' +  str(player.players['player'+ str(verification)]['name']))
-                bet_insurance = input('Open your insurance bet  or press enter to not bet  : ')
-
-                if bet_insurance.isdigit():
-
-                    if int(bet_insurance) <= player.players['player'+ str(verification)]['chip']:
-
-                        player.players['player'+ str(verification)]['chip'] = player.players['player'+ str(verification)]['chip'] - int(bet_insurance)
-                        player.players['player'+ str(verification)]['insurance'] = int(bet_insurance) 
-
-                        print('your bet is made')
-
-                        time.sleep(0.30)
-                        verification += 1
-
-                        os.system("clear")
-
-                    else:
-                        print('you don t have that many points to bet, write your bet again')
-
-                elif bet_insurance == '':
-
-                    print('you didn t bet for sure')
-
-                    time.sleep(0.30)
-                    verification += 1
-
-                    os.system("clear")
-
-                else:
-
-                    print('incorrect values')
-
-            else:
-
-                print( str(player.players['player'+ str(verification)]['name'])+ 'you lose because you don t have enough to keep betting')
-
-                time.sleep(0.30)
-                verification += 1
-
-                os.system("clear")
 
 
 def Win_or_lost():#This function is responsible for selecting a winner
@@ -325,15 +194,11 @@ def new_game():
         print('your entry is not valid')
         new_game()
 
-
-class Menu:
+class Game:
     def __init__(self):
         self.iterator = 0
         self.delimiter = 1
         self.cards_crupier_Value = cards.value_and_cards[dealer.crupier_curret_hand[0]]
-        show.table(player.players, player.players['player'+str(self.delimiter)], dealer.crupier_curret_hand[0],self.cards_crupier_Value)
-        insurance()
-
     def moveMenu(self):
  
             time.sleep(0.15)
@@ -378,7 +243,6 @@ class Menu:
                     show.table(player.players,  player.players['player'+str(self.delimiter)], dealer.crupier_curret_hand[0],self.cards_crupier_Value)
                     
             
-                    
 
                 while True:
                     if self.delimiter >= 5:
@@ -462,9 +326,7 @@ class Menu:
 
             Win_or_lost()
             new_game()
-
-
-
+            
 generate_players()
 bets()
 menu = Menu()

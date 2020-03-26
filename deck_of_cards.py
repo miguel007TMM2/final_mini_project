@@ -59,6 +59,7 @@ class Deck_of_cards: #This class is in charge of general, give value and shuffle
                     
             self.value_and_cards.update({self.list_of_cards[keys_of_cards] : self.value_cards[keys_of_cards]})
     
+    
     def shuffle_the_cards(self, list_to_shuffle):#This function shuffle the cards
         random.shuffle(list_to_shuffle)
         
