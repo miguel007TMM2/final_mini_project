@@ -27,11 +27,11 @@ class Deck_of_cards: #This class is in charge of general, give value and shuffle
         self.list_of_cards = []
         self.new_list_of_cards = self.list_of_cards
         self.value_and_cards = {}
-        self.__Generator_of_cards()
-        self.__values_cards()
+        self.Generator_of_cards()
+        self.values_cards()
         self.shuffle_the_cards(self.list_of_cards)
 
-    def __Generator_of_cards(self):#This function generates the cards and stores them in the list of cards
+    def Generator_of_cards(self):#This function generates the cards and stores them in the list of cards
     
         get_keys = self.symbol_of_value_of_the_cards.keys()
         for Symbol_of_card in self.Symbol_of_cards:
@@ -42,7 +42,7 @@ class Deck_of_cards: #This class is in charge of general, give value and shuffle
                 self.value_cards.append(get_key)
 
     
-    def __values_cards(self):#Gives value to the cards in the card list
+    def values_cards(self):#Gives value to the cards in the card list
         
         for keys_of_cards in range(len(self.list_of_cards)):
             if self.value_cards[keys_of_cards] == "A":

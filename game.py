@@ -186,8 +186,18 @@ def Win_or_lost():#This function is responsible for selecting a winner
                 input('Enter to continue')
 
                 win += 1
+                
+            elif player.players['player'+ str(win)]['point'] > 21 and  dealer.values_cards_crupier <= 21:
 
-            elif dealer.values_cards_crupier >= 21:
+                print('Lost')
+                print('Player : ' , player.players['player'+ str(win)]['name'])
+                print('Card scoring : ' ,player.players['player'+ str(win)]['point'])
+                print('losses : ' , bet_back )
+                input('Enter to continue')
+
+                win += 1
+
+            elif dealer.values_cards_crupier > 21:
                 
                 player.players['player'+ str(win)]['chip'] = player.players['player'+ str(win)]['chip'] + reward
 
@@ -209,7 +219,28 @@ class Game:
         self.iterator = 0
         self.delimiter = 1
         self.cards_crupier_Value = cards.value_and_cards[dealer.crupier_curret_hand[0]]
+        show.table(player.players, player.players['player'+str(self.delimiter)], dealer.crupier_curret_hand[0],self.cards_crupier_Value)
+        
+        
     def moveMenu(self):
+            if len(player.players['player'+str(self.delimiter)]['cards']) == 2:
+                
+                if player.players['player'+str(self.delimiter)]['point'] == 21:
+                        os.system("clear")
+                        print(""" 
+                                        ____  _            _       _            _                        
+                                        | __ )| | __ _  ___| | __  | | __ _  ___| | __                    
+                                        |  _ \| |/ _` |/ __| |/ _  | |/ _` |/ __| |/ /                      
+                                        | |_) | | (_| | (__|   | |_| | (_| | (__|   <                     
+                                        |____/|_|\__,_|\___|_|\_\___/ \__,_|\___|_|\_\ 
+                        
+                                    you win """+player.players['player'+str(self.delimiter)]['name']+"""
+                        """)
+                        self.delimiter += 1
+                        time.sleep(3)
+                        os.system("clear")
+                        self.moveMenu()
+
             time.sleep(0.15)
             if player.players['player'+str(self.delimiter)]['state']:
                 if self.iterator == 0:
@@ -298,8 +329,12 @@ class Game:
                             self.moveMenu()
 
                         if self.iterator == 3:
-                            double_bet(self.delimiter)
-                            self.moveMenu()
+                            if len(player.players['player'+str(self.delimiter)]['cards']) == 2:
+                                double_bet(self.delimiter)
+                                self.moveMenu()
+                            else:
+                                print("you cannot double the bet after requesting a card. you have to double the bet before asking for a card")
+                                time.sleep(3)
 
                         if self.iterator == 2:
                             
@@ -340,34 +375,29 @@ def new_game():
         if int(ask_new_game) == 1 or int(ask_new_game) == 2:
             if int(ask_new_game) == 1:
                 numb_game = 1
-
+                dealer = Crupier()
+                dealer.Player_curret_hand = [[]]
                 for reset in range(1, 5):
-
                     for player_card in range (len(player.players['player'+ str(reset)]['cards'])):
                         dealer.cards_cemetery.append(player.players['player'+ str(reset)]['cards'].pop())
-                        cards.list_of_cards.append(dealer.cards_cemetery.pop())
-                        cards.shuffle_the_cards(cards.list_of_cards)
-
-                    player.players['player'+str(reset)]['cards'] = ''
-                    player.players['player'+str(reset)]['point'] = ''
-                    player.players['player'+str(reset)]['bet'] = [False , 0]
-
-
+                        
                     if player.players['player'+str(reset)]['state'] == True:
-
+                        player.players['player'+str(reset)]['cards'] = ''
+                        player.players['player'+str(reset)]['point'] = ""
+                        player.players['player'+str(reset)]['bet'] = [False , 0]
                         dealer.get_two_cards()
-
                         player.players['player'+str(reset)]['cards'] = dealer.Player_curret_hand[0]
                         player.players['player'+str(reset)]['point'] = dealer.Player_curret_hand[1]
-                        dealer.Player_curret_hand  = [[]]
+                        dealer.Player_curret_hand = [[]]
+
 
                 dealer.crupier_curret_hand = []
                 dealer.values_cards_crupier = 0
                 dealer.crupiers_two_cards()
+
                 bets()
                 game = Game()
                 game.moveMenu()
-
             elif int(ask_new_game):
                 print('Thanks for playing with us.')
 
@@ -378,6 +408,7 @@ def new_game():
     else:
         print('your entry is not valid')
         new_game()
+
 
 generate_players()
 bets()
