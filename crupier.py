@@ -18,15 +18,15 @@ class Crupier():
         
     def mutation_of_as(self, index, put_list, addition): #This method changes the value of the As
     
-        mutation = self.cards.value_and_cards[ put_list [index]] = 11
+        mutation = self.cards.value_and_cards[ put_list [index]] = 1
         addition += mutation
         addition -= 1
 
     def set_mutation_of_as(self, index, enter_list, sum_value): #This method calls the mutation of the As if the value of the cards in total does not exceed 10 points
         
         for index in range(len(enter_list)):
-            if self.cards.value_and_cards[enter_list[index]] == 1:
-                if sum_value == 10 or sum_value < 12:
+            if self.cards.value_and_cards[enter_list[index]] == 11:
+                if sum_value > 10 :
                     self.mutation_of_as(index, enter_list, sum_value)
     
     def get_card(self, set_list): #this method takes care of taking a card and returning it with its value
@@ -37,6 +37,7 @@ class Crupier():
         for index in range(len(set_list)):
             self.set_mutation_of_as(index, set_list, count)
             count  += self.cards.value_and_cards[set_list[index]]
+
         return count
 
     def get_two_cards(self):# this method takes two cards to give to the player
