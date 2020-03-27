@@ -46,7 +46,7 @@ class Deck_of_cards: #This class is in charge of general, give value and shuffle
         
         for keys_of_cards in range(len(self.list_of_cards)):
             if self.value_cards[keys_of_cards] == "A":
-                self.value_cards[keys_of_cards] = 1
+                self.value_cards[keys_of_cards] = 11
 
             for keys_symbol_of_value_of_the_cards in  self.symbol_of_value_of_the_cards:
                 if self.value_cards[keys_of_cards] ==  self.symbol_of_value_of_the_cards[keys_symbol_of_value_of_the_cards]:

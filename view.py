@@ -7,7 +7,7 @@ player = Player()
 class View():
     def __init__(self):
         super(View, self).__init__()
-        self.opcion = ["|1) Stand                    |","|2) Ask for letters          |","|3) Backing out              |","|4) double the bet           |"]
+        self.opcion = ["|1) Stand                    |","|2) Ask for cards            |" ,"|3) double the bet           |"]
         
     def table(self, player, current_player, cupier,point_crup):
         self.spoint = ""
@@ -77,8 +77,7 @@ class View():
               |      |  |________|         |        """+"Crupier"+"""          |            |________| |       |     """+"***Menu Game***"+"""        |
               |       \                    |                         |                      /        """+self.opcion[0]+"""       
               |        \                   |_________________________|                     /         """+self.opcion[1]+"""      
-              |         \_________________________________________________________________/          """+self.opcion[2]+"""         
-              |                                                                                      """+self.opcion[3]+"""           
+              |         \_________________________________________________________________/          """+self.opcion[2]+"""                    
               |                                 """,self.crupier_info,"""|                            |
               |                                                                                      |"""+"Point: ",current_player['point'],self.spoint,"""                |    
               |                                                                                      |"""+"Chips: "+self.schips+"""|   
@@ -103,7 +102,7 @@ class View():
         
 
     def icon(self):
-        os.system("clear")
+        os.system("cls")
         self.icon_game_over = print("""
 
                       _______      ___      .___  ___.  _______      ______   ____    ____  _______ .______         

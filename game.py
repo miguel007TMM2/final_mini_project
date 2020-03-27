@@ -15,7 +15,7 @@ cards = Deck_of_cards()
 numb_game = 1
 
 
-#This function is responsible for creating the players' keys and assigning them, a name, their initial letters and some cards
+#This function is responsible for creating the players' keys and assigning them, a name, their initial cards   and some cards
 def generate_players():
 
     print("The limit of players that you can play at the same time are 4 ")
@@ -246,7 +246,7 @@ class Game:
                 if self.iterator == 0:
 
                     show.opcion[2] = "|3) double the bet           |"
-                    show.opcion[1] = "|2) Ask for letters          |" 
+                    show.opcion[1] = "|2) Ask for cards            |" 
                     show.opcion[0] = "|1) Stand  ◄                 |"
                     os.system("cls")
                     show.table(player.players, player.players['player'+str(self.delimiter)], dealer.crupier_curret_hand[0],self.cards_crupier_Value)
@@ -254,7 +254,7 @@ class Game:
                 elif self.iterator == 1:
 
                     show.opcion[0] = "|1) Stand                    |" 
-                    show.opcion[1] = "|2) Ask for letters ◄        |" 
+                    show.opcion[1] = "|2) Ask for cards   ◄        |" 
                     show.opcion[2] = "|3) double the bet           |"
                     os.system("cls")
                     show.table(player.players, player.players['player'+str(self.delimiter)], dealer.crupier_curret_hand[0],self.cards_crupier_Value)
@@ -262,7 +262,7 @@ class Game:
                 elif self.iterator == 2:
 
                     show.opcion[0] = "|1) Stand                    |" 
-                    show.opcion[1] = "|2) Ask for letters          |" 
+                    show.opcion[1] = "|2) Ask for cards            |" 
                     show.opcion[2] = "|3) double the bet ◄         |"
                     os.system("cls")
                     show.table(player.players,  player.players['player'+str(self.delimiter)], dealer.crupier_curret_hand[0],self.cards_crupier_Value)
@@ -290,7 +290,7 @@ class Game:
                         self.moveMenu()
 
                     if keyboard.is_pressed(" "):
-                        
+                       
                         if self.iterator == 1:
 
                             if player.players['player'+str(self.delimiter)]['point'] < 21:
@@ -328,80 +328,59 @@ class Game:
                 dealer.Keep_holding_cards()
                 show.table(player.players,  player.players['player1'], " ".join(dealer.crupier_curret_hand),dealer.values_cards_crupier)
                                  
-            
+            else:
+                self.delimiter += 1
+                self.moveMenu()
 
             Win_or_lost()
             new_game()
-def backing_out(delimiter):
-    player.players['player'+str(delimiter)]['state'] = False
-    player.players['player'+str(delimiter)]['name'] =  ""
-    player.players['player'+str(delimiter)]['point'] = ""
-    player.players['player'+str(delimiter)]['chip'] =  ""
-    player.players['player'+str(delimiter)]['cards'] = ""
-    player.players['player'+str(delimiter)]['icon'] =  ""
-    player.players['player'+str(delimiter)]['bet'] = [False," "]
-    player.players['player'+str(delimiter)]['initial_bet'] = [False, " "]
 
 def new_game():
-    delimiter1 = 1
-    numb_game = 1
-    dealer.crupier_curret_hand = []
-    dealer.values_cards_crupier = 0
-    dealer.Player_curret_hand = [[]]
-    dealer.cards.Generator_of_cards()
-    dealer.cards.shuffle_the_cards(dealer.cards.list_of_cards)
+    ask_new_game = input('Do you want to play again ? Select 1) Yes or 2) No  for continue : ')
+    os.system("cls")
+    if ask_new_game.isdigit():
+        if int(ask_new_game) == 1 or int(ask_new_game) == 2:
+            if int(ask_new_game) == 1:
+                numb_game = 1
+                dealer.crupier_curret_hand = []
+                dealer.values_cards_crupier = 0
+                dealer.Player_curret_hand = [[]]
+                dealer.cards.Generator_of_cards()
+                dealer.cards.shuffle_the_cards(dealer.cards.list_of_cards)
 
-    while delimiter1 <= 4:
-        
-        if player.players['player'+str(delimiter1)]['state'] == True:
-            os.system("cls")
-            print(player.players['player'+str(delimiter1)]['name'])
-            ask_new_game = input(': Do you want to play again ? Select 1) Yes or 2) No  for continue : ')
-        else:
-            delimiter1 += 1
-            
-        if ask_new_game.isdigit():
-            if int(ask_new_game) == 1 or int(ask_new_game) == 2:
-                if int(ask_new_game) == 1:
-                    if player.players['player'+str(delimiter1)]['state'] == True:
-                        player.players['player'+str(delimiter1)]['cards'] = ''
-                        player.players['player'+str(delimiter1)]['point'] = ""
-                        player.players['player'+str(delimiter1)]['bet'] = [False , 0]
+                for reset in range(1, 5):
+                    for player_card in range (len(player.players['player'+ str(reset)]['cards'])):
+                        dealer.cards_cemetery.append(player.players['player'+ str(reset)]['cards'].pop())
+                        
+                    if player.players['player'+str(reset)]['state'] == True:
+                        player.players['player'+str(reset)]['cards'] = ''
+                        player.players['player'+str(reset)]['point'] = ""
+                        player.players['player'+str(reset)]['bet'] = [False , 0]
                         dealer.get_two_cards()
-                        player.players['player'+str(delimiter1)]['cards'] = dealer.Player_curret_hand[0]
-                        player.players['player'+str(delimiter1)]['point'] = dealer.Player_curret_hand[1]
+                        player.players['player'+str(reset)]['cards'] = dealer.Player_curret_hand[0]
+                        player.players['player'+str(reset)]['point'] = dealer.Player_curret_hand[1]
                         dealer.Player_curret_hand = [[]]
-                        delimiter1 += 1
 
-                    else:
-                        delimiter1 += 1
 
-                if int(ask_new_game) == 2:
-                    show.icon()
-                    backing_out(delimiter1)
-                    delimiter1 += 1
-                    if delimiter1 == 4:
-                        os.sys.exit()
-            else:
-                print('your entry is not valid')
-                new_game()
+                dealer.crupier_curret_hand = []
+                dealer.values_cards_crupier = 0
+                dealer.crupiers_two_cards()
 
+                bets()
+                game = Game()
+                game.moveMenu()
+
+            elif int(ask_new_game):
+                print('Thanks for playing with us.')
+                time.sleep(5)
+                os.sys.exit()
         else:
             print('your entry is not valid')
             new_game()
-            
-    delimiter1 = 1
-    while delimiter1 < 4:
-       if player.players['player'+str(delimiter1)]['state'] == True:
-           dealer.crupiers_two_cards()
-           bets()
-           menu = Game()
-           menu.moveMenu()
-       else:
-           delimiter1 += 1
 
-    os.sys.exit()
-
+    else:
+        print('your entry is not valid')
+        new_game()
 
 generate_players()
 bets()
