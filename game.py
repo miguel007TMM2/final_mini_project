@@ -175,6 +175,7 @@ def Win_or_lost():#This function is responsible for selecting a winner
 
                 player.players['player'+ str(win)]['chip'] = player.players['player'+ str(win)]['chip'] + reward
 
+                os.system('clear')
                 print('winner')
                 print('Player : ' , player.players['player'+ str(win)]['name'])
                 print('Card scoring : ' , player.players['player'+ str(win)]['point'])
@@ -187,6 +188,7 @@ def Win_or_lost():#This function is responsible for selecting a winner
 
                 player.players['player'+ str(win)]['chip'] = player.players['player'+ str(win)]['chip'] + bet_back
 
+                os.system('clear')
                 print('Tie')
                 print('Player : ' , player.players['player'+ str(win)]['name'])
                 print('Card scoring : ' ,player.players['player'+ str(win)]['point'])
@@ -197,6 +199,7 @@ def Win_or_lost():#This function is responsible for selecting a winner
 
             elif player.players['player'+ str(win)]['point'] < dealer.values_cards_crupier and dealer.values_cards_crupier <= 21:
                 
+                os.system('clear')
                 print('Lost')
                 print('Player : ' , player.players['player'+ str(win)]['name'])
                 print('Card scoring : ' ,player.players['player'+ str(win)]['point'])
@@ -207,6 +210,7 @@ def Win_or_lost():#This function is responsible for selecting a winner
                 
             elif player.players['player'+ str(win)]['point'] > 21 and  dealer.values_cards_crupier <= 21:
 
+                os.system('clear')
                 print('Lost')
                 print('Player : ' , player.players['player'+ str(win)]['name'])
                 print('Card scoring : ' ,player.players['player'+ str(win)]['point'])
@@ -219,6 +223,7 @@ def Win_or_lost():#This function is responsible for selecting a winner
                 
                 player.players['player'+ str(win)]['chip'] = player.players['player'+ str(win)]['chip'] + reward
 
+                os.system('clear')
                 print('winner')
                 print('Player : ' , player.players['player'+ str(win)]['name'])
                 print('Card scoring : ' , player.players['player'+ str(win)]['point'])
