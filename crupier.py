@@ -10,7 +10,6 @@ class Crupier():
     cards_cemetery = []
 
     def __init__(self): #Each time the class is called this will be executed by granting the dealer 2 cards
-
         self.cards = Deck_of_cards()
         self.crupier_curret_hand = []
         self.crupier_iterator = 0
@@ -26,9 +25,7 @@ class Crupier():
     def set_mutation_of_as(self, index, enter_list, sum_value): #This method calls the mutation of the As if the value of the cards in total does not exceed 10 points
         
         for index in range(len(enter_list)):
-
             if self.cards.value_and_cards[enter_list[index]] == 1:
-
                 if sum_value == 10 or sum_value < 12:
                     self.mutation_of_as(index, enter_list, sum_value)
     
@@ -41,10 +38,6 @@ class Crupier():
 
             self.set_mutation_of_as(index, set_list, count)
             count  += self.cards.value_and_cards[set_list[index]]
-
-            if count == 1:
-                count = 11
-                
         return count
 
     def get_two_cards(self):# this method takes two cards to give to the player

@@ -26,8 +26,8 @@ class Deck_of_cards: #This class is in charge of general, give value and shuffle
         self.list_of_cards = []
         self.new_list_of_cards = self.list_of_cards
         self.value_and_cards = {}
-        self.__Generator_of_cards()
-        self.__values_cards()
+        self.Generator_of_cards()
+        self.values_cards()
         self.shuffle_the_cards(self.list_of_cards)
 
     def Generator_of_cards(self):#This function generates the cards and stores them in the list of cards
