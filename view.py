@@ -7,17 +7,18 @@ player = Player()
 class View():
     def __init__(self):
         super(View, self).__init__()
-        
-        self.opcion = ["|1) Stand                    |","|2) Ask for letters          |","|3) Backing out              |","|4) double the bet           |"]
+        self.opcion = ["|1) Stand                    |","|2) Ask for cards            |" ,"|3) double the bet           |"]
         
     def table(self, player, current_player, cupier,point_crup):
+
         self.spoint = ""
         self.schips = str(current_player['chip'])
                 
         if current_player['initial_bet'][0] == True:
-            self.current_bet = str(current_player['initial_bet'][1])
 
+            self.current_bet = str(current_player['initial_bet'][1])
         else:
+
             self.current_bet = str(current_player['bet'][1]) 
             
         if len(str(current_player['point'])) < 2:
@@ -26,8 +27,9 @@ class View():
         self.curret_cards = " ".join(current_player['cards'])
         
         self.crupier_info = str(cupier)+" Point: "+str(point_crup)
-        self.player1y2 =player['player1']['icon']+"  "+" ".join(player['player1']['cards'])+" "+str(player['player1']['point'])+"                       "+player['player2']['icon']+" "+" ".join(player['player2']['cards'])+" "+str(player['player2']['point'])
-        self.player3y4 =player['player3']['icon']+"  "+" ".join(player['player3']['cards'])+" "+str(player['player3']['point'])+"                       "+player['player4']['icon']+" "+" ".join(player['player4']['cards'])+" "+str(player['player4']['point']) 
+
+        self.player1y2 = player['player1']['icon']+"  "+" ".join(player['player1']['cards'])+" "+str(player['player1']['point'])+"                       "+player['player2']['icon']+" "+" ".join(player['player2']['cards'])+" "+str(player['player2']['point'])
+        self.player3y4 = player['player3']['icon']+"  "+" ".join(player['player3']['cards'])+" "+str(player['player3']['point'])+"                       "+player['player4']['icon']+" "+" ".join(player['player4']['cards'])+" "+str(player['player4']['point']) 
         
         for space in range(87):
 
@@ -77,8 +79,7 @@ class View():
               |      |  |________|         |        """+"Crupier"+"""          |            |________| |       |     """+"***Menu Game***"+"""        |
               |       \                    |                         |                      /        """+self.opcion[0]+"""       
               |        \                   |_________________________|                     /         """+self.opcion[1]+"""      
-              |         \_________________________________________________________________/          """+self.opcion[2]+"""         
-              |                                                                                      """+self.opcion[3]+"""           
+              |         \_________________________________________________________________/          """+self.opcion[2]+"""                    
               |                                 """,self.crupier_info,"""|                            |
               |                                                                                      |"""+"Point: ",current_player['point'],self.spoint,"""                |    
               |                                                                                      |"""+"Chips: "+self.schips+"""|   
@@ -101,7 +102,7 @@ class View():
                                                                                                         """)
 
     def icon(self):
-        os.system("clear")
+        os.system("cls")
         self.icon_game_over = print("""
 
                       _______      ___      .___  ___.  _______      ______   ____    ____  _______ .______         

@@ -1,18 +1,5 @@
-"""
-In this module you will find the cards of the game.
-"""
-_author__ = "Miguel Rafael Mateo"
-__copyright__ = "copyright 2020, miguelpc"
-__credits__ = "Miguel Mateo"
-
-__license__ = "GPL"
-__version__ = "0.0.1"
-__maintainer__ = "Miguel Mateo"
-__email__ = "climaxfran@gmail.com"
-__status__ = "Developer"
 
 import random
-
 
 class Deck_of_cards: #This class is in charge of general, give value and shuffle the cards.
 
@@ -50,7 +37,7 @@ class Deck_of_cards: #This class is in charge of general, give value and shuffle
         for keys_of_cards in range(len(self.list_of_cards)):
 
             if self.value_cards[keys_of_cards] == "A":
-                self.value_cards[keys_of_cards] = 1
+                self.value_cards[keys_of_cards] = 11
 
             for keys_symbol_of_value_of_the_cards in  self.symbol_of_value_of_the_cards:
 
