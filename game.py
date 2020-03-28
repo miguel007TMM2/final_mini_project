@@ -248,10 +248,104 @@ def game_result():#This function is responsible for selecting a winner or lost
         else:
             win += 1
 
+def new_game():#This function is responsible for running the game again
+
+    ask_new_game = input('Do you want to play again ? Select 1) Yes or 2) No  for continue : ')
+    os.system("cls")
+
+    if ask_new_game.isdigit():
+
+        if int(ask_new_game) == 1 or int(ask_new_game) == 2:
+
+            if int(ask_new_game) == 1:
+                
+                numb_game = 1
+                dealer.crupier_curret_hand = []
+                dealer.values_cards_crupier = 0
+                dealer.Player_curret_hand = [[]]
+                dealer.cards.Generator_of_cards()
+                dealer.cards.shuffle_the_cards(dealer.cards.list_of_cards)
+
+                for reset in range(1, 5):
+
+                    for player_card in range (len(player.attributes['player'+ str(reset)]['cards'])):
+
+                        dealer.cards_cemetery.append(player.attributes['player'+ str(reset)]['cards'].pop())
+                        
+                    if player.attributes['player'+str(reset)]['state'] == True:
+
+                        player.attributes['player'+str(reset)]['cards'] = ''
+                        player.attributes['player'+str(reset)]['point'] = ""
+                        player.attributes['player'+str(reset)]['bet'] = [False , 0]
+
+    while delimiter1 <= 4:
+        
+        if player.players['player'+str(delimiter1)]['state'] == True:
+            os.system("cls")
+            print(player.players['player'+str(delimiter1)]['name'])
+            ask_new_game = input(': Do you want to play again ? Select 1) Yes or 2) No  for continue : ')
+        else:
+            delimiter1 += 1
+            
+        if ask_new_game.isdigit():
+            if int(ask_new_game) == 1 or int(ask_new_game) == 2:
+                if int(ask_new_game) == 1:
+                    if player.players['player'+str(delimiter1)]['state'] == True:
+
+                        player.players['player'+str(delimiter1)]['cards'] = ''
+                        player.players['player'+str(delimiter1)]['point'] = ""
+                        player.players['player'+str(delimiter1)]['bet'] = [False , 0]
+                        dealer.get_two_cards()
+                        player.players['player'+str(delimiter1)]['cards'] = dealer.Player_curret_hand[0]
+                        player.players['player'+str(delimiter1)]['point'] = dealer.Player_curret_hand[1]
+                        dealer.Player_curret_hand = [[]]
+                        delimiter1 += 1
+
+                        player.attributes['player'+str(reset)]['cards'] = dealer.Player_curret_hand[0]
+                        player.attributes['player'+str(reset)]['point'] = dealer.Player_curret_hand[1]
+                        dealer.Player_curret_hand = [[]]
+
+
+                dealer.crupier_curret_hand = []
+                dealer.values_cards_crupier = 0
+
+                dealer.crupiers_two_cards()
+                bets()
+                game = Game()
+                game.moveMenu()
+
+            elif int(ask_new_game):
+
+                print('Thanks for playing with us.')
+                time.sleep(5)
+                os.sys.exit()
+        else:
+
+            print('your entry is not valid')
+            new_game()
+            
+    delimiter1 = 1
+    while delimiter1 < 4:
+       if player.players['player'+str(delimiter1)]['state'] == True:
+           dealer.crupiers_two_cards()
+           bets()
+           menu = Game()
+           menu.moveMenu()
+       else:
+           delimiter1 += 1
+
+    os.sys.exit()
+
+
+    else:
+    
+        print('your entry is not valid')
+        new_game()
+
 class Game:#this is responsible of runs the game 
 
     def __init__(self):
-
+    
         self.iterator = 0
         self.delimiter = 1
         self.cards_crupier_Value = cards.value_and_cards[dealer.crupier_curret_hand[0]]
@@ -367,7 +461,7 @@ class Game:#this is responsible of runs the game
 
                         if self.iterator == 2:
                             if len(player.attributes['player'+str(self.delimiter)]['cards']) == 2:
-    
+        
                                 double_bet(self.delimiter)
                                 self.moveMenu()
 
@@ -387,101 +481,7 @@ class Game:#this is responsible of runs the game
 
             game_result()
             new_game()
-
-def new_game():#This function is responsible for running the game again
-
-    ask_new_game = input('Do you want to play again ? Select 1) Yes or 2) No  for continue : ')
-    os.system("cls")
-
-    if ask_new_game.isdigit():
-
-        if int(ask_new_game) == 1 or int(ask_new_game) == 2:
-
-            if int(ask_new_game) == 1:
-                
-                numb_game = 1
-                dealer.crupier_curret_hand = []
-                dealer.values_cards_crupier = 0
-                dealer.Player_curret_hand = [[]]
-                dealer.cards.Generator_of_cards()
-                dealer.cards.shuffle_the_cards(dealer.cards.list_of_cards)
-
-                for reset in range(1, 5):
-
-                    for player_card in range (len(player.attributes['player'+ str(reset)]['cards'])):
-
-                        dealer.cards_cemetery.append(player.attributes['player'+ str(reset)]['cards'].pop())
-                        
-                    if player.attributes['player'+str(reset)]['state'] == True:
-
-                        player.attributes['player'+str(reset)]['cards'] = ''
-                        player.attributes['player'+str(reset)]['point'] = ""
-                        player.attributes['player'+str(reset)]['bet'] = [False , 0]
-
-    while delimiter1 <= 4:
-        
-        if player.players['player'+str(delimiter1)]['state'] == True:
-            os.system("cls")
-            print(player.players['player'+str(delimiter1)]['name'])
-            ask_new_game = input(': Do you want to play again ? Select 1) Yes or 2) No  for continue : ')
-        else:
-            delimiter1 += 1
             
-        if ask_new_game.isdigit():
-            if int(ask_new_game) == 1 or int(ask_new_game) == 2:
-                if int(ask_new_game) == 1:
-                    if player.players['player'+str(delimiter1)]['state'] == True:
-
-                        player.players['player'+str(delimiter1)]['cards'] = ''
-                        player.players['player'+str(delimiter1)]['point'] = ""
-                        player.players['player'+str(delimiter1)]['bet'] = [False , 0]
-                        dealer.get_two_cards()
-                        player.players['player'+str(delimiter1)]['cards'] = dealer.Player_curret_hand[0]
-                        player.players['player'+str(delimiter1)]['point'] = dealer.Player_curret_hand[1]
-                        dealer.Player_curret_hand = [[]]
-                        delimiter1 += 1
-
-                        player.attributes['player'+str(reset)]['cards'] = dealer.Player_curret_hand[0]
-                        player.attributes['player'+str(reset)]['point'] = dealer.Player_curret_hand[1]
-                        dealer.Player_curret_hand = [[]]
-
-
-                dealer.crupier_curret_hand = []
-                dealer.values_cards_crupier = 0
-
-                dealer.crupiers_two_cards()
-                bets()
-                game = Game()
-                game.moveMenu()
-
-            elif int(ask_new_game):
-
-                print('Thanks for playing with us.')
-                time.sleep(5)
-                os.sys.exit()
-        else:
-
-            print('your entry is not valid')
-            new_game()
-            
-    delimiter1 = 1
-    while delimiter1 < 4:
-       if player.players['player'+str(delimiter1)]['state'] == True:
-           dealer.crupiers_two_cards()
-           bets()
-           menu = Game()
-           menu.moveMenu()
-       else:
-           delimiter1 += 1
-
-    os.sys.exit()
-
-
-    else:
-    
-        print('your entry is not valid')
-        new_game()
-
 
 generate_players()
 bets()
