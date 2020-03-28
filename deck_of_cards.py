@@ -7,8 +7,6 @@ class Deck_of_cards: #This class is in charge of general, give value and shuffle
     value_cards = []
     Symbol_of_cards = ['♥', '♠', '♣', '♦']
     symbol_of_value_of_the_cards = {1 :'A', 11 : 'J', 12 : 'Q', 13 : 'K'}
-
-    
    
     def __init__(self): #Contains the deck cards
 

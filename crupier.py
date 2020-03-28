@@ -10,7 +10,6 @@ class Crupier():
     cards_cemetery = []
 
     def __init__(self): #Each time the class is called this will be executed by granting the dealer 2 cards
-
         self.cards = Deck_of_cards()
         self.crupier_curret_hand = []
         self.crupier_iterator = 0
@@ -40,7 +39,6 @@ class Crupier():
 
             self.set_mutation_of_as(index, set_list, count)
             count  += self.cards.value_and_cards[set_list[index]]
-
         return count
 
     def get_two_cards(self):# this method takes two cards to give to the player
@@ -51,14 +49,12 @@ class Crupier():
 
             self.get_card(self.Player_curret_hand[0])
             value += self.cards.value_and_cards[self.Player_curret_hand[0][iterator]]
-
         self.Player_curret_hand.append(value)
 
     def get_card_for_crupier(self, index): #this method takes care of passing a card to the dealer by passing the value of the card to a variable
 
         self.crupier_curret_hand.append(self.cards.list_of_cards.pop())
         self.set_mutation_of_as(self.crupier_iterator, self.crupier_curret_hand, self.values_cards_crupier )
-
         self.values_cards_crupier +=  self.cards.value_and_cards[self.crupier_curret_hand[index]]
         
     def crupiers_two_cards(self): #it takes two cards for dealer just calling the method that takes one card twice

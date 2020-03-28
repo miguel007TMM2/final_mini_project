@@ -25,6 +25,7 @@ class View():
             self.spoint += " "    
             
         self.curret_cards = " ".join(current_player['cards'])
+        
         self.crupier_info = str(cupier)+" Point: "+str(point_crup)
 
         self.player1y2 = player['player1']['icon']+"  "+" ".join(player['player1']['cards'])+" "+str(player['player1']['point'])+"                       "+player['player2']['icon']+" "+" ".join(player['player2']['cards'])+" "+str(player['player2']['point'])
@@ -97,10 +98,8 @@ class View():
               |               """+player['player3']['name'][0:10]+"""                            """+player['player4']['name'][0:10]+"""                                           |                                                                               
               |______________________________________________________________________________________|
  
-        
+    
                                                                                                         """)
-
-        
 
     def icon(self):
         os.system("cls")
@@ -115,6 +114,16 @@ class View():
                                                                 
                                                                 """+ "\n")
        
-    
+    def blackjack(self, index):
+
+        print(""" 
+                                        ____  _            _       _            _                        
+                                        | __ )| | __ _  ___| | __  | | __ _  ___| | __                    
+                                        |  _ \| |/ _` |/ __| |/ _  | |/ _` |/ __| |/ /                      
+                                        | |_) | | (_| | (__|   | |_| | (_| | (__|   <                     
+                                        |____/|_|\__,_|\___|_|\_\___/ \__,_|\___|_|\_\ 
+                        
+                                    you win """+player.players['player'+str(index)]['name']+"""
+                        """)
 
 

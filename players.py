@@ -1,7 +1,7 @@
 
 #This class charge of generating the players
 class Player():
-
+    
     attributes = {}
     icono_for_player = ['☠', '☢', '☣' ,'♞','☯', '♪', '❆','✟']
     indexC = 0
