@@ -10,24 +10,26 @@ class View():
         self.opcion = ["|1) Stand                    |","|2) Ask for cards            |" ,"|3) double the bet           |"]
         
     def table(self, player, current_player, cupier,point_crup):
+
         self.spoint = ""
         self.schips = str(current_player['chip'])
-
-  
                 
         if current_player['initial_bet'][0] == True:
-            self.current_bet = str(current_player['initial_bet'][1])
 
+            self.current_bet = str(current_player['initial_bet'][1])
         else:
+
             self.current_bet = str(current_player['bet'][1]) 
             
         if len(str(current_player['point'])) < 2:
             self.spoint += " "    
             
         self.curret_cards = " ".join(current_player['cards'])
+        
         self.crupier_info = str(cupier)+" Point: "+str(point_crup)
-        self.player1y2 =player['player1']['icon']+"  "+" ".join(player['player1']['cards'])+" "+str(player['player1']['point'])+"                       "+player['player2']['icon']+" "+" ".join(player['player2']['cards'])+" "+str(player['player2']['point'])
-        self.player3y4 =player['player3']['icon']+"  "+" ".join(player['player3']['cards'])+" "+str(player['player3']['point'])+"                       "+player['player4']['icon']+" "+" ".join(player['player4']['cards'])+" "+str(player['player4']['point']) 
+
+        self.player1y2 = player['player1']['icon']+"  "+" ".join(player['player1']['cards'])+" "+str(player['player1']['point'])+"                       "+player['player2']['icon']+" "+" ".join(player['player2']['cards'])+" "+str(player['player2']['point'])
+        self.player3y4 = player['player3']['icon']+"  "+" ".join(player['player3']['cards'])+" "+str(player['player3']['point'])+"                       "+player['player4']['icon']+" "+" ".join(player['player4']['cards'])+" "+str(player['player4']['point']) 
         
         for space in range(87):
 
@@ -96,10 +98,8 @@ class View():
               |               """+player['player3']['name'][0:10]+"""                            """+player['player4']['name'][0:10]+"""                                           |                                                                               
               |______________________________________________________________________________________|
  
-        
+    
                                                                                                         """)
-
-        
 
     def icon(self):
         os.system("cls")
@@ -114,6 +114,16 @@ class View():
                                                                 
                                                                 """+ "\n")
        
-    
+    def blackjack(self, index):
+
+        print(""" 
+                                        ____  _            _       _            _                        
+                                        | __ )| | __ _  ___| | __  | | __ _  ___| | __                    
+                                        |  _ \| |/ _` |/ __| |/ _  | |/ _` |/ __| |/ /                      
+                                        | |_) | | (_| | (__|   | |_| | (_| | (__|   <                     
+                                        |____/|_|\__,_|\___|_|\_\___/ \__,_|\___|_|\_\ 
+                        
+                                    you win """+player.players['player'+str(index)]['name']+"""
+                        """)
 
 

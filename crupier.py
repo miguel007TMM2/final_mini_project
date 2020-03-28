@@ -25,6 +25,7 @@ class Crupier():
     def set_mutation_of_as(self, index, enter_list, sum_value): #This method calls the mutation of the As if the value of the cards in total does not exceed 10 points
         
         for index in range(len(enter_list)):
+
             if self.cards.value_and_cards[enter_list[index]] == 11:
                 if sum_value > 10 :
                     self.mutation_of_as(index, enter_list, sum_value)
@@ -35,15 +36,17 @@ class Crupier():
         set_list.append(self.cards.list_of_cards.pop())
         
         for index in range(len(set_list)):
+
             self.set_mutation_of_as(index, set_list, count)
             count  += self.cards.value_and_cards[set_list[index]]
-
         return count
 
     def get_two_cards(self):# this method takes two cards to give to the player
 
         value = 0
+
         for iterator in range(0,2):
+
             self.get_card(self.Player_curret_hand[0])
             value += self.cards.value_and_cards[self.Player_curret_hand[0][iterator]]
         self.Player_curret_hand.append(value)
@@ -62,5 +65,7 @@ class Crupier():
     def Keep_holding_cards(self):#This method continues taking dealer cards until reaching 16 points or going over
 
         while self.values_cards_crupier <= 16:
+            
             self.crupier_iterator += 1
             self.get_card_for_crupier(self.crupier_iterator)
+
