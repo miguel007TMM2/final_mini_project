@@ -17,8 +17,6 @@ cards = Deck_of_cards()
 
 numb_game = 1
 
-def select_name(iterator):
-
 def select_name(iterator):#This function asks the players name 
 
     global name_of_player 
@@ -231,7 +229,6 @@ def game_result():#This function is responsible for selecting a winner or lost
 
                 win += 1
                 
-            elif player.players['player'+ str(win)]['point'] > 21 and  dealer.values_cards_crupier <= 21:
 
             elif dealer.values_cards_crupier > 21:
                 
@@ -250,6 +247,7 @@ def game_result():#This function is responsible for selecting a winner or lost
 
 def new_game():#This function is responsible for running the game again
 
+    delimiter1 = 1
     ask_new_game = input('Do you want to play again ? Select 1) Yes or 2) No  for continue : ')
     os.system("cls")
 
@@ -280,9 +278,9 @@ def new_game():#This function is responsible for running the game again
 
     while delimiter1 <= 4:
         
-        if player.players['player'+str(delimiter1)]['state'] == True:
+        if player.attributes['player'+str(delimiter1)]['state'] == True:
             os.system("cls")
-            print(player.players['player'+str(delimiter1)]['name'])
+            print(player.attributes['player'+str(delimiter1)]['name'])
             ask_new_game = input(': Do you want to play again ? Select 1) Yes or 2) No  for continue : ')
         else:
             delimiter1 += 1
@@ -290,14 +288,14 @@ def new_game():#This function is responsible for running the game again
         if ask_new_game.isdigit():
             if int(ask_new_game) == 1 or int(ask_new_game) == 2:
                 if int(ask_new_game) == 1:
-                    if player.players['player'+str(delimiter1)]['state'] == True:
+                    if player.attributes['player'+str(delimiter1)]['state'] == True:
 
-                        player.players['player'+str(delimiter1)]['cards'] = ''
-                        player.players['player'+str(delimiter1)]['point'] = ""
-                        player.players['player'+str(delimiter1)]['bet'] = [False , 0]
+                        player.attributes['player'+str(delimiter1)]['cards'] = ''
+                        player.attributes['player'+str(delimiter1)]['point'] = ""
+                        player.attributes['player'+str(delimiter1)]['bet'] = [False , 0]
                         dealer.get_two_cards()
-                        player.players['player'+str(delimiter1)]['cards'] = dealer.Player_curret_hand[0]
-                        player.players['player'+str(delimiter1)]['point'] = dealer.Player_curret_hand[1]
+                        player.attributes['player'+str(delimiter1)]['cards'] = dealer.Player_curret_hand[0]
+                        player.attributes['player'+str(delimiter1)]['point'] = dealer.Player_curret_hand[1]
                         dealer.Player_curret_hand = [[]]
                         delimiter1 += 1
 
@@ -324,9 +322,8 @@ def new_game():#This function is responsible for running the game again
             print('your entry is not valid')
             new_game()
             
-    delimiter1 = 1
     while delimiter1 < 4:
-       if player.players['player'+str(delimiter1)]['state'] == True:
+       if player.attributes['player'+str(delimiter1)]['state'] == True:
            dealer.crupiers_two_cards()
            bets()
            menu = Game()
@@ -335,12 +332,6 @@ def new_game():#This function is responsible for running the game again
            delimiter1 += 1
 
     os.sys.exit()
-
-
-    else:
-    
-        print('your entry is not valid')
-        new_game()
 
 class Game:#this is responsible of runs the game 
 
