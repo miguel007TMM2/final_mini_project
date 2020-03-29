@@ -340,13 +340,11 @@ class Game:#this is responsible of runs the game
         self.iterator = 0
         self.delimiter = 1
         self.cards_crupier_Value = cards.value_and_cards[dealer.crupier_curret_hand[0]]
-
-        show.table( player.attributes, player.attributes['player'+str(self.delimiter)], dealer.crupier_curret_hand[0],self.cards_crupier_Value )
         
         
     def moveMenu(self):
-
-            if len(player.attributes['player'+str(self.delimiter)]['cards']) == 2:
+        if player.players['player'+str(self.delimiter)]['state']:
+            if len(player.players['player'+str(self.delimiter)]['cards']) == 2:
                 
                 if player.attributes['player'+str(self.delimiter)]['point'] == 21:
 
@@ -461,18 +459,68 @@ class Game:#this is responsible of runs the game
                                 print("you cannot double the bet after requesting a card. you have to double the bet before asking for a card")
                                 time.sleep(3)
 
-                       
                 dealer.Keep_holding_cards()
-                show.table(player.attributes,  player.attributes['player1'], " ".join(dealer.crupier_curret_hand),dealer.values_cards_crupier)
-                                 
+                show.table(player.players,  player.players['player1'], " ".join(dealer.crupier_curret_hand),dealer.values_cards_crupier)
             else:
     
                 self.delimiter += 1
                 self.moveMenu()
+        else:
+            self.delimiter += 1
 
-            game_result()
+                
+                                 
+        
+
+        Win_or_lost()
+        new_game()
+
+def new_game():
+    ask_new_game = input('Do you want to play again ? Select 1) Yes or 2) No  for continue : ')
+    os.system("cls")
+    if ask_new_game.isdigit():
+        if int(ask_new_game) == 1 or int(ask_new_game) == 2:
+            if int(ask_new_game) == 1:
+                numb_game = 1
+                dealer.crupier_curret_hand = []
+                dealer.values_cards_crupier = 0
+                dealer.Player_curret_hand = [[]]
+                dealer.cards.Generator_of_cards()
+                dealer.cards.shuffle_the_cards(dealer.cards.list_of_cards)
+
+                for reset in range(1, 5):
+                    for player_card in range (len(player.players['player'+ str(reset)]['cards'])):
+                        dealer.cards_cemetery.append(player.players['player'+ str(reset)]['cards'].pop())
+                        
+                    if player.players['player'+str(reset)]['state'] == True:
+                        player.players['player'+str(reset)]['cards'] = ''
+                        player.players['player'+str(reset)]['point'] = ""
+                        player.players['player'+str(reset)]['bet'] = [False , 0]
+                        dealer.get_two_cards()
+                        player.players['player'+str(reset)]['cards'] = dealer.Player_curret_hand[0]
+                        player.players['player'+str(reset)]['point'] = dealer.Player_curret_hand[1]
+                        dealer.Player_curret_hand = [[]]
+
+
+                dealer.crupier_curret_hand = []
+                dealer.values_cards_crupier = 0
+                dealer.crupiers_two_cards()
+
+                bets()
+                game = Game()
+                game.moveMenu()
+
+            elif int(ask_new_game):
+                print('Thanks for playing with us.')
+                time.sleep(5)
+                os.sys.exit()
+        else:
+            print('your entry is not valid')
             new_game()
-            
+
+    else:
+        print('your entry is not valid')
+        new_game()
 
 generate_players()
 bets()
