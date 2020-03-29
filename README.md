@@ -41,7 +41,7 @@ Enjoy playing!!
 
 3-You can only double your bet when you have your initial cards
 
-4-If you draw a value of 21 on your initial cards, call it blackJack and you will automatically win and move on to the next player
+4-If you draw a value of 21 on your initial cards, is blackJack and you will automatically win and move on to the next player
 
 5-All players compete against the dealer and only their score will be evaluated against the dealer
 
