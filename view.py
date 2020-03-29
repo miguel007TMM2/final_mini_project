@@ -123,7 +123,7 @@ class View():
                                         | |_) | | (_| | (__|   | |_| | (_| | (__|   <                     
                                         |____/|_|\__,_|\___|_|\_\___/ \__,_|\___|_|\_\ 
                         
-                                    you win """+player.players['player'+str(index)]['name']+"""
+                                    you win """+player.attributes['player'+str(index)]['name']+"""
                         """)
 
 
