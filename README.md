@@ -1,10 +1,10 @@
 MiniProject Black Jack
 
-This is a project of **Cincinnatus Institute of Craftsmanship** to show what we have learned using python and oriented object programming
+This is a project of **Cincinnatus Institute of Craftsmanship** to show what we have learned using python and oriented object programming,git and github
 
 
  
-				***Objective of the game*****
+								***Objective of the game***
 
 The objective of the game is to get a score equal or closer without exceeding 21 on your cards.
 
@@ -22,27 +22,36 @@ BlackJack: https://en.wikipedia.org/wiki/Blackjack
       
 
 
-				***How to run the program*** 
+								***How to run the program*** 
 
 1- Open the game folder
+
 2- Go to the dist folder
+
 3- double click on the game icon with the name Blackjack.exe
+
 Enjoy playing!!
  
  
 
-				***Rules***
+								***Rules***
 
 1- The value of your cards cannot exceed 21 must be less than or equal
+
 2-You can only request an additional card if the value of your cards is less than 21
+
 3-You can only double your bet when you have your initial cards
+
 4-If you draw a value of 21 on your initial cards, call it blackJack and you will automatically win and move on to the next player
+
 5-All players compete against the dealer and only their score will be evaluated against the dealer
+
 6-The ace can have a value of 11 and 1 depending on your score, the game automatically detects and assigns it the value that suits you best.
+
 7-If a score is greater than or equal to 21, you will be forced to select the option to stand. (The player must select to plant the same).
 
 
-				***How to play***
+								***How to play***
 
 -After running the game-
 
@@ -59,7 +68,7 @@ You can navigate this menu by pressing the down arrow and up arrow keys. To sele
 Note: Remember that only the menu is selected with the space, the other options have to press enter to continue.
 
 
-				***Pre-requisites***
+								***Pre-requisites***
 
 System Operative:
 ***Microsoft Windows 10***
@@ -68,7 +77,7 @@ System Operative:
 
 
 
-				***Authors***
+								***Authors***
 
 * Alberto Reyes
 * Miguel Mateo
