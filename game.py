@@ -219,10 +219,10 @@ class Game:
         self.iterator = 0
         self.delimiter = 1
         self.cards_crupier_Value = cards.value_and_cards[dealer.crupier_curret_hand[0]]
-        show.table(player.players, player.players['player'+str(self.delimiter)], dealer.crupier_curret_hand[0],self.cards_crupier_Value)
         
         
     def moveMenu(self):
+        if player.players['player'+str(self.delimiter)]['state']:
             if len(player.players['player'+str(self.delimiter)]['cards']) == 2:
                 
                 if player.players['player'+str(self.delimiter)]['point'] == 21:
@@ -324,16 +324,20 @@ class Game:
                                 print("you cannot double the bet after requesting a card. you have to double the bet before asking for a card")
                                 time.sleep(3)
 
-                       
                 dealer.Keep_holding_cards()
                 show.table(player.players,  player.players['player1'], " ".join(dealer.crupier_curret_hand),dealer.values_cards_crupier)
-                                 
             else:
                 self.delimiter += 1
                 self.moveMenu()
+        else:
+            self.delimiter += 1
 
-            Win_or_lost()
-            new_game()
+                
+                                 
+        
+
+        Win_or_lost()
+        new_game()
 
 def new_game():
     ask_new_game = input('Do you want to play again ? Select 1) Yes or 2) No  for continue : ')

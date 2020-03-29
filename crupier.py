@@ -26,7 +26,7 @@ class Crupier():
         
         for index in range(len(enter_list)):
             if self.cards.value_and_cards[enter_list[index]] == 11:
-                if sum_value > 10 :
+                if sum_value > 21:
                     self.mutation_of_as(index, enter_list, sum_value)
     
     def get_card(self, set_list): #this method takes care of taking a card and returning it with its value
