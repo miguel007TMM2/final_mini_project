@@ -4,7 +4,7 @@ This is a project of **Cincinnatus Institute of Craftsmanship** to show what we 
 
 
  
-								***Objective of the game***
+							***Objective of the game***
 
 The objective of the game is to get a score equal or closer without exceeding 21 on your cards.
 
@@ -22,7 +22,7 @@ BlackJack: https://en.wikipedia.org/wiki/Blackjack
       
 
 
-								***How to run the program*** 
+							***How to run the program*** 
 
 1- Open the game folder
 
@@ -34,7 +34,7 @@ Enjoy playing!!
  
  
 
-								***Rules***
+							***Rules***
 
 1- The value of your cards cannot exceed 21 must be less than or equal
 
