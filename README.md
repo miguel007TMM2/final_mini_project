@@ -3,7 +3,6 @@ MiniProject Black Jack
 This is a project of **Cincinnatus Institute of Craftsmanship** to show what we have learned using python and oriented object programming,git and github
 
 
- 
 							***Objective of the game***
 
 The objective of the game is to get a score equal or closer without exceeding 21 on your cards.
@@ -51,7 +50,7 @@ Enjoy playing!!
 7-If a score is greater than or equal to 21, you will be forced to select the option to stand. (The player must select to plant the same).
 
 
-								***How to play***
+							***How to play***
 
 -After running the game-
 
@@ -68,16 +67,14 @@ You can navigate this menu by pressing the down arrow and up arrow keys. To sele
 Note: Remember that only the menu is selected with the space, the other options have to press enter to continue.
 
 
-								***Pre-requisites***
+							***Pre-requisites***
 
 System Operative:
 ***Microsoft Windows 10***
 
 
 
-
-
-								***Authors***
+							***Authors***
 
 * Alberto Reyes
 * Miguel Mateo
