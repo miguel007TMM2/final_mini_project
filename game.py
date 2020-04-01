@@ -186,7 +186,7 @@ def game_result():#This function is responsible for selecting a winner or lost
 
                 player.attributes['player'+ str(win)]['chip'] = player.attributes['player'+ str(win)]['chip'] + reward
 
-                os.system('cls')
+                
                 print('winner')
                 print('Player : ' , player.attributes['player'+ str(win)]['name'])
                 print('Card scoring : ' , player.attributes['player'+ str(win)]['point'])
@@ -199,7 +199,7 @@ def game_result():#This function is responsible for selecting a winner or lost
 
                 player.attributes['player'+ str(win)]['chip'] = player.attributes['player'+ str(win)]['chip'] + bet_back
 
-                os.system('cls')
+               
                 print('Tie')
                 print('Player : ' , player.attributes['player'+ str(win)]['name'])
                 print('Card scoring : ' ,player.attributes['player'+ str(win)]['point'])
@@ -210,7 +210,7 @@ def game_result():#This function is responsible for selecting a winner or lost
 
             elif player.attributes['player'+ str(win)]['point'] < dealer.values_cards_crupier and dealer.values_cards_crupier <= 21:
                 
-                os.system('cls')
+        
                 print('Lost')
                 print('Player : ' , player.attributes['player'+ str(win)]['name'])
                 print('Card scoring : ' ,player.attributes['player'+ str(win)]['point'])
@@ -234,7 +234,7 @@ def game_result():#This function is responsible for selecting a winner or lost
                 
                 player.attributes['player'+ str(win)]['chip'] = player.attributes['player'+ str(win)]['chip'] + reward
 
-                os.system('cls')
+               
                 print('winner')
                 print('Player : ' , player.attributes['player'+ str(win)]['name'])
                 print('Card scoring : ' , player.attributes['player'+ str(win)]['point'])

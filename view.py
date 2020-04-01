@@ -9,7 +9,7 @@ class View():
         super(View, self).__init__()
         self.opcion = ["|1) Stand                    |","|2) Ask for cards            |" ,"|3) double the bet           |"]
         
-    def table(self, player, current_player, cupier,point_crup):
+    def table(self, player, current_player, cupier,point_crup):#This function is in charge of regulating the spaces and displaying the table
 
         self.spoint = ""
         self.schips = str(current_player['chip'])
