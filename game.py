@@ -18,7 +18,7 @@ cards = Deck_of_cards()
 numb_game = 1
 
 def select_name(iterator):#This function asks the players name 
-
+    
     global name_of_player 
     
     name_of_player = input("Entry name of player"+str(iterator+1)+" ► ")
