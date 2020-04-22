@@ -3,7 +3,7 @@ MiniProject Black Jack
 This is a project of **Cincinnatus Institute of Craftsmanship** to show what we have learned using python and oriented object programming,git and github
 
 
-						#Objective of the game
+# Objective of the game
 
 The objective of the game is to get a score equal or closer without exceeding 21 on your cards.
 
