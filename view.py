@@ -27,9 +27,6 @@ class View():
         self.curret_cards = " ".join(current_player['cards'])
         
         self.crupier_info = str(cupier)+" Point: "+str(point_crup)
-
-        self.player1y2 = player['player1']['icon']+"  "+" ".join(player['player1']['cards'])+" "+str(player['player1']['point'])+"                       "+player['player2']['icon']+" "+" ".join(player['player2']['cards'])+" "+str(player['player2']['point'])
-        self.player3y4 = player['player3']['icon']+"  "+" ".join(player['player3']['cards'])+" "+str(player['player3']['point'])+"                       "+player['player4']['icon']+" "+" ".join(player['player4']['cards'])+" "+str(player['player4']['point']) 
         
         for space in range(87):
 
@@ -38,18 +35,6 @@ class View():
 
             if len(self.schips) > 21:
                 self.schips = self.schips[0:21]
-
-            if len(self.player1y2) < 75:
-                self.player1y2 += " "
-
-            elif len(self.player1y2) > 75:
-                self.player1y2 = self.player1y2[0:75]
-
-            if len(self.player3y4) < 75:
-                self.player3y4 += " "
-
-            if len(self.player3y4) > 75:
-                self.player3y4 = self.player3y4[0:75]
             
             if len(current_player['name']) <= 25:
                 current_player['name'] += " "
@@ -90,14 +75,8 @@ class View():
               |                  |____/|_|\__,_|\___|_|\_\___/ \__,_|\___|_|\_\                      |  
               |                                                                                      |
               |                                                                                      |
-              |                                                                                      |
-              |           """+self.player1y2+"""|                           
-              |               """+player['player1']['name'][0:10]+"""                       """+player['player2']['name'][0:10]+"""                  
-              |                                                                                      | 
-              |           """+self.player3y4+"""|                                               
-              |               """+player['player3']['name'][0:10]+"""                            """+player['player4']['name'][0:10]+"""                                           |                                                                               
               |______________________________________________________________________________________|
- 
+
     
                                                                                                         """)
 
