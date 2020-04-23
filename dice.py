@@ -3,7 +3,7 @@ import random
 class Dice():
 
     def __init__(self):
-        
+
         self.index = 0
         self.dices  = ['⚀', '⚁', '⚂', '⚃', '⚄', '⚅'] 
 

@@ -4,7 +4,7 @@ block_cipher = None
 
 
 a = Analysis(['game.py'],
-             pathex=['C:\\Users\\ichig\\Desktop\\final_mini_project'],
+             pathex=['D:\\final_mini_project'],
              binaries=[],
              datas=[],
              hiddenimports=[],
@@ -23,7 +23,7 @@ exe = EXE(pyz,
           a.zipfiles,
           a.datas,
           [],
-          name='Blackjack',
+          name='BlackJack',
           debug=False,
           bootloader_ignore_signals=False,
           strip=False,

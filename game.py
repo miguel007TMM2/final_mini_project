@@ -14,7 +14,6 @@ dice.status()
 show = View()
 player = Player()
 cards = Deck_of_cards()
-
 numb_game = 1
 
 def select_name(iterator):#This function asks the players name 
@@ -186,12 +185,12 @@ def game_result():#This function is responsible for selecting a winner or lost
 
                 player.attributes['player'+ str(win)]['chip'] = player.attributes['player'+ str(win)]['chip'] + reward
 
-                os.system('clear')
+                
                 print('winner')
                 print('Player : ' , player.attributes['player'+ str(win)]['name'])
                 print('Card scoring : ' , player.attributes['player'+ str(win)]['point'])
                 print('Profits : ' ,  reward )
-                input('Enter to continue')
+                input('Enter to continue\n')
 
                 win += 1
 
@@ -199,18 +198,18 @@ def game_result():#This function is responsible for selecting a winner or lost
 
                 player.attributes['player'+ str(win)]['chip'] = player.attributes['player'+ str(win)]['chip'] + bet_back
 
-                os.system('clear')
+               
                 print('Tie')
                 print('Player : ' , player.attributes['player'+ str(win)]['name'])
                 print('Card scoring : ' ,player.attributes['player'+ str(win)]['point'])
                 print('Profits : ' , bet_back)
-                input('Enter to continue')
+                input('Enter to continue\n')
 
                 win += 1
 
             elif player.attributes['player'+ str(win)]['point'] < dealer.values_cards_crupier and dealer.values_cards_crupier <= 21:
                 
-                os.system('clear')
+        
                 print('Lost')
                 print('Player : ' , player.attributes['player'+ str(win)]['name'])
                 print('Card scoring : ' ,player.attributes['player'+ str(win)]['point'])
@@ -234,7 +233,7 @@ def game_result():#This function is responsible for selecting a winner or lost
                 
                 player.attributes['player'+ str(win)]['chip'] = player.attributes['player'+ str(win)]['chip'] + reward
 
-                os.system('clear')
+               
                 print('winner')
                 print('Player : ' , player.attributes['player'+ str(win)]['name'])
                 print('Card scoring : ' , player.attributes['player'+ str(win)]['point'])
@@ -292,7 +291,7 @@ def new_game():#This function is for repeat the game how many you want while you
                 game.moveMenu()
 
             elif int(ask_new_game):
-                print('Thanks for playing with us.')
+                show.icon()
                 time.sleep(5)
                 os.sys.exit()
         else:
