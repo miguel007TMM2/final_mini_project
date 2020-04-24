@@ -82,7 +82,7 @@ class Game:
             os.system("cls")
             input("Error entering the number of players, try a number from 1 to 4 enter to continue...")
             self.generate_players()
-        print(self.players[0].name,self.players[0].chips,self.players[0].cards,self.players[0].point,self.players[0].icon)
+      
 
     def betting_system(self):
         self.minimum_bet = 50
@@ -257,9 +257,7 @@ class Game:
                     menu.iterator = 0   
                     menu.menu_interaction()
 
-                elif int(self.ask_new_game):
-                    show.icon()
-                    time.sleep(5)
+                if int(self.ask_new_game) == 2:
                     os.sys.exit()
             else:
                 print("Your entry is not valid")
@@ -395,8 +393,7 @@ class Menu:
                                     print("you cannot double the bet after requesting a card. you have to double the bet before asking for a card")
                                     time.sleep(3)
 
-                    dealer.Keep_holding_cards()
-                    show.table(game.players[0]," ".join(dealer.crupier_curret_hand),dealer.values_cards_crupier)
+                    
 
                 else:
                     self.delimiter += 1
@@ -406,7 +403,8 @@ class Menu:
         except:
             pass
 
-
+        dealer.Keep_holding_cards()
+        show.table(game.players[0]," ".join(dealer.crupier_curret_hand),dealer.values_cards_crupier)
         game.calculate_final_results()
         game.start_new_game()
 
