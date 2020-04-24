@@ -1,30 +1,23 @@
 import os
 import keyboard
 import time
-from players import Player
-player = Player()
 
-class View():
+class View:
     def __init__(self):
         super(View, self).__init__()
         self.opcion = ["|1) Stand                    |","|2) Ask for cards            |" ,"|3) double the bet           |"]
         
-    def table(self, player, current_player, cupier,point_crup):#This function is in charge of regulating the spaces and displaying the table
+    def table(self, current_player, cupier,point_crup):#This function is in charge of regulating the spaces and displaying the table
 
         self.spoint = ""
-        self.schips = str(current_player['chip'])
+        self.schips = str(current_player.chips)
                 
-        if current_player['initial_bet'][0] == True:
-
-            self.current_bet = str(current_player['initial_bet'][1])
-        else:
-
-            self.current_bet = str(current_player['bet'][1]) 
+        self.current_bet = str(current_player.bet) 
             
-        if len(str(current_player['point'])) < 2:
+        if len(str(current_player.point)) < 2:
             self.spoint += " "    
             
-        self.curret_cards = " ".join(current_player['cards'])
+        self.curret_cards = " ".join(current_player.cards)
         
         self.crupier_info = str(cupier)+" Point: "+str(point_crup)
         
@@ -36,11 +29,11 @@ class View():
             if len(self.schips) > 21:
                 self.schips = self.schips[0:21]
             
-            if len(current_player['name']) <= 25:
-                current_player['name'] += " "
+            if len(current_player.name) <= 25:
+                current_player.name += " "
 
-            if len(current_player['name'])> 25:
-                current_player['name'] = current_player['name'][0:26]
+            if len(current_player.name)> 25:
+                current_player.name = current_player.name[0:26]
             
             if len(self.curret_cards)<= 18:
                 self.curret_cards += " "
@@ -60,13 +53,13 @@ class View():
         self.icon_table = print("""
               ________________________________________________________________________________________ __________________________
               |      |   ________                                                  ________  |       |                            | 
-              |      |  |        |          _________________________             |        | |       |"""+current_player['icon']+""" """  +current_player['name']+"""|  
+              |      |  |        |          _________________________             |        | |       |"""+current_player.icon+""" """  +current_player.name+"""|  
               |      |  |________|         |        """+"Crupier"+"""          |            |________| |       |     """+"***Menu Game***"+"""        |
               |       \                    |                         |                      /        """+self.opcion[0]+"""       
               |        \                   |_________________________|                     /         """+self.opcion[1]+"""      
               |         \_________________________________________________________________/          """+self.opcion[2]+"""                    
               |                                 """,self.crupier_info,"""|                            |
-              |                                                                                      |"""+"Point: ",current_player['point'],self.spoint,"""                |    
+              |                                                                                      |"""+"Point: ",current_player.point,self.spoint,"""                |    
               |                                                                                      |"""+"Chips: "+self.schips+"""|   
               |                   ____  _            _       _            _                          |"""+"Cards: ",self.curret_cards,"""|   
               |                  | __ )| | __ _  ___| | __  | | __ _  ___| | __                      |"""+"Bet:   ",self.current_bet,"""|   

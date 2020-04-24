@@ -1,6 +1,6 @@
 from players import Player
 from crupier import Crupier
-from dice import Dice
+
 from deck_of_cards import Deck_of_cards
 from view import View
 
@@ -9,8 +9,6 @@ import time
 import keyboard
 
 dealer = Crupier()
-dice =  Dice()
-dice.status()
 show = View()
 player = Player()
 cards = Deck_of_cards()
@@ -124,7 +122,7 @@ def bets():#This function is responsible for managing the bets of the game
 				if player.attributes['player'+ str(count_players)]['chip'] > minimum_bet:
 
 					make_bets = input('the minimum bet is '+ str(minimum_bet) + '. Enter your bet player ' + player.attributes['player'+ str(count_players)]['name'] + ' you have ' + str(player.attributes['player'+ str(count_players)]['chip']) + ' chips : '  )
-
+		
 					if make_bets.isdigit():
 
 						if int(make_bets) >= minimum_bet:
