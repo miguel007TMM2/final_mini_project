@@ -1,4 +1,5 @@
 class Player:
+
 	def __init__(self,name,icon,state,chips,point,cards,bet):
 		self.name = name
 
