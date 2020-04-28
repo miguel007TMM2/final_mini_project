@@ -32,6 +32,3 @@ class Deck:
 
         random.shuffle(self.list_of_cards)    
 
-# baraja =  Deck()
-
-# print('suma de las cartas {} y {} es igual {}'.format( baraja.list_of_cards[1], baraja.list_of_cards[2], baraja.card_values[baraja.list_of_cards[1]] + baraja.card_values[baraja.list_of_cards[2]] ))
