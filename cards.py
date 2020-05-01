@@ -1,10 +1,10 @@
 import random
-class Cards:
+class Card:
 
-    def __init__(self, number = None , symbol = None , card_values = {} ):
+    def __init__(self, number = None , symbol = None , value = {} ):
 
-        self.card_values =card_values
-        self.number = number
+        self.value = value
+        self.number = number 
         self.symbol = symbol
 
     def __str__(self):
@@ -26,13 +26,8 @@ class Deck:
 
             for number in self.numbers:
 
-                carta = Cards(number,symbol)
+                carta = Card(number,symbol)
                 self.list_of_cards.append(carta)
-                carta.card_values.update({carta : carta.number})
+                carta.value.update({carta : carta.number})
 
         random.shuffle(self.list_of_cards)    
-
-p = Deck()
-e = Cards()
-print(p.list_of_cards[0])
-print(e.card_values[p.list_of_cards[0]])
