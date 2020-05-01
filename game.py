@@ -400,13 +400,12 @@ class Menu:
                     
             show.table(game.players[0],self.crupier_all_cards,dealer.values_cards_crupier)
             self.delimiter = 0
+            self.crupier_all_cards = ""
             game.calculate_final_results()
             game.start_new_game()
 
 game = Game()
-
 menu = Menu()
-
 game.generate_players()
 game.betting_system()
 menu.menu_interaction()
