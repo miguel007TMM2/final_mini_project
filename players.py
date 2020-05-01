@@ -12,7 +12,7 @@ class Player:
 		self.point = point
 
 		self.cards = cards
-
+		
 		self.bet = bet
 
         
