@@ -11,13 +11,16 @@ class View:
 
         self.spoint = ""
         self.schips = str(current_player.chips)
-                
+        self.curret_cards = ""     
         self.current_bet = str(current_player.bet) 
             
         if len(str(current_player.point)) < 2:
-            self.spoint += " "    
-            
-        self.curret_cards = " ".join(current_player.cards)
+            self.spoint += " "   
+
+        
+        for i in current_player.cards:
+            self.curret_cards += str(i) + " "
+
         
         self.crupier_info = str(cupier)+" Point: "+str(point_crup)
         

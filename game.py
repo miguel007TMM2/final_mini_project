@@ -271,13 +271,11 @@ class Menu:
         self.iterator = 0
         self.delimiter = 0
         self.cards_crupier_Value = deck_of_cards.card_values[dealer.crupier_curret_hand[0]]
-
+        self.crupier_all_cards = ""
     def menu_interaction(self):
-
         try:
-
             if game.players[self.delimiter].state == True:
-
+                
                 if len(game.players[self.delimiter].cards) == 2:
 
                     if game.players[self.delimiter].point == 21:
@@ -300,107 +298,110 @@ class Menu:
                         self.menu_interaction()
 
                 time.sleep(0.15)
+               
+                if self.iterator == 0:
 
-                if game.players[self.delimiter].state == True:
-                    if self.iterator == 0:
+                    show.opcion[0] = "|1) Stand  ◄                 |"
+                    show.opcion[1] = "|2) Ask for cards            |"
+                    show.opcion[2] = "|3) double the bet           |"
 
-                        show.opcion[0] = "|1) Stand  ◄                 |"
-                        show.opcion[1] = "|2) Ask for cards            |"
-                        show.opcion[2] = "|3) double the bet           |"
+                    os.system("cls")
+                    show.table(game.players[self.delimiter],dealer.crupier_curret_hand[0],self.cards_crupier_Value)
 
-                        os.system("cls")
-                        show.table(game.players[self.delimiter],dealer.crupier_curret_hand[0],self.cards_crupier_Value)
+                elif self.iterator == 1:
 
-                    elif self.iterator == 1:
+                    show.opcion[0] = "|1) Stand                    |"
+                    show.opcion[1] = "|2) Ask for cards   ◄        |"
+                    show.opcion[2] = "|3) double the bet           |"
 
-                        show.opcion[0] = "|1) Stand                    |"
-                        show.opcion[1] = "|2) Ask for cards   ◄        |"
-                        show.opcion[2] = "|3) double the bet           |"
+                    os.system("cls")
+                    show.table(game.players[self.delimiter],dealer.crupier_curret_hand[0],self.cards_crupier_Value)
 
-                        os.system("cls")
-                        show.table(game.players[self.delimiter],dealer.crupier_curret_hand[0],self.cards_crupier_Value)
+                elif self.iterator == 2:
 
-                    elif self.iterator == 2:
+                    show.opcion[0] = "|1) Stand                    |"
+                    show.opcion[1] = "|2) Ask for cards            |"
+                    show.opcion[2] = "|3) double the bet  ◄        |"
 
-                        show.opcion[0] = "|1) Stand                    |"
-                        show.opcion[1] = "|2) Ask for cards            |"
-                        show.opcion[2] = "|3) double the bet  ◄        |"
+                    os.system("cls")
+                    show.table(game.players[self.delimiter],dealer.crupier_curret_hand[0],self.cards_crupier_Value)
 
-                        os.system("cls")
-                        show.table(game.players[self.delimiter],dealer.crupier_curret_hand[0],self.cards_crupier_Value)
+                while True:
 
-                    while True:
+                    if self.delimiter > len(game.players)-1:
+                        break
 
-                        if self.delimiter > len(game.players)-1:
-                            break
+                    if keyboard.is_pressed("down"):
+                        self.iterator += 1
 
-                        if keyboard.is_pressed("down"):
-                            self.iterator += 1
+                        if self.iterator == 3:
+                            self.iterator = 0
 
-                            if self.iterator == 3:
-                                self.iterator = 0
+                        self.menu_interaction()
 
-                            self.menu_interaction()
+                    if keyboard.is_pressed("up"):
+                        self.iterator -= 1
 
-                        if keyboard.is_pressed("up"):
-                            self.iterator -= 1
+                        if self.iterator == -1:
+                            self.iterator = 2
 
-                            if self.iterator == -1:
-                                self.iterator = 2
+                        self.menu_interaction()
 
-                            self.menu_interaction()
+                    if keyboard.is_pressed(" "):
 
-                        if keyboard.is_pressed(" "):
+                        if self.iterator == 0:
 
-                            if self.iterator == 0:
+                            if self.delimiter < len(game.players):
+                                self.delimiter += 1
 
-                                if self.delimiter < len(game.players):
-                                    self.delimiter += 1
+                                if game.players[self.delimiter].state == True:
 
-                                    if game.players[self.delimiter].state == True:
-
-                                        show.table(game.players[self.delimiter],dealer.crupier_curret_hand[0],self.cards_crupier_Value)
-                                        self.menu_interaction()
-
-                                    else:
-                                        self.delimiter += 1
-                                else:
-                                    break
-
-                            if self.iterator == 1:
-
-                                if game.players[self.delimiter].point < 21:
-
-                                    game.players[self.delimiter].point = dealer.get_card(game.players[self.delimiter].cards)
                                     show.table(game.players[self.delimiter],dealer.crupier_curret_hand[0],self.cards_crupier_Value)
                                     self.menu_interaction()
 
                                 else:
-                                    input("You have to stand, your cards have exceeded or is equal to the score of 21")
-                                    self.menu_interaction()
+                                    self.delimiter += 1
+                            else:
+                                break
 
-                            if self.iterator == 2:
-                                if len(game.players[self.delimiter].cards) == 2:
-                                    game.double_bet(self.delimiter)
-                                    self.menu_interaction()
+                        if self.iterator == 1:
 
-                                else:
-                                    print("you cannot double the bet after requesting a card. you have to double the bet before asking for a card")
-                                    time.sleep(3)
+                            if game.players[self.delimiter].point < 21:
 
-                    dealer.Keep_holding_cards()
-                    show.table(game.players[0]," ".join(dealer.crupier_curret_hand),dealer.values_cards_crupier)
+                                game.players[self.delimiter].point = dealer.get_card(game.players[self.delimiter].cards)
+                                show.table(game.players[self.delimiter],dealer.crupier_curret_hand[0],self.cards_crupier_Value)
+                                self.menu_interaction()
 
-                else:
-                    self.delimiter += 1
-                    self.menu_interaction()
+                            else:
+                                input("You have to stand, your cards have exceeded or is equal to the score of 21")
+                                self.menu_interaction()
+
+                        if self.iterator == 2:
+                            if len(game.players[self.delimiter].cards) == 2:
+                                game.double_bet(self.delimiter)
+                                self.menu_interaction()
+
+                            else:
+                                print("you cannot double the bet after requesting a card. you have to double the bet before asking for a card")
+                                time.sleep(3)
+
+                
+
+    
             else:
                 self.delimiter += 1
         except:
-            pass
-
-        game.calculate_final_results()
-        game.start_new_game()
+            pass        
+       
+        if self.delimiter > len(game.players)-1:
+            dealer.Keep_holding_cards()
+            for i in dealer.crupier_curret_hand:
+                self.crupier_all_cards += str(i) + " "
+                    
+            show.table(game.players[0],self.crupier_all_cards,dealer.values_cards_crupier)
+            self.delimiter = 0
+            game.calculate_final_results()
+            game.start_new_game()
 
 game = Game()
 
