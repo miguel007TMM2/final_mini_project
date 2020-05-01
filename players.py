@@ -1,37 +1,20 @@
+class Player:
 
-#This class charge of generating the players
-class Player():
-    
-    attributes = {}
-    icono_for_player = ['☠', '☢', '☣' ,'♞','☯', '♪', '❆','✟']
-    indexC = 0
-    calls_points = 0
+	def __init__(self,name,icon,state,chips,point,cards,bet):
+		self.name = name
 
-    def __init__(self):
+		self.icon = icon
 
-        for rename in range(1,6):
+		self.state = state
 
-            self.attributes.update({
+		self.chips = chips
 
-            'player'+str(rename):{ 
+		self.point = point
 
-            'name':  "",
-            
-            'icon':  "",
+		self.cards = cards
+		
+		self.bet = bet
 
-            'state': False,
-            
-            'chip':  "",
-            
-            'point': "",
-            
-            'cards':  "",
-            
-            'initial_bet' : [False, ""], 
-            
-            'bet': [False,""] 
-                                    }})
+        
 
-      
-    
-    
+	
