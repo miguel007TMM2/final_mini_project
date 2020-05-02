@@ -30,7 +30,7 @@ class Deck:
                 if value == 'A':
                     value = 11
 
-                elif value == 'J' or value == 'Q'or value == 'K':
+                elif value in ['J','Q','K']:
                     value = 10
 
                 carta = Card(number,symbol, value)
