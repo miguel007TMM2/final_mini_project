@@ -14,7 +14,7 @@ class Card:
 class Deck:
 
     list_of_cards = []
-   
+
     def __init__(self):
 
         self.symbols = ['♥', '♠', '♣', '♦']
