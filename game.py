@@ -33,12 +33,12 @@ class Game:
 
     def select_icon(self,iterator):
         number_icon = 1
-
+        
         for icons in self.icono_for_player:
 
             print(number_icon,icons)
             number_icon += 1
-
+        
         ask_for_icon = input("insert a number of you icon ► ")
         os.system("cls")
 
@@ -46,8 +46,9 @@ class Game:
 
             if int(ask_for_icon) > 0 and int(ask_for_icon) < 8:
 
-                self.players.append(Player(name_of_player,self.icono_for_player[int(ask_for_icon)],True,10000,dealer.Player_curret_hand[1],dealer.Player_curret_hand[0],[False,0]))
+                self.players.append(Player(name_of_player,self.icono_for_player[int(ask_for_icon)],True,10000,dealer.Player_curret_hand[1],dealer.Player_curret_hand[0],0,False))
                 dealer.Player_curret_hand = [[]]
+                
             else:
                 os.system("cls")
                 input("error the option you have inserted is not valid test with a number from 1 to 8 press enter for continue")
@@ -74,17 +75,19 @@ class Game:
 
                     print("Select you icon")
                     self.select_icon(delimiter)
+
             else:
                 os.system("cls")
                 input("Error entering the number of players, try a number from 1 to 4 enter to continue...")
                 self.generate_players()
+
         else:
             os.system("cls")
             input("Error entering the number of players, try a number from 1 to 4 enter to continue...")
             self.generate_players()
 
 
-    def betting_system(self):#This method receives and manages the bets made by the players
+    def betting_system(self):
 
         self.minimum_bet = 50
         self.count_players = 0
@@ -93,7 +96,7 @@ class Game:
 
             if self.players[self.count_players].state == True:
 
-                if self.players[self.count_players].bet[0] == False:
+                if self.players[self.count_players].bet_state == False:
 
                     if self.players[self.count_players].chips > self.minimum_bet:
 
@@ -108,6 +111,7 @@ class Game:
                                     self.players[self.count_players].chips = self.players[self.count_players].chips - int(self.make_bets)
                                     self.players[self.count_players].bet = int(self.make_bets)
                                     self.count_players += 1
+
                                 else:
                                     print("Your bet is bigger than you own please make a correct bet")
                             else:
@@ -123,8 +127,8 @@ class Game:
             else:
                 self.count_players += 1
 
-    def double_bet(self,count):#this method allows you to double your initial bets
-
+    def double_bet(self,count):
+        
         if self.players[count].chips - self.players[count].bet > 0:
 
             self.players[count].chips = self.players[count].chips - self.players[count].bet
@@ -161,7 +165,7 @@ class Game:
         print("Profits: ", reward)
         input("Enter to continue \n")
 
-    def calculate_final_results(self):#This method is used to compare dealer and player data to decide winners or losers
+    def calculate_final_results(self):
 
         self.win = 0
 
@@ -173,7 +177,7 @@ class Game:
                 self.bet_back = self.players[self.win].bet
 
                 if self.players[self.win].point > dealer.values_cards_crupier and self.players[self.win].point <= 21:
-
+                    
                     self.players[self.win].chips = self.players[self.win].chips + self.reward
                     self.winner_data(self.players[self.win].name, self.players[self.win].point, self.reward)
                     self.win += 1
@@ -208,16 +212,17 @@ class Game:
         dealer.values_cards_crupier = 0
         dealer.Player_curret_hand = [[]]
         dealer.deck_of_cards.generator_of_cards()
-
+    
     def reset_player_data(self):
 
         for reset in range(len(self.players)):
-
+    
             if self.players[reset].state == True:
 
                 self.players[reset].cards = ''
                 self.players[reset].point = ""
-                self.players[reset].bet = [False,0]
+                self.players[reset].bet = 0
+                self.players[reset].bet_state = False
 
                 dealer.get_two_cards()
 
@@ -226,7 +231,7 @@ class Game:
                 dealer.Player_curret_hand = [[]]
 
     def reset_game_data(self):
-
+        
         self.reset_dealer_data()
         self.reset_player_data()
 
@@ -237,7 +242,7 @@ class Game:
         menu.iterator = 0   
         menu.menu_interaction()
 
-    def start_new_game(self):#this method allows you to play again
+    def start_new_game(self):
 
         self.ask_new_game = input("Do you want to play again ? write 1 for continue or 2 for exit the game : ")
         os.system("cls")
@@ -247,7 +252,7 @@ class Game:
             if int(self.ask_new_game) == 1 or int(self.ask_new_game) == 2:
 
                 if int(self.ask_new_game) == 1:
-
+                    
                     self.reset_game_data()
 
                 elif int(self.ask_new_game):
@@ -264,7 +269,6 @@ class Game:
 class Menu:
 
     def __init__(self):
-
         self.iterator = 0
         self.delimiter = 0
         self.cards_crupier_Value = dealer.crupier_curret_hand[0].value
@@ -298,7 +302,7 @@ class Menu:
                         self.menu_interaction()
 
                 time.sleep(0.15)
-
+               
                 if self.iterator == 0:
 
                     show.opcion[0] = "|1) Stand  ◄                 |"
@@ -384,6 +388,7 @@ class Menu:
                             else:
                                 print("you cannot double the bet after requesting a card. you have to double the bet before asking for a card")
                                 time.sleep(3)
+
             else:
                 self.delimiter += 1
         except:
@@ -393,7 +398,7 @@ class Menu:
             dealer.Keep_holding_cards()
             for i in dealer.crupier_curret_hand:
                 self.crupier_all_cards += str(i) + " "
-  
+
             show.table(game.players[0],self.crupier_all_cards,dealer.values_cards_crupier)
             self.delimiter = 0
             self.crupier_all_cards = ""
