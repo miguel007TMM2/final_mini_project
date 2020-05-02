@@ -267,12 +267,12 @@ class Menu:
 
         self.iterator = 0
         self.delimiter = 0
-        self.cards_crupier_Value = dealer.card_value.value[dealer.crupier_curret_hand[0]]
+        self.cards_crupier_Value = dealer.crupier_curret_hand[0].value
         self.crupier_all_cards = ""
 
     def menu_interaction(self):
 
-        self.cards_crupier_Value = dealer.card_value.value[dealer.crupier_curret_hand[0]]
+        self.cards_crupier_Value = dealer.crupier_curret_hand[0].value
         try:
             if game.players[self.delimiter].state == True:
 
