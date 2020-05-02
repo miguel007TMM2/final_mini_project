@@ -1,6 +1,6 @@
 class Player:
 
-	def __init__(self,name,icon,state,chips,point,cards,bet):
+	def __init__(self,name,icon,state,chips,point,cards,bet,bet_state):
 		self.name = name
 
 		self.icon = icon
@@ -14,6 +14,8 @@ class Player:
 		self.cards = cards
 		
 		self.bet = bet
+		
+		self.bet_state = bet_state
 
         
 

@@ -1,6 +1,6 @@
 import os
-from cards import Card
-#This class is responsible for managing the dealer process in the game.
+from cards import Deck
+
 class Crupier():
 
     Player_curret_hand = [[]]
@@ -10,7 +10,6 @@ class Crupier():
     def __init__(self, deck_of_cards): #Each time the class is called this will be executed by granting the dealer 2 cards
         
         self.deck_of_cards = deck_of_cards
-        self.card_value = Card()
         self.crupier_curret_hand = []
         self.crupier_iterator = 0
         self.crupiers_two_cards()
@@ -18,7 +17,7 @@ class Crupier():
 
     def mutation_of_as(self, index, put_list, addition): #This method changes the value of the As
 
-        mutation = self.card_value.value[ put_list [index]] = 1
+        mutation = put_list [index].value = 1
         addition += mutation
         addition -= 1
 
@@ -26,7 +25,7 @@ class Crupier():
 
         for index in range(len(enter_list)):
 
-            if self.card_value.value[enter_list[index]] == 11:
+            if enter_list[index].value == 11:
                 if sum_value >= 11:
                     self.mutation_of_as(index, enter_list, sum_value)
 
@@ -38,7 +37,8 @@ class Crupier():
         for index in range(len(set_list)):
 
             self.set_mutation_of_as(index, set_list, count)
-            count  += self.card_value.value[set_list[index]]
+            count  += set_list[index].value
+
         return count
 
     def get_two_cards(self):# this method takes two cards to give to the player
@@ -48,14 +48,14 @@ class Crupier():
         for iterator in range(0,2):
 
             self.get_card(self.Player_curret_hand[0])
-            value += self.card_value.value[self.Player_curret_hand[0][iterator]]
+            value += self.Player_curret_hand[0][iterator].value
         self.Player_curret_hand.append(value)
 
     def get_card_for_crupier(self, index): #this method takes care of passing a card to the dealer by passing the value of the card to a variable
 
         self.crupier_curret_hand.append(self.deck_of_cards.list_of_cards.pop())
-        self.set_mutation_of_as(self.crupier_iterator, self.crupier_curret_hand, self.values_cards_crupier )
-        self.values_cards_crupier += self.card_value.value[self.crupier_curret_hand[index]]
+        self.set_mutation_of_as(self.crupier_iterator, self.crupier_curret_hand, self.values_cards_crupier)
+        self.values_cards_crupier += self.crupier_curret_hand[index].value
 
     def crupiers_two_cards(self): #it takes two cards for dealer just calling the method that takes one card twice
 
@@ -68,3 +68,4 @@ class Crupier():
 
             self.crupier_iterator += 1
             self.get_card_for_crupier(self.crupier_iterator)
+

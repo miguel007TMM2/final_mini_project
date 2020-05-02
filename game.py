@@ -46,8 +46,9 @@ class Game:
 
             if int(ask_for_icon) > 0 and int(ask_for_icon) < 8:
 
-                self.players.append(Player(name_of_player,self.icono_for_player[int(ask_for_icon)],True,10000,dealer.Player_curret_hand[1],dealer.Player_curret_hand[0],[False,0]))
+                self.players.append(Player(name_of_player,self.icono_for_player[int(ask_for_icon)],True,10000,dealer.Player_curret_hand[1],dealer.Player_curret_hand[0],0,False))
                 dealer.Player_curret_hand = [[]]
+                
             else:
                 os.system("cls")
                 input("error the option you have inserted is not valid test with a number from 1 to 8 press enter for continue")
@@ -84,7 +85,7 @@ class Game:
             os.system("cls")
             input("Error entering the number of players, try a number from 1 to 4 enter to continue...")
             self.generate_players()
-        # print(self.players[0].name,self.players[0].chips,self.players[0].cards,self.players[0].point,self.players[0].icon)
+
 
     def betting_system(self):
 
@@ -95,7 +96,7 @@ class Game:
 
             if self.players[self.count_players].state == True:
 
-                if self.players[self.count_players].bet[0] == False:
+                if self.players[self.count_players].bet_state == False:
 
                     if self.players[self.count_players].chips > self.minimum_bet:
 
@@ -220,7 +221,8 @@ class Game:
 
                 self.players[reset].cards = ''
                 self.players[reset].point = ""
-                self.players[reset].bet = [False,0]
+                self.players[reset].bet = 0
+                self.players[reset].bet_state = False
 
                 dealer.get_two_cards()
 
@@ -267,17 +269,17 @@ class Game:
 class Menu:
 
     def __init__(self):
-
         self.iterator = 0
         self.delimiter = 0
-        self.cards_crupier_Value = dealer.card_value.value[dealer.crupier_curret_hand[0]]
+        self.cards_crupier_Value = dealer.crupier_curret_hand[0].value
         self.crupier_all_cards = ""
 
     def menu_interaction(self):
-        self.cards_crupier_Value = dealer.card_value.value[dealer.crupier_curret_hand[0]]
+
+        self.cards_crupier_Value = dealer.crupier_curret_hand[0].value
         try:
             if game.players[self.delimiter].state == True:
-                
+
                 if len(game.players[self.delimiter].cards) == 2:
 
                     if game.players[self.delimiter].point == 21:
@@ -387,19 +389,16 @@ class Menu:
                                 print("you cannot double the bet after requesting a card. you have to double the bet before asking for a card")
                                 time.sleep(3)
 
-                
-
-    
             else:
                 self.delimiter += 1
         except:
             pass        
-       
+
         if self.delimiter > len(game.players)-1:
             dealer.Keep_holding_cards()
             for i in dealer.crupier_curret_hand:
                 self.crupier_all_cards += str(i) + " "
-                    
+
             show.table(game.players[0],self.crupier_all_cards,dealer.values_cards_crupier)
             self.delimiter = 0
             self.crupier_all_cards = ""
