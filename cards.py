@@ -1,9 +1,10 @@
 import random
-class Cards:
+class Card:
 
-    def __init__(self, number, symbol):
+    def __init__(self, number = None , symbol = None , value = {} ):
 
-        self.number = number
+        self.value = value
+        self.number = number 
         self.symbol = symbol
 
     def __str__(self):
@@ -17,7 +18,6 @@ class Deck:
     
         self.symbols = ['♥', '♠', '♣', '♦']
         self.numbers = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10,10,10,10]
-        self.card_values = {}
         self.generator_of_cards()
 
     def generator_of_cards(self):
@@ -26,9 +26,8 @@ class Deck:
 
             for number in self.numbers:
 
-                carta = Cards(number,symbol)
+                carta = Card(number,symbol)
                 self.list_of_cards.append(carta)
-                self.card_values.update({carta : carta.number})
+                carta.value.update({carta : carta.number})
 
         random.shuffle(self.list_of_cards)    
-
