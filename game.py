@@ -15,7 +15,7 @@ class Game:
     def __init__(self):
 
         self.players = []
-        self.icono_for_player = ['☠', '☢', '☣' ,'♞','☯', '♪', '❆','✟']
+        self.player_icon = ['☠', '☢', '☣' ,'♞','☯', '♪', '❆','✟']
 
     def select_name(self,iterator):
         global name_of_player
@@ -30,57 +30,53 @@ class Game:
 
         else:
             return name_of_player
+   
 
-    def select_icon(self,iterator):
-        number_icon = 1
-        
-        for icons in self.icono_for_player:
+    def select_icons(self,iterator):
+        def show_icons(player_icon):
+            for index in range(0,len(player_icon)):
+                print(index,player_icon[index])
 
-            print(number_icon,icons)
-            number_icon += 1
         
-        ask_for_icon = input("insert a number of you icon ► ")
+        show_icons(self.player_icon)
+        select_icon = input("insert a number of you icon ► ")
         os.system("cls")
 
-        if ask_for_icon.isdigit():
+        if select_icon.isdigit():
 
-            if int(ask_for_icon) > 0 and int(ask_for_icon) < 8:
+            if int(select_icon) > 0 and int(select_icon) < 8:
 
-                self.players.append(Player(name_of_player,self.icono_for_player[int(ask_for_icon)],True,10000,dealer.Player_curret_hand[1],dealer.Player_curret_hand[0],0,False))
+                self.players.append(Player(name_of_player,self.player_icon[int(select_icon)],True,10000,dealer.Player_curret_hand[1],dealer.Player_curret_hand[0],0,False))
                 dealer.Player_curret_hand = [[]]
                 
             else:
                 os.system("cls")
                 input("error the option you have inserted is not valid test with a number from 1 to 8 press enter for continue")
-                self.select_icon(iterator)
+                self.select_icons(iterator)
         else:
             input("Error the option you have inserted is not valid test with a number from 1 to 8 press enter for continue")
-            self.select_icon(iterator)
+            self.select_icons(iterator)
 
-    def generate_players(self):
+    def generate_players(self): 
+        number_of_player = input("Entry number of players ► ")
 
-        print("The limit of players that you can play at the same time are 4 ")
-        self.limit_players = input("Entry number of players ► ")
+        def is_entry_valid(entry):
+            if number_of_player.isdigit():
+                 return entry > 0 and entry <= 4
+            
+            return False
 
-        if self.limit_players.isdigit():
+        if is_entry_valid(int(number_of_player)):
+            os.system("cls")
 
-            if int(self.limit_players) <= 4 and int(self.limit_players) > 0:
+            for delimiter in range(int(number_of_player)):
 
-                os.system("cls")
+                dealer.get_two_cards()
+                self.select_name(delimiter)
+                print("Select you icon")
+                self.select_icons(delimiter)
 
-                for delimiter in range(int(self.limit_players)):
-
-                    dealer.get_two_cards()
-                    self.select_name(delimiter)
-
-                    print("Select you icon")
-                    self.select_icon(delimiter)
-
-            else:
-                os.system("cls")
-                input("Error entering the number of players, try a number from 1 to 4 enter to continue...")
-                self.generate_players()
-
+            
         else:
             os.system("cls")
             input("Error entering the number of players, try a number from 1 to 4 enter to continue...")
