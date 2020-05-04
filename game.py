@@ -15,7 +15,7 @@ class Game:
     def __init__(self):
 
         self.players = []
-        self.player_icon = ['☠', '☢', '☣' ,'♞','☯', '♪', '❆','✟']
+        self.player_icons = ['☠', '☢', '☣' ,'♞','☯', '♪', '❆','✟']
 
     def select_name(self,iterator):
         global name_of_player
@@ -33,21 +33,23 @@ class Game:
    
 
     def select_icons(self,iterator):
+        print("Select you icon")
         def show_icons(player_icon):
             for index in range(0,len(player_icon)):
                 print(index,player_icon[index])
 
-        
-        show_icons(self.player_icon)
-        select_icon = input("insert a number of you icon ► ")
-        os.system("cls")
+        show_icons(self.player_icons)
+        selected_icon = input("insert a number of you icon ► ")
 
-        if select_icon.isdigit():
+        if selected_icon.isdigit():
 
-            if int(select_icon) > 0 and int(select_icon) < 8:
-
-                self.players.append(Player(name_of_player,self.player_icon[int(select_icon)],True,10000,dealer.Player_curret_hand[1],dealer.Player_curret_hand[0],0,False))
-                dealer.Player_curret_hand = [[]]
+            if int(selected_icon) > 0 and int(selected_icon) < 8:
+                
+                os.system("cls")
+                return self.player_icons[int(selected_icon)]
+                
+                
+                
                 
             else:
                 os.system("cls")
@@ -57,7 +59,7 @@ class Game:
             input("Error the option you have inserted is not valid test with a number from 1 to 8 press enter for continue")
             self.select_icons(iterator)
 
-    def generate_players(self): 
+    def create_players(self): 
         number_of_player = input("Entry number of players ► ")
 
         def is_entry_valid(entry):
@@ -69,18 +71,18 @@ class Game:
         if is_entry_valid(int(number_of_player)):
             os.system("cls")
 
-            for delimiter in range(int(number_of_player)):
+            for n in range(int(number_of_player)):
 
                 dealer.get_two_cards()
-                self.select_name(delimiter)
-                print("Select you icon")
-                self.select_icons(delimiter)
-
-            
+                player_name = self.select_name(n)
+                player_icon = self.select_icons(n)
+                self.players.append(Player(player_name,player_icon,True,10000,dealer.Player_curret_hand[1],dealer.Player_curret_hand[0],0,False))
+                dealer.Player_curret_hand = [[]]
+                
         else:
             os.system("cls")
             input("Error entering the number of players, try a number from 1 to 4 enter to continue...")
-            self.generate_players()
+            self.create_players()
 
 
     def betting_system(self):
@@ -403,6 +405,6 @@ class Menu:
 
 game = Game()
 menu = Menu()
-game.generate_players()
+game.create_players()
 game.betting_system()
 menu.menu_interaction()
