@@ -48,22 +48,22 @@ class Game:
 
         show_icons(self.player_icons)
         selected_icon = input("insert a number of you icon ► ")
+        
+        def entry_is_valid(value):
+            if selected_icon.isdigit():
+                return int(selected_icon) > 0 and int(selected_icon) <= 8
 
-        if selected_icon.isdigit():
+            return False
 
-            if int(selected_icon) > 0 and int(selected_icon) <= 8:
+        if entry_is_valid(selected_icon):
+            return self.player_icons[int(selected_icon) - 1]
+            os.system("cls")
 
-                os.system("cls")
-                return self.player_icons[int(selected_icon) - 1]
-
-            else:
-                os.system("cls")
-                input("error the option you have inserted is not valid test with a number from 1 to 8 press enter for continue")
-                self.select_icons(iterator)
         else:
-            input("Error the option you have inserted is not valid test with a number from 1 to 8 press enter for continue")
-            self.select_icons(iterator)
-
+             os.system("cls")
+             input("error the option you have inserted is not valid test with a number from 1 to 8 press enter for continue")
+             self.select_icons(iterator)
+      
     def create_players(self): 
 
         number_of_player = input("Entry number of players ► ")
