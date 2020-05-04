@@ -9,13 +9,21 @@ import keyboard
 deck_of_cards = Deck()
 dealer = Crupier(deck_of_cards)
 show = View()
-
 class Game:
 
     def __init__(self):
 
         self.players = []
         self.player_icons = ['☠', '☢', '☣' ,'♞','☯', '♪', '❆','✟']
+
+
+    def calculate_player_point(self, iterator):
+
+        point = 0
+        for value_card in self.players[iterator].cards:
+            point +=  value_card.value
+        
+        return point 
 
     def select_name(self,iterator):
         global name_of_player
@@ -36,21 +44,18 @@ class Game:
         print("Select you icon")
         def show_icons(player_icon):
             for index in range(0,len(player_icon)):
-                print(index,player_icon[index])
+                print(index + 1,player_icon[index])
 
         show_icons(self.player_icons)
         selected_icon = input("insert a number of you icon ► ")
 
         if selected_icon.isdigit():
 
-            if int(selected_icon) > 0 and int(selected_icon) < 8:
-                
+            if int(selected_icon) > 0 and int(selected_icon) <= 8:
+
                 os.system("cls")
-                return self.player_icons[int(selected_icon)]
-                
-                
-                
-                
+                return self.player_icons[int(selected_icon) - 1]
+
             else:
                 os.system("cls")
                 input("error the option you have inserted is not valid test with a number from 1 to 8 press enter for continue")
@@ -60,12 +65,13 @@ class Game:
             self.select_icons(iterator)
 
     def create_players(self): 
+
         number_of_player = input("Entry number of players ► ")
 
         def is_entry_valid(entry):
             if number_of_player.isdigit():
                  return entry > 0 and entry <= 4
-            
+
             return False
 
         if is_entry_valid(int(number_of_player)):
@@ -76,9 +82,9 @@ class Game:
                 dealer.get_two_cards()
                 player_name = self.select_name(n)
                 player_icon = self.select_icons(n)
-                self.players.append(Player(player_name,player_icon,True,10000,dealer.Player_curret_hand[1],dealer.Player_curret_hand[0],0,False))
-                dealer.Player_curret_hand = [[]]
-                
+                self.players.append(Player(player_name,player_icon,True,10000,dealer.get_two_cards(),0,0,False))
+                player_point = self.calculate_player_point(n)
+                self.players[n].point = player_point 
         else:
             os.system("cls")
             input("Error entering the number of players, try a number from 1 to 4 enter to continue...")
@@ -206,9 +212,8 @@ class Game:
 
     def reset_dealer_data(self):
 
-        dealer.crupier_curret_hand = []
+        dealer.crupier_current_hand = []
         dealer.values_cards_crupier = 0
-        dealer.Player_curret_hand = [[]]
         dealer.deck_of_cards.generator_of_cards()
     
     def reset_player_data(self):
@@ -222,11 +227,9 @@ class Game:
                 self.players[reset].bet = 0
                 self.players[reset].bet_state = False
 
-                dealer.get_two_cards()
 
-                self.players[reset].cards = dealer.Player_curret_hand[0]
-                self.players[reset].point = dealer.Player_curret_hand[1]
-                dealer.Player_curret_hand = [[]]
+                self.players[reset].cards = dealer.get_two_cards()
+                self.players[reset].point = self.calculate_player_point(reset)
 
     def reset_game_data(self):
         
@@ -269,12 +272,12 @@ class Menu:
     def __init__(self):
         self.iterator = 0
         self.delimiter = 0
-        self.cards_crupier_Value = dealer.crupier_curret_hand[0].value
+        self.cards_crupier_Value = dealer.crupier_current_hand[0].value
         self.crupier_all_cards = ""
 
     def menu_interaction(self):
 
-        self.cards_crupier_Value = dealer.crupier_curret_hand[0].value
+        self.cards_crupier_Value = dealer.crupier_current_hand[0].value
         try:
             if game.players[self.delimiter].state == True:
 
@@ -308,7 +311,7 @@ class Menu:
                     show.opcion[2] = "|3) double the bet           |"
 
                     os.system("cls")
-                    show.table(game.players[self.delimiter],dealer.crupier_curret_hand[0],self.cards_crupier_Value)
+                    show.table(game.players[self.delimiter],dealer.crupier_current_hand[0],self.cards_crupier_Value)
 
                 elif self.iterator == 1:
 
@@ -317,7 +320,7 @@ class Menu:
                     show.opcion[2] = "|3) double the bet           |"
 
                     os.system("cls")
-                    show.table(game.players[self.delimiter],dealer.crupier_curret_hand[0],self.cards_crupier_Value)
+                    show.table(game.players[self.delimiter],dealer.crupier_current_hand[0],self.cards_crupier_Value)
 
                 elif self.iterator == 2:
 
@@ -326,7 +329,7 @@ class Menu:
                     show.opcion[2] = "|3) double the bet  ◄        |"
 
                     os.system("cls")
-                    show.table(game.players[self.delimiter],dealer.crupier_curret_hand[0],self.cards_crupier_Value)
+                    show.table(game.players[self.delimiter],dealer.crupier_current_hand[0],self.cards_crupier_Value)
 
                 while True:
 
@@ -358,7 +361,7 @@ class Menu:
 
                                 if game.players[self.delimiter].state == True:
 
-                                    show.table(game.players[self.delimiter],dealer.crupier_curret_hand[0],self.cards_crupier_Value)
+                                    show.table(game.players[self.delimiter],dealer.crupier_current_hand[0],self.cards_crupier_Value)
                                     self.menu_interaction()
 
                                 else:
@@ -370,8 +373,9 @@ class Menu:
 
                             if game.players[self.delimiter].point < 21:
 
-                                game.players[self.delimiter].point = dealer.get_card(game.players[self.delimiter].cards)
-                                show.table(game.players[self.delimiter],dealer.crupier_curret_hand[0],self.cards_crupier_Value)
+                                game.players[self.delimiter].cards.append(dealer.cards.pop())
+                                game.players[self.delimiter].point = game.calculate_player_point(self.delimiter)
+                                show.table(game.players[self.delimiter],dealer.crupier_current_hand[0],self.cards_crupier_Value)
                                 self.menu_interaction()
 
                             else:
@@ -394,7 +398,7 @@ class Menu:
 
         if self.delimiter > len(game.players)-1:
             dealer.Keep_holding_cards()
-            for i in dealer.crupier_curret_hand:
+            for i in dealer.crupier_current_hand:
                 self.crupier_all_cards += str(i) + " "
 
             show.table(game.players[0],self.crupier_all_cards,dealer.values_cards_crupier)
