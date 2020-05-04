@@ -50,8 +50,8 @@ class Game:
         selected_icon = input("insert a number of you icon ► ")
         
         def entry_is_valid(value):
-            if selected_icon.isdigit():
-                return int(selected_icon) > 0 and int(selected_icon) <= 8
+            if value.isdigit():
+                return int(value) > 0 and int(value) <= 8
 
             return False
 
