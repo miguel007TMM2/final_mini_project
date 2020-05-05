@@ -27,11 +27,16 @@ class Crupier():
                 if sum_value >= 11:
                     self.mutation_of_as(index, enter_list, sum_value)
 
+    def get_cards(self):
+
+        card = self.cards.pop()
+        return card
+
     def get_two_cards(self):
 
         two_cards = []
         for card in range(2):
-            two_cards.append(self.cards.pop())
+            two_cards.append(self.get_cards())
 
         return two_cards
 
@@ -54,3 +59,8 @@ class Crupier():
             self.crupier_iterator += 1
             self.get_card_for_crupier(self.crupier_iterator)
 
+    def reset_crupier_data(self):
+    
+        self.crupier_current_hand = []
+        self.values_cards_crupier = 0
+        self.deck_of_cards.generator_of_cards()
