@@ -16,14 +16,6 @@ class Game:
         self.players = []
         self.player_icons = ['☠', '☢', '☣' ,'♞','☯', '♪', '❆','✟']
 
-    def calculate_player_point(self, iterator, player):
-        
-        point = 0
-        for value_card in player[iterator].cards:
-            point +=  value_card.value
-        
-        return point
-
     def select_name(self,iterator):
         global name_of_player
 
