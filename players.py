@@ -26,7 +26,7 @@ class Player:
 
         return point 
 
-    def reset_player_data(self):
+    def reset_data(self):
 
         if self.state == True:
 

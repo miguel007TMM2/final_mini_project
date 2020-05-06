@@ -185,15 +185,16 @@ class Game:
             else:
                 self.win += 1
 
-    def reset_game_data(self):
-        
-        dealer.reset_crupier_data()
-
+    def reset_player_data(self):
         for reset in range(len(self.players)):
-            self.players[reset].reset_player_data()
+            self.players[reset].reset_data()
             self.players[reset].cards = dealer.get_two_cards()
             self.players[reset].point =  self.players[reset].calculate_player_point()
 
+        
+    def reset_game_data(self):
+        dealer.reset_crupier_data()
+        self.reset_player_data()
         dealer.crupiers_two_cards()
         self.betting_system()
         menu.delimiter = 0
