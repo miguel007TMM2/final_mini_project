@@ -156,7 +156,7 @@ class Game:
 
     def winner(self, player):
 
-        if player.point > dealer.values_cards_crupier and players.point <= 21:
+        if player.point > dealer.values_cards_crupier and player.point <= 21:
             return True
         if dealer.values_cards_crupier > 21:
             return True
@@ -188,7 +188,7 @@ class Game:
             else:
                 self.player_data(p.name, p.point, bet_back, 'losses')
 
-    def reset_game_data(self):
+    def reset_player_data(self):
     
         dealer.reset_crupier_data()
 
@@ -326,7 +326,6 @@ class Menu:
                         if self.iterator == 1:
                                 os.system("cls")
                                 game.ask_for_cards(self.delimiter)
-                                show.table(game.players[self.delimiter],dealer.crupier_current_hand[0],self.cards_crupier_Value)
                                 self.menu_interaction()
 
                         if self.iterator == 2:
