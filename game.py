@@ -80,6 +80,20 @@ class Game:
             input("Error entering the number of players, try a number from 1 to 4 enter to continue...")
             self.create_players()
 
+    def verify_state(self):
+
+        player_state = False
+
+        for verify in self.players:
+            if verify.state:
+                player_state = True
+
+        if player_state == False:
+
+            os.system('cls')
+            show.icon()
+            time.sleep(4)
+            os.sys.exit()
 
     def betting_system(self):
 
@@ -165,8 +179,7 @@ class Game:
     def tie(self, player):
 
         if player.point == dealer.values_cards_crupier and player.point <= 21:
-            return True
-        return False
+            return True   
 
     def calculate_final_results(self):
  
@@ -199,7 +212,9 @@ class Game:
 
         
     def reset_game_data(self):
+
         dealer.reset_crupier_data()
+        self.verify_state()
         self.reset_player_data()
         dealer.crupiers_two_cards()
         self.betting_system()
