@@ -73,10 +73,8 @@ class Game:
                 dealer.get_two_cards()
                 player_name = self.select_name(n)
                 player_icon = self.select_icons(n)
-                player = Player(player_name,player_icon,True,10000,dealer.get_two_cards(),0,0,False)
-                self.players.append(player)
-                player_point = player.calculate_player_point(n, self.players)
-                self.players[n].point = player_point 
+                self.players.append(Player(player_name,player_icon,True,10000,dealer.get_two_cards(),0,0,False))
+                self.players[n].point = self.players[n].calculate_player_point()
         else:
             os.system("cls")
             input("Error entering the number of players, try a number from 1 to 4 enter to continue...")
@@ -139,7 +137,7 @@ class Game:
         dealer_value_card = 'dealer points : ' + str(dealer.values_cards_crupier ) + " \n"
         player = "Player: " + str(player) + " \n"
         Card_scoring = "Card scoring: " + str(point) + " \n"
-        bet_result = player_result +' : + str(bet_result) + " \n"
+        bet_result = player_result +' : '+ str(bet_result) + "\n"
 
         data = dealer_value_card  + player + Card_scoring + bet_result
 
@@ -187,12 +185,18 @@ class Game:
                 self.win += 1
 
     def reset_game_data(self):
-
+    
         dealer.reset_crupier_data()
 
         for reset in range(len(self.players)):
-            player.reset_player_data(reset, self.players, dealer.get_two_cards())
+            self.players[reset].reset_data()
+            self.players[reset].cards = dealer.get_two_cards()
+            self.players[reset].point =  self.players[reset].calculate_player_point()
 
+        
+    def reset_game_data(self):
+        dealer.reset_crupier_data()
+        self.reset_player_data()
         dealer.crupiers_two_cards()
         self.betting_system()
         menu.delimiter = 0
@@ -330,7 +334,7 @@ class Menu:
                             if game.players[self.delimiter].point < 21:
 
                                 game.players[self.delimiter].cards.append(dealer.get_cards())
-                                game.players[self.delimiter].point = game.calculate_player_point(self.delimiter)
+                                game.players[self.delimiter].point = game.players[self.delimiter].calculate_player_point()
                                 show.table(game.players[self.delimiter],dealer.crupier_current_hand[0],self.cards_crupier_Value)
                                 self.menu_interaction()
 
