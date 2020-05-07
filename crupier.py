@@ -29,7 +29,11 @@ class Crupier():
 
     def get_cards(self):
 
-        card = self.cards.pop()
+        if len(self.cards) == 1:
+
+            self.cards.generator_of_cards()
+            card = self.cards.pop()
+
         return card
 
     def get_two_cards(self):
