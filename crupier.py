@@ -55,12 +55,12 @@ class Crupier():
 
         self.set_mutation_of_as(self.crupier_iterator, self.crupier_current_hand, self.values_cards_crupier)
         while self.values_cards_crupier <= 16:
-    
+
             self.crupier_iterator += 1
             self.get_card_for_crupier(self.crupier_iterator)
 
     def reset_crupier_data(self):
-    
+
         self.crupier_current_hand = []
         self.values_cards_crupier = 0
         self.deck_of_cards.generator_of_cards()

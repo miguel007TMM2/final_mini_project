@@ -29,7 +29,6 @@ class Game:
 
         else:
             return name_of_player
-   
 
     def select_icons(self,iterator):
         print("Select you icon")
@@ -39,7 +38,7 @@ class Game:
 
         show_icons(self.player_icons)
         selected_icon = input("insert a number of you icon ► ")
-        
+
         def entry_is_valid(value):
             if value.isdigit():
                 return int(value) > 0 and int(value) <= 8
@@ -54,7 +53,7 @@ class Game:
              os.system("cls")
              input("error the option you have inserted is not valid test with a number from 1 to 8 press enter for continue")
              self.select_icons(iterator)
-      
+
     def create_players(self): 
 
         global player
@@ -125,7 +124,7 @@ class Game:
                 self.count_players += 1
 
     def double_bet(self,count):
-        
+
         if self.players[count].chips - self.players[count].bet > 0:
 
             self.players[count].chips = self.players[count].chips - self.players[count].bet
@@ -158,7 +157,7 @@ class Game:
                 self.bet_back = self.players[self.win].bet
 
                 if self.players[self.win].point > dealer.values_cards_crupier and self.players[self.win].point <= 21:
-                    
+
                     self.players[self.win].chips = self.players[self.win].chips + self.reward
                     self.player_data(self.players[self.win].name, self.players[self.win].point, self.reward, 'profits')
                     self.win += 1
@@ -188,7 +187,7 @@ class Game:
                 self.win += 1
 
     def reset_game_data(self):
-        
+
         dealer.reset_crupier_data()
 
         for reset in range(len(self.players)):
@@ -260,7 +259,7 @@ class Menu:
                         self.menu_interaction()
 
                 time.sleep(0.15)
-               
+
                 if self.iterator == 0:
 
                     show.opcion[0] = "|1) Stand  ◄                 |"
@@ -290,7 +289,7 @@ class Menu:
 
                 while True:
 
-                    if self.delimiter > len(game.players)-1:
+                    if self.delimiter > len(game.players)-1: 
                         break
 
                     if keyboard.is_pressed("down"):
