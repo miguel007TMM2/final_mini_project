@@ -143,46 +143,39 @@ class Game:
 
         input(data + "Enter to continue \n")
 
+    def winner(self, player):
+
+        if player.point > dealer.values_cards_crupier and players.point <= 21:
+            return True
+        if dealer.values_cards_crupier > 21:
+            return True
+        return False
+
+    def tie(self, player):
+
+        if player.point == dealer.values_cards_crupier and player.point <= 21:
+            return True
+        return False
+
     def calculate_final_results(self):
+ 
+        for p in self.players:
 
-        self.win = 0
+            reward = p.bet * 2
+            bet_back = p.bet
 
-        while self.win < len(self.players):
+            if self.winner(p):
 
-            if self.players[self.win].state == True:
+                p.chips = p.chips + reward
+                self.player_data(p.name, p.point, reward, 'reward')
 
-                self.reward = self.players[self.win].bet * 2
-                self.bet_back = self.players[self.win].bet
+            elif self.tie(p):
 
-                if self.players[self.win].point > dealer.values_cards_crupier and self.players[self.win].point <= 21:
+                p.chips = bet_back
+                self.player_data(p.name, p.point, bet_back, 'bet back')
 
-                    self.players[self.win].chips = self.players[self.win].chips + self.reward
-                    self.player_data(self.players[self.win].name, self.players[self.win].point, self.reward, 'profits')
-                    self.win += 1
-
-                elif self.players[self.win].point == dealer.values_cards_crupier and self.players[self.win].point <= 21:
-
-                    self.players[self.win].chips = self.players[self.win].chips + self.bet_back
-                    self.player_data(self.players[self.win].name, self.players[self.win].point, self.reward, 'bet back')
-                    self.win += 1
-
-                elif self.players[self.win].point < dealer.values_cards_crupier and dealer.values_cards_crupier <= 21:
-
-                    self.player_data(self.players[self.win].name, self.players[self.win].point, self.bet_back, 'losses')
-                    self.win += 1
-
-                elif self.players[self.win].point > 21 and dealer.values_cards_crupier <= 21:
-
-                    self.player_data(self.players[self.win].name, self.players[self.win].point, self.bet_back, 'losses')
-                    self.win += 1
-
-                elif dealer.values_cards_crupier > 21:
-
-                    self.players[self.win].chips = self.players[self.win].chips + self.reward
-                    self.player_data(self.players[self.win].name, self.players[self.win].point, self.reward, 'profits')
-                    self.win += 1
             else:
-                self.win += 1
+                self.player_data(p.name, p.point, bet_back, 'losses')
 
     def reset_game_data(self):
     
