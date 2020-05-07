@@ -133,6 +133,17 @@ class Game:
 
             print("You cannot continue doubling the bet or it no longer has point")
 
+    def ask_for_cards(self,delimiter):
+
+        if self.players[delimiter].point < 21:
+            self.players[delimiter].cards.append(dealer.get_cards())
+            self.players[delimiter].point = self.players[delimiter].calculate_player_point()
+
+        else:
+            input("You have to stand, your cards have exceeded or is equal to the score of 21")
+
+
+
     def player_data(self, player, point, bet_result, player_result):
 
         dealer_value_card = 'dealer points : ' + str(dealer.values_cards_crupier ) + " \n"
@@ -233,6 +244,30 @@ class Menu:
         self.cards_crupier_Value = dealer.crupier_current_hand[0].value
         self.crupier_all_cards = ""
 
+    def remove_indicator_menu(self,iterator):
+        show.opcion[iterator] = show.opcion[iterator].replace("◄◄◄|","   |")
+
+    def add_indicator_menu(self,iterator):
+        show.opcion[iterator] = show.opcion[iterator].replace("   |","◄◄◄|")
+    
+    def handle_down(self):
+        if self.iterator < len(show.opcion) -1:
+            self.remove_indicator_menu(self.iterator)
+            self.iterator += 1
+            self.add_indicator_menu(self.iterator)
+            self.menu_interaction()
+        else:
+            self.menu_interaction()
+
+    def handle_up(self):
+        if self.iterator > 0:
+            self.remove_indicator_menu(self.iterator)
+            self.iterator -= 1
+            self.add_indicator_menu(self.iterator)
+            self.menu_interaction()
+        else:
+            self.menu_interaction()
+
     def menu_interaction(self):
 
         self.cards_crupier_Value = dealer.crupier_current_hand[0].value
@@ -261,33 +296,7 @@ class Menu:
                         self.menu_interaction()
 
                 time.sleep(0.15)
-               
-                if self.iterator == 0:
-
-                    show.opcion[0] = "|1) Stand  ◄                 |"
-                    show.opcion[1] = "|2) Ask for cards            |"
-                    show.opcion[2] = "|3) double the bet           |"
-
-                    os.system("cls")
-                    show.table(game.players[self.delimiter],dealer.crupier_current_hand[0],self.cards_crupier_Value)
-
-                elif self.iterator == 1:
-
-                    show.opcion[0] = "|1) Stand                    |"
-                    show.opcion[1] = "|2) Ask for cards   ◄        |"
-                    show.opcion[2] = "|3) double the bet           |"
-
-                    os.system("cls")
-                    show.table(game.players[self.delimiter],dealer.crupier_current_hand[0],self.cards_crupier_Value)
-
-                elif self.iterator == 2:
-
-                    show.opcion[0] = "|1) Stand                    |"
-                    show.opcion[1] = "|2) Ask for cards            |"
-                    show.opcion[2] = "|3) double the bet  ◄        |"
-
-                    os.system("cls")
-                    show.table(game.players[self.delimiter],dealer.crupier_current_hand[0],self.cards_crupier_Value)
+                show.table(game.players[self.delimiter],dealer.crupier_current_hand[0],self.cards_crupier_Value)
 
                 while True:
 
@@ -295,20 +304,12 @@ class Menu:
                         break
 
                     if keyboard.is_pressed("down"):
-                        self.iterator += 1
-
-                        if self.iterator == 3:
-                            self.iterator = 0
-
-                        self.menu_interaction()
+                        os.system("cls")
+                        self.handle_down()
 
                     if keyboard.is_pressed("up"):
-                        self.iterator -= 1
-
-                        if self.iterator == -1:
-                            self.iterator = 2
-
-                        self.menu_interaction()
+                        os.system("cls")
+                        self.handle_up()
 
                     if keyboard.is_pressed(" "):
 
@@ -328,16 +329,9 @@ class Menu:
                                 break
 
                         if self.iterator == 1:
-
-                            if game.players[self.delimiter].point < 21:
-
-                                game.players[self.delimiter].cards.append(dealer.get_cards())
-                                game.players[self.delimiter].point = game.players[self.delimiter].calculate_player_point()
+                                os.system("cls")
+                                game.ask_for_cards(self.delimiter)
                                 show.table(game.players[self.delimiter],dealer.crupier_current_hand[0],self.cards_crupier_Value)
-                                self.menu_interaction()
-
-                            else:
-                                input("You have to stand, your cards have exceeded or is equal to the score of 21")
                                 self.menu_interaction()
 
                         if self.iterator == 2:
