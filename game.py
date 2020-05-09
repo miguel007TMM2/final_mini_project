@@ -278,8 +278,30 @@ class Menu:
         else:
             self.menu_interaction()
 
-    def menu_interaction(self):
+    def double_bet_valid(self):
+        if len(game.players[self.delimiter].cards) == 2:
+            game.double_bet(self.delimiter)
+            self.menu_interaction()
+        else:
+            print("you cannot double the bet after requesting a card. you have to double the bet before asking for a card")
+            time.sleep(3)
 
+    def stand_valid(self):
+        self.delimiter += 1
+        if game.players[self.delimiter].state == True:
+            show.table(game.players[self.delimiter],dealer.crupier_current_hand[0],self.cards_crupier_Value)
+            self.menu_interaction()
+        else:
+            self.delimiter += 1
+    
+
+    def ask_for_cards_valid(self):
+        os.system("cls")
+        game.ask_for_cards(self.delimiter)
+        self.menu_interaction()
+
+    def menu_interaction(self):
+        Menu_Actions = [self.stand_valid,self.ask_for_cards_valid,self.double_bet_valid]
         self.cards_crupier_Value = dealer.crupier_current_hand[0].value
         try:
             if game.players[self.delimiter].state == True:
@@ -308,7 +330,7 @@ class Menu:
                 time.sleep(0.15)
                 show.table(game.players[self.delimiter],dealer.crupier_current_hand[0],self.cards_crupier_Value)
 
-                while True:
+                while self.delimiter < len(game.players):
 
                     if self.delimiter > len(game.players)-1: 
                         break
@@ -322,35 +344,7 @@ class Menu:
                         self.handle_up()
 
                     if keyboard.is_pressed(" "):
-
-                        if self.iterator == 0:
-
-                            if self.delimiter < len(game.players):
-                                self.delimiter += 1
-
-                                if game.players[self.delimiter].state == True:
-
-                                    show.table(game.players[self.delimiter],dealer.crupier_current_hand[0],self.cards_crupier_Value)
-                                    self.menu_interaction()
-
-                                else:
-                                    self.delimiter += 1
-                            else:
-                                break
-
-                        if self.iterator == 1:
-                                os.system("cls")
-                                game.ask_for_cards(self.delimiter)
-                                self.menu_interaction()
-
-                        if self.iterator == 2:
-                            if len(game.players[self.delimiter].cards) == 2:
-                                game.double_bet(self.delimiter)
-                                self.menu_interaction()
-
-                            else:
-                                print("you cannot double the bet after requesting a card. you have to double the bet before asking for a card")
-                                time.sleep(3)
+                        Menu_Actions[self.iterator]()
 
             else:
                 self.delimiter += 1
