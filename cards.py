@@ -1,6 +1,6 @@
 import random
 class Card:
-    
+
     def __init__(self, number = None , symbol = None , value = None ):
 
         self.value = value
@@ -15,7 +15,7 @@ class Deck:
     list_of_cards = []
 
     def __init__(self):
-    
+
         self.symbols = ['♥', '♠', '♣', '♦']
         self.numbers = ['A', 2, 3, 4, 5, 6, 7, 8, 9, 10,'J','Q','K']
         self.generator_of_cards()
@@ -36,4 +36,4 @@ class Deck:
                 carta = Card(number,symbol, value)
                 self.list_of_cards.append(carta)
 
-        random.shuffle(self.list_of_cards)    
+        random.shuffle(self.list_of_cards)
