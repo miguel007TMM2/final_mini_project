@@ -67,3 +67,4 @@ class Crupier():
         self.crupier_current_hand = []
         self.values_cards_crupier = 0
         self.deck_of_cards.generator_of_cards()
+

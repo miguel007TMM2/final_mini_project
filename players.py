@@ -36,7 +36,4 @@ class Player:
             self.bet_state = False
             self.cards = []
             self.point = 0
-        
-        
 
-    
